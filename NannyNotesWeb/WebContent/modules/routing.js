@@ -2,7 +2,7 @@ angular.module('ngRoute')
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
-                template: `<h1>Home!</h1>`
+                template: `<household-component></household-component>`
             })
             .when('/about', {
                 template: `<h1>About!</h1>`

@@ -1,6 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `nannynotesdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `nannynotesdb`;
--- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.33, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: nannynotesdb
 -- ------------------------------------------------------
@@ -146,7 +144,7 @@ CREATE TABLE `user` (
   `role` enum('ADMIN','PARENT','NANNY') NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +153,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'sparent1','parent1','PARENT','Sarah'),(2,'mawfiananny1','nanny1','NANNY','Michael'),(3,'bonedaddy2','parent2','PARENT','Josh');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10  9:11:44
+-- Dump completed on 2017-01-10 13:27:26
