@@ -19,9 +19,9 @@ angular.module("NannyNotesApp")
                 
                     <a data-target="#item1" data-toggle="collapse"><i class="fa fa-list"></i> <span class="collapse in hidden-xs">Schedule <span class="caret"></span></span></a>
                     <ul class="nav nav-stacked collapse left-submenu" id="item1">
-                        <li><a href="/dailycalendar">Daily</a></li>
-                        <li><a href="/weeklycalendar">Weekly</a></li>
-		 				<li><a href="/monthlycalendar">Monthly</a></li>
+                        <li><a href="#!/dailycalendar">Daily</a></li>
+                        <li><a href="#!/weeklycalendar">Weekly</a></li>
+		 				<li><a href="#!/monthlycalendar">Monthly</a></li>
                     </ul>
                 </li>
 		 <li><a href="/notes"><i class="fa fa-paperclip"></i> <span class="collapse in hidden-xs">Notes</span></a></li>

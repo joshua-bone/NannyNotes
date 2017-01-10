@@ -4,6 +4,15 @@ angular.module('ngRoute')
             .when('/', {
                 template: `<household-component></household-component>`
             })
+            .when('/dailycalendar', {
+            	template: `<dailycalendar-component></dailycalendar-component>`
+            })
+            .when('/weeklycalendar', {
+            	template: `<weeklycalendar-component></weeklycalendar-component>`
+            })
+            .when('/monthlycalendar', {
+            	template: `<monthlycalendar-component></monthlycalendar-component>`
+            })
             .when('/about', {
                 template: `<h1>About!</h1>`
             })
