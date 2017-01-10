@@ -23,6 +23,11 @@ public class AuthenticationController {
 	
 	@Autowired
 	UserDAO userDao;
+	
+	@RequestMapping(value="ping", method=RequestMethod.GET)
+	public String ping(){
+		return "pong";
+	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public Map<String,String> register(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJson) {
