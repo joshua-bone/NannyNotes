@@ -1,4 +1,6 @@
--- MySQL dump 10.13  Distrib 5.6.33, for osx10.9 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `nannynotesdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `nannynotesdb`;
+-- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: nannynotesdb
 -- ------------------------------------------------------
@@ -141,7 +143,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('admin','parent','nanny') NOT NULL,
+  `role` enum('ADMIN','PARENT','NANNY') NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -191,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10  8:52:49
+-- Dump completed on 2017-01-10  9:11:44
