@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import entities.User;
 
-//@Repository('userDao')
 @Transactional
 public class UserDAOI implements UserDAO {
 
@@ -24,7 +23,6 @@ public class UserDAOI implements UserDAO {
 	@Override
 	public Collection<User> index() {
 		String query = "Select u FROM User u";
-		//System.out.println("Request for entire list was made");
 		return em.createQuery(query, User.class).getResultList();
 	}
 	
@@ -61,7 +59,6 @@ public class UserDAOI implements UserDAO {
 		// find the User by username
 		User u = em.createQuery("SELECT u FROM User u WHERE username = :username", User.class).setParameter("username", user.getUsername()).getSingleResult();
 		if (passwordEncoder.matches(user.getPassword(), u.getPassword())) {
-			//System.out.println("found user");
 			return u;
 		}
 		return null;

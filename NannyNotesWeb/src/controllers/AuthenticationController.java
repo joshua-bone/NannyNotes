@@ -36,7 +36,7 @@ public class AuthenticationController {
 	    user = userDao.create(user);
 	    String jws = jwtGen.generateUserJwt(user);
 	    Map<String,String> responseJson = new HashMap<>();
-	    responseJson.put("jwt", jws);
+	    responseJson.put("token", jws);
 	    return responseJson;
 	}
 	

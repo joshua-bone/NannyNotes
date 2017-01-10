@@ -14,19 +14,28 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="controllers" />
-<!--     <bean id="userDAO" class="data.UserDAO"/>
-    <bean id="quizDAO" class="data.QuizDAO"/>
-    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-    
-    <bean id="myEntityManagerFactory"
-        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="RestQuizJPA" />
-    </bean>
+    <context:component-scan base-package="data, controllers" />
+	<bean id="userDao" class="data.UserDAOI"></bean>
+	<!-- Inject SecretKeyGenerator Bean -->
+	<bean id="secretKeyGenerator" class="security.SecretKeyGenerator"></bean>
+	<!-- Inject JsonWebTokenGenerator Bean (To be created) -->
+	<bean id="jsonWebTokenGenerator" class="security.JsonWebTokenGenerator"></bean>
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
-    <bean id="myTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="myEntityManagerFactory" />
-    </bean>  -->
+	<bean id="myEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="nannynotesdb" />
+	</bean>
 
-<!--     <tx:annotation-driven transaction-manager="myTransactionManager" /> -->
+	<bean id="myTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEntityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="myTransactionManager" />
+
+<!-- 	<mvc:interceptors> -->
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/users/**" /> -->
+<!-- 			<bean id="DataSecurityInterceptor" class="security.DataSecurityInterceptor" /> -->
+<!-- 		</mvc:interceptor> -->
+<!-- 	</mvc:interceptors> -->
 </beans>
