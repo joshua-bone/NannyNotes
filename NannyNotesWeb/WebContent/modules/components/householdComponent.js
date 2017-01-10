@@ -6,5 +6,6 @@ angular.module("NannyNotesApp")
 	 template : `
 	 <nav-component></nav-component>
 	 <dashboard-component></dashboard-component>
+	 
 		 		`
 });
