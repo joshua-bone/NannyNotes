@@ -16,3 +16,6 @@
 * SQL
 
 ###### Frontend
+* Javascript
+* Angular
+
