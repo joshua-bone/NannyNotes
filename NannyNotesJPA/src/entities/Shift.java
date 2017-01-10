@@ -14,7 +14,7 @@ public class Shift {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-//	@ManyToOne
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
