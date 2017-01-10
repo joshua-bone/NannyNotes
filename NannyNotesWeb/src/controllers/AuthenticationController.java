@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,33 @@ public class AuthenticationController {
 	@RequestMapping(path="users", method=RequestMethod.GET)
 	public Collection<User> index(){
 	  return userDao.index();
+	}
+	
+	@RequestMapping(path="users/{id}", method=RequestMethod.GET)
+	public User show(@PathVariable int id){
+	  return userDao.show(id);
+	}
+	
+	@RequestMapping(path="users/{id}", method=RequestMethod.PUT)
+	public User update(@PathVariable int id, @RequestBody User user){
+		return userDao.update(id, user);
+	}
+	
+	@RequestMapping(path="users", method=RequestMethod.POST)
+	public User create(@RequestBody String jsonUser){
+		ObjectMapper mapper = new ObjectMapper();
+		User newUser = null;
+		try {
+		  newUser = mapper.readValue(jsonUser, User.class);
+		} catch (Exception e) {
+		  e.printStackTrace();
+		}
+		return userDao.create(newUser);
+	}
+	
+	@RequestMapping(path="users/{id}", method=RequestMethod.DELETE)
+	public void delete(@PathVariable int id){
+		userDao.delete(id);
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

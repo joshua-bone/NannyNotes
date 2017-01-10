@@ -74,4 +74,12 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<Household> getHouseholds() {
+		return households;
+	}
+
+	public void setHouseholds(Set<Household> households) {
+		this.households = households;
+	}
 }
