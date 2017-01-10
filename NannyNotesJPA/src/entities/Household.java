@@ -1,9 +1,17 @@
 package entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Household {
@@ -11,8 +19,14 @@ public class Household {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	@Column(name="parent_notes")
 	private int parentNotes;
+	@Column(name="nanny_notes")
 	private int nannyNotes;
+	
+	@ManyToMany(mappedBy="households", fetch=FetchType.EAGER)
+	@JsonManagedReference
+	private Set<User> users = new HashSet<>();
 
 	public Household() {
 	}
