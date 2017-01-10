@@ -14,7 +14,7 @@ public class Shift {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
+//	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
@@ -33,17 +33,17 @@ public class Shift {
 		this.nannyNotes = nannyNotes;
 		this.parentNotes = parentNotes;
 	}
-	public int getUserId() {
+	public User getUser() {
 		return user;
 	}
-	public void setUserId(int userId) {
-		this.user = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	public int getHouseholdId() {
+	public Household getHousehold() {
 		return household;
 	}
-	public void setHouseholdId(int householdId) {
-		this.household = householdId;
+	public void setHousehold(Household household) {
+		this.household = household;
 	}
 	public String getNannyNotes() {
 		return nannyNotes;

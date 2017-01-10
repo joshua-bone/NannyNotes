@@ -3,6 +3,7 @@
 	<name>NannyNotesWeb</name>
 	<comment></comment>
 	<projects>
+		<project>NannyNotesJPA</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
