@@ -73,9 +73,9 @@ angular.module("NannyNotesApp")
       </tr>
       <tr class="householdview" ng-repeat="household in $ctrl.households">
         <td class="householdview">{{household.name}}</td>
-		<td class="householdview">{{household.users}}</td>
-        <td class="householdview">{{household.nannyNotes}}</td>
-        <td class="householdview">{{household.parentNotes}}</td>
+		<td class="householdview">{{household.users.NANNY}}</td>
+        <td class="householdview">{{household.users.PARENT}}</td>
+        <td class="householdview">{{household.children}}</td>
         </tr> 
   </table> 
             </p>
