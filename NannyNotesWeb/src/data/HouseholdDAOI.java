@@ -2,38 +2,56 @@ package data;
 
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import entities.Household;
 
-public class HouseholdDAOI implements HouseholdDAO{
+@Transactional
+public class HouseholdDAOI implements HouseholdDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	@Override
 	public Collection<Household> index() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "Select h FROM Household h";
+		return em.createQuery(query, Household.class).getResultList();
 	}
 
 	@Override
 	public Household show(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Household.class, id);
 	}
 
 	@Override
 	public Household create(Household household) {
-		// TODO Auto-generated method stub
-		return null;
+		em.persist(household);
+		em.flush();
+		return em.find(Household.class, household.getId());
 	}
 
 	@Override
-	public Household update(int id, Household household) {
-		// TODO Auto-generated method stub
-		return null;
+	public Household update(int id, Household householdJson) {
+		Household oldHousehold = em.find(Household.class, id);
+		oldHousehold.setName(householdJson.getName());
+		oldHousehold.setNannyNotes(householdJson.getNannyNotes());
+		oldHousehold.setParentNotes(householdJson.getParentNotes());
+		em.persist(oldHousehold);
+		em.flush();
+		return oldHousehold;
 	}
 
 	@Override
 	public Household delete(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Household household;
+		if ((household = em.find(Household.class, id)) != null) {
+			em.remove(household);
+			return household;
+		} else
+			return null;
 	}
 
 }
