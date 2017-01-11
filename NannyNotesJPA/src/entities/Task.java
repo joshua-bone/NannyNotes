@@ -1,11 +1,16 @@
 package entities;
 
 import java.util.Date;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Task {
@@ -13,33 +18,29 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
 	private String name;
-	
 	private boolean complete;
-	
-	private int shiftId;
-	
+	@JsonBackReference
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="shift_id")
+	private Shift shift;
+	@Column(name="parent_notes")
 	private String parentNotes;
-	
+	@Column(name="nanny_notes")
 	private String nannyNotes;
-	
-	private Date startDatetime;
-	
-	private int duration;
+	@Column(name="start_datetime")
+	private Date startDateTime;
+	@Column(name="end_datetime")
+	private Date endDateTime;
 	
 	public Task(){}
 
-	public Task(int id, String name, boolean complete, int shiftId, String parentNotes, String nannyNotes,
-			Date startDatetime, int duration) {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
-		this.name = name;
-		this.complete = complete;
-		this.shiftId = shiftId;
-		this.parentNotes = parentNotes;
-		this.nannyNotes = nannyNotes;
-		this.startDatetime = startDatetime;
-		this.duration = duration;
 	}
 
 	public String getName() {
@@ -58,12 +59,12 @@ public class Task {
 		this.complete = complete;
 	}
 
-	public int getShiftId() {
-		return shiftId;
+	public Shift getShift() {
+		return shift;
 	}
 
-	public void setShiftId(int shiftId) {
-		this.shiftId = shiftId;
+	public void setShift(Shift shift) {
+		this.shift = shift;
 	}
 
 	public String getParentNotes() {
@@ -82,30 +83,26 @@ public class Task {
 		this.nannyNotes = nannyNotes;
 	}
 
-	public Date getStartDatetime() {
-		return startDatetime;
+	public Date getStartDateTime() {
+		return startDateTime;
 	}
 
-	public void setStartDatetime(Date startDatetime) {
-		this.startDatetime = startDatetime;
+	public void setStartDateTime(Date startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 
-	public int getDuration() {
-		return duration;
+	public Date getEndDateTime() {
+		return endDateTime;
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
-	public int getId() {
-		return id;
+	public void setEndDateTime(Date endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Task [id=" + id + ", name=" + name + ", complete=" + complete + ", shiftId=" + shiftId
-				+ ", parentNotes=" + parentNotes + ", nannyNotes=" + nannyNotes + ", startDatetime=" + startDatetime
-				+ ", duration=" + duration + "]";
+		return "Task [id=" + id + ", name=" + name + ", complete=" + complete + ", shift=" + shift + ", parentNotes="
+				+ parentNotes + ", nannyNotes=" + nannyNotes + ", startDateTime=" + startDateTime + ", endDateTime="
+				+ endDateTime + "]";
 	}
 }
