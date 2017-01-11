@@ -64,18 +64,18 @@ angular.module("NannyNotesApp")
         <div class="column col-sm-9 col-xs-11" id="main">
             <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
             <p>
-                <table class="">
-      <tr>
-       <th><h1>Household Name </h1></th>
-        <th><h1>Parents </h1></th>
-        <th><h1>Guardians </h1></th>
-        <th><h1>Children </h1></th>
+                <table class="householdview">
+      <tr class="householdview">
+       <th class="householdview"><h1>Household </h1></th>
+        <th class="householdview"><h1>Parents </h1></th>
+        <th class="householdview"><h1>Guardians </h1></th>
+        <th class="householdview"><h1>Children </h1></th>
       </tr>
-      <tr ng-repeat="household in $ctrl.households">
-        <td>{{household.name}}</td>
-		<td>{{household.users}}</td>
-        <td>{{household.nannyNotes}}</td>
-        <td>{{household.parentNotes}}</td>
+      <tr class="householdview" ng-repeat="household in $ctrl.households">
+        <td class="householdview">{{household.name}}</td>
+		<td class="householdview">{{household.users}}</td>
+        <td class="householdview">{{household.nannyNotes}}</td>
+        <td class="householdview">{{household.parentNotes}}</td>
         </tr> 
   </table> 
             </p>
