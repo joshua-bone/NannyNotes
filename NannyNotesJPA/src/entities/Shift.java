@@ -1,8 +1,8 @@
 package entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -36,6 +35,10 @@ public class Shift {
 	private String nannyNotes;
 	@Column(name="parent_notes")
 	private String parentNotes;
+	@Column(name="start_datetime")
+	private Date startDateTime;
+	@Column(name="end_datetime")
+	private Date endDateTime;
 	@JsonManagedReference
 	@OneToMany(mappedBy="shift", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Task> tasks = new HashSet<>();
@@ -88,6 +91,22 @@ public class Shift {
 
 	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
+	}
+
+	public Date getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(Date startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public Date getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(Date endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	@Override

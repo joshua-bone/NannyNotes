@@ -59,7 +59,7 @@ CREATE TABLE `household` (
   `parent_notes` varchar(255) DEFAULT NULL,
   `nanny_notes` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `household` (
 
 LOCK TABLES `household` WRITE;
 /*!40000 ALTER TABLE `household` DISABLE KEYS */;
-INSERT INTO `household` VALUES (1,'family robinson',NULL,NULL),(2,'Adam\'s Family',NULL,'Too many bats and cobwebs in the house.');
+INSERT INTO `household` VALUES (1,'family robinson',NULL,NULL),(2,'Adam\'s Family',NULL,'Too many bats and cobwebs in the house. Also beware of cousin Itt');
 /*!40000 ALTER TABLE `household` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +85,8 @@ CREATE TABLE `shift` (
   `household_id` int(11) NOT NULL,
   `parent_notes` varchar(255) DEFAULT NULL,
   `nanny_notes` varchar(255) DEFAULT NULL,
+  `start_datetime` datetime DEFAULT NULL,
+  `end_datetime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_shift_household_id_idx` (`household_id`),
   KEY `fk_shift_user_id_idx` (`user_id`),
@@ -196,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 14:28:55
+-- Dump completed on 2017-01-11 15:19:48
