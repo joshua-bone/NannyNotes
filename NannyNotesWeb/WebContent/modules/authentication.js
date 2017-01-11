@@ -1,7 +1,7 @@
 // app_client/services/authenticationService.js
 
 angular.module('NannyNotesApp')
-.factory('authenticationService', function($window, $http){
+.factory('authenticationService', ['$window', '$http', '$rootScope', function($window, $http, $rootScope){
     // Place JWT into local storage
     var saveToken = function(token){
       $window.localStorage['todo-token'] = token;
@@ -16,7 +16,7 @@ angular.module('NannyNotesApp')
     var login = function(user) {
       return $http({
         method : "POST",
-        url : "/login",
+        url : "/NannyNotesWeb/api/login",
         headers : {
           "Content-Type" : "application/json"
         },
@@ -68,4 +68,4 @@ angular.module('NannyNotesApp')
       currentUser : currentUser,
       getToken : getToken
     }
-});
+}]);
