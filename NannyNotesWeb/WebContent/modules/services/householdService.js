@@ -1,15 +1,15 @@
 angular.module("NannyNotesApp")
 .factory('householdService', function($http){
 
-//      var getHouseholds= function(){
-//        return $http({
-//        	method : 'GET',
-//        	url : 'api/households/'
-//        })
-//        .catch(function(err){
-//        	console.error(err)
-//        });
-//      }
+      var getHouseholds= function(){
+        return $http({
+        	method : 'GET',
+        	url : 'api/households/'
+        })
+        .catch(function(err){
+        	console.error(err)
+        });
+      }
       var getHousehold= function(householdId){
     	  return $http({
     		  method : 'GET',
@@ -47,7 +47,7 @@ angular.module("NannyNotesApp")
         	});
       }
       return {
-//        getHouseholds : getHouseholds,
+        getHouseholds : getHouseholds,
         getHousehold : getHousehold,
         createHousehold : createHousehold,
         deleteHousehold : deleteHousehold,
