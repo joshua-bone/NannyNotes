@@ -28,11 +28,11 @@ public class Household {
 	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<User> users = new HashSet<>();
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<Child> children = new HashSet<>();
 	
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<Shift> shifts = new HashSet<>();
 
