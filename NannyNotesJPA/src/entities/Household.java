@@ -28,13 +28,13 @@ public class Household {
 	private String nannyNotes;
 	
 	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonBackReference
+	@JsonIgnore
 	private Set<User> users = new HashSet<>();
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<Child> children = new HashSet<>();
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<Shift> shifts = new HashSet<>();
 
 	public Household() {
