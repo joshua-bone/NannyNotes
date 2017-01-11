@@ -68,7 +68,7 @@ CREATE TABLE `household` (
 
 LOCK TABLES `household` WRITE;
 /*!40000 ALTER TABLE `household` DISABLE KEYS */;
-INSERT INTO `household` VALUES (1,'family robinson',NULL,NULL),(2,'Adam\'s Family',NULL,NULL);
+INSERT INTO `household` VALUES (1,'family robinson',NULL,NULL),(2,'Adam\'s Family',NULL,'Too many bats and cobwebs in the house.');
 /*!40000 ALTER TABLE `household` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,10 +86,10 @@ CREATE TABLE `shift` (
   `parent_notes` varchar(255) DEFAULT NULL,
   `nanny_notes` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_houseshifts` (`household_id`),
-  KEY `fk_usershifts` (`user_id`),
-  CONSTRAINT `fk_houseshifts` FOREIGN KEY (`household_id`) REFERENCES `household` (`id`),
-  CONSTRAINT `fk_usershifts` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  KEY `fk_shift_household_id_idx` (`household_id`),
+  KEY `fk_shift_user_id_idx` (`user_id`),
+  CONSTRAINT `fk_shift_household_id` FOREIGN KEY (`household_id`) REFERENCES `household` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shift_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,7 +147,7 @@ CREATE TABLE `user` (
   `role` enum('ADMIN','PARENT','NANNY') NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,6 +156,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'sparent1','$2a$10$SuwcF1NtYLqP6U5EW20eeeGdA0VzruNlC6bPAUF8oe07VfqEZ4VD6','PARENT','Sarah P.'),(2,'mawfiananny1','$2a$10$ShxnAHp9HA2NCqugttcwwONsT5r6PCg80DE/AphZ3KM9qo.N5ekoi','NANNY','Michael'),(3,'bonedaddy2','$2a$10$nCGNAxAOkU4utG.o9GNJ6u2vFCFphFyHPAtmI6Q.D4doQRXctQ98C','PARENT','Josh'),(4,'username','$2a$10$W./RlANfic.jTuIKTUOgDOro6CCJiCts766.D0IzbeKemfjTUNO8G','ADMIN','Andrew');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,6 +183,7 @@ CREATE TABLE `user_household` (
 
 LOCK TABLES `user_household` WRITE;
 /*!40000 ALTER TABLE `user_household` DISABLE KEYS */;
+INSERT INTO `user_household` VALUES (1,1),(2,1),(2,2),(3,2);
 /*!40000 ALTER TABLE `user_household` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -194,4 +196,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 10:30:23
+-- Dump completed on 2017-01-11 14:28:55

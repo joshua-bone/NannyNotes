@@ -30,8 +30,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	private String name;
-	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JsonManagedReference
 	@JoinTable(name="user_household", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="household_id"))
 	private Set<Household> households = new HashSet<>();	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)

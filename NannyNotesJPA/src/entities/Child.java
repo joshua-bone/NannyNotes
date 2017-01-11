@@ -1,7 +1,9 @@
 package entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,7 @@ public class Child {
 	private String name;
 	private int age;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JsonBackReference
 	@JoinColumn(name = "household_id")
 	private Household household;
@@ -29,14 +31,8 @@ public class Child {
 
 	public Child() {
 	}
-
-	public Child(int id, String name, int age, Household household, int parentNotes, int nannyNotes) {
-		this.id = id;
-		this.name = name;
-		this.age = age;
-		this.household = household;
-		this.parentNotes = parentNotes;
-		this.nannyNotes = nannyNotes;
+	public int getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -77,10 +73,6 @@ public class Child {
 
 	public void setNannyNotes(int nannyNotes) {
 		this.nannyNotes = nannyNotes;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	@Override

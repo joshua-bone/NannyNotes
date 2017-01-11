@@ -20,12 +20,12 @@ public class HouseholdController {
 	@Autowired
 	HouseholdDAO householdDao;
 	
-	@RequestMapping(value="household/ping", method=RequestMethod.GET)
+	@RequestMapping(value="households/ping", method=RequestMethod.GET)
 	public String ping(){
 		return "pong";
 	}
 	
-	@RequestMapping(path="household", method=RequestMethod.GET)
+	@RequestMapping(path="households", method=RequestMethod.GET)
 	public Collection<Household> index(){
 	  return householdDao.index();
 	}
@@ -36,7 +36,15 @@ public class HouseholdController {
 	}
 	
 	@RequestMapping(path="households/{id}", method=RequestMethod.PUT)
-	public Household update(@PathVariable int id, @RequestBody Household household){
+	public Household update(@PathVariable int id, String jsonHousehold){
+		ObjectMapper mapper = new ObjectMapper();
+		Household household = null;
+		try {
+		  household = mapper.readValue(jsonHousehold, Household.class);
+		} catch (Exception e) {
+		  e.printStackTrace();
+		}
+		
 		return householdDao.update(id, household);
 	}
 	

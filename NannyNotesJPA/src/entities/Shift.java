@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -23,12 +24,12 @@ public class Shift {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonBackReference
 	@JoinColumn(name = "user_id")
 	private User user;
-	@ManyToOne
-	@JsonBackReference
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonIgnore
 	@JoinColumn(name = "household_id")
 	private Household household;
 	@Column(name="nanny_notes")
