@@ -8,7 +8,7 @@ angular.module("NannyNotesApp")
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
-		    		console.log(response);
+		    		//console.log(response);
 		    		vm.households = response.data;
 		    	}).catch(function(err){
 		    		console.log('in get error');
@@ -28,7 +28,7 @@ angular.module("NannyNotesApp")
 		    vm.addHousehold = function(household) {
 		      householdService.createHousehold(household)
 		      .then(function(response){
-		    	 vm.newHousehold = ""; 
+		    	 vm.newHousehold = "";
 		    	  vm.loadHouseholds();
 
 		      }).catch(function(err){
@@ -38,7 +38,7 @@ angular.module("NannyNotesApp")
 		    vm.destroyHousehold = function(id) {
 		    	householdService.deleteHousehold(id)
 		    	.then(function(response){
-		    		vm.households = response.data; 
+		    		vm.households = response.data;
 		    		vm.loadHouseholds();
 		    		console.log("in households component");
 		    	}).catch(function(err){
@@ -48,14 +48,14 @@ angular.module("NannyNotesApp")
 		    vm.editHousehold = function(id, household) {
 		    	householdService.updateHousehold()
 		    	.then(function(response){
-		    		vm.household = response.data; 
-		    		
+		    		vm.household = response.data;
+
 		    		console.log("in households component");
 		    	}).catch(function(err){
 		    		console.log('in edit error');
 		    	});
 		    };
-		    
+
 	  },
 	 template : `
 	 <nav-component></nav-component>
@@ -76,8 +76,8 @@ angular.module("NannyNotesApp")
 		<td class="householdview">{{household.users}}</td>
         <td class="householdview">{{household.nannyNotes}}</td>
         <td class="householdview">{{household.parentNotes}}</td>
-        </tr> 
-  </table> 
+        </tr>
+  </table>
             </p>
 		 		`
 });

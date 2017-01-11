@@ -52,6 +52,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(path="users", method=RequestMethod.POST)
 	public User create(@RequestBody String jsonUser){
+		System.out.println(jsonUser);
 		ObjectMapper mapper = new ObjectMapper();
 		User newUser = null;
 		try {
