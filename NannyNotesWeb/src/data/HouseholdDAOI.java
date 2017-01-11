@@ -1,9 +1,12 @@
 package data;
 
 import java.util.Collection;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import entities.Household;
 
 @Transactional
@@ -31,17 +34,10 @@ public class HouseholdDAOI implements HouseholdDAO{
 	}
 
 	@Override
-	public Household update(int id, Household householdJson) {
-		Household oldHousehold = em.find(Household.class, id);
-		oldHousehold.setName(householdJson.getName());
-		//oldHousehold.setUsers(householdJson.getUsers());
-		oldHousehold.setNannyNotes(householdJson.getNannyNotes());
-		oldHousehold.setParentNotes(householdJson.getParentNotes());
-		//oldHousehold.setChildren(householdJson.getChildren());
-		//oldHousehold.setShifts(householdJson.getShifts());
-		em.persist(oldHousehold);
-		em.flush();
-		return oldHousehold;
+	public Household update(int id, Household household) {
+		household.setId(id);
+		em.merge(household);
+		return em.find(Household.class, id);
 	}
 
 	@Override

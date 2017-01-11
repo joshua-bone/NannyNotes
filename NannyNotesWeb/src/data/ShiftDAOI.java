@@ -2,43 +2,50 @@ package data;
 
 import java.util.Collection;
 
-import entities.Household;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import entities.Shift;
 
-public class ShiftDAOI implements ShiftDAO{
+public class ShiftDAOI implements ShiftDAO {
 
-	public ShiftDAOI() {
-		// TODO Auto-generated constructor stub
-	}
+	@PersistenceContext
+	private EntityManager em;
 
 	@Override
 	public Collection<Shift> index() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "Select s FROM Shift s";
+		return em.createQuery(query, Shift.class).getResultList();
 	}
 
 	@Override
 	public Shift show(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Shift.class, id);
+
 	}
 
 	@Override
 	public Shift update(int id, Shift shift) {
-		// TODO Auto-generated method stub
-		return null;
+		shift.setId(id);
+		em.merge(shift);
+		return em.find(Shift.class, id);
 	}
 
 	@Override
-	public Household create(Shift newShift) {
-		// TODO Auto-generated method stub
-		return null;
+	public Shift create(Shift newShift) {
+		em.persist(newShift);
+		em.flush();
+		return em.find(Shift.class, newShift.getId());
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+	public Shift delete(int id) {
+		Shift shift;
+		if ((shift = em.find(Shift.class, id)) != null) {
+			em.remove(shift);
+			return shift;
+		} else
+			return null;
 	}
 
 }

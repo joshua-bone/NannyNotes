@@ -2,6 +2,7 @@ package entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,14 +28,13 @@ public class Household {
 	private String nannyNotes;
 	
 	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<User> users = new HashSet<>();
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<Child> children = new HashSet<>();
-	
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonIgnore
 	private Set<Shift> shifts = new HashSet<>();
 
 	public Household() {
@@ -77,15 +78,19 @@ public class Household {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
+	
 	public Set<Child> getChildren() {
 		return children;
 	}
+	
 	public void setChildren(Set<Child> children) {
 		this.children = children;
 	}
+	
 	public Set<Shift> getShifts() {
 		return shifts;
 	}
+	
 	public void setShifts(Set<Shift> shifts) {
 		this.shifts = shifts;
 	}
