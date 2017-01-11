@@ -1,7 +1,6 @@
 package data;
 
 import java.util.Collection;
-<<<<<<< HEAD
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,30 +12,12 @@ public class HouseholdDAOI implements HouseholdDAO{
 	@PersistenceContext
 	private EntityManager em;
 	
-=======
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import entities.Household;
-
-@Transactional
-public class HouseholdDAOI implements HouseholdDAO {
-
-	@PersistenceContext
-	private EntityManager em;
-
->>>>>>> 7014e5777d10968fa5f0702b7250c72b9de5406b
 	@Override
 	public Collection<Household> index() {
 		String query = "Select h FROM Household h";
 		return em.createQuery(query, Household.class).getResultList();
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public Household show(int id) {
 		return em.find(Household.class, id);
@@ -73,5 +54,4 @@ public class HouseholdDAOI implements HouseholdDAO {
 			return null;
 	}
 
->>>>>>> 7014e5777d10968fa5f0702b7250c72b9de5406b
 }
