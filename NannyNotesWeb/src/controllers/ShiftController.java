@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import data.ShiftDAO;
-import entities.Household;
 import entities.Shift;
 
 @RestController
@@ -39,7 +38,7 @@ public class ShiftController {
 	}
 	
 	@RequestMapping(path="shifts", method=RequestMethod.POST)
-	public Household create(@RequestBody String jsonShift){
+	public Shift create(@RequestBody String jsonShift){
 		ObjectMapper mapper = new ObjectMapper();
 		Shift newShift = null;
 		try {

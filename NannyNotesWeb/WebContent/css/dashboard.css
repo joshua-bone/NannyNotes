@@ -99,4 +99,8 @@ html, body {
     min-width:42px;
   }
   
-  #main {
+  .householdview{
+  	border-style: solid;
+	border-color: green;
+	outline-style: solid;
+  }
