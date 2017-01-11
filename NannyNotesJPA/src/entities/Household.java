@@ -38,6 +38,11 @@ public class Household {
 
 	public Household() {
 	}
+	public Household(int id, String name) {
+		this.id = id;
+		this.name = name;
+
+	}
 
 	public Household(int id, String name, int parentNotes, int nannyNotes) {
 		this.id = id;

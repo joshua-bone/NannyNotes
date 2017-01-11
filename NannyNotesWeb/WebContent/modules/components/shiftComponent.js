@@ -5,6 +5,12 @@ angular.module("NannyNotesApp")
 	  },
 	 template : 
 		 		`
-	 <h1> SHIFTS! </h1>
+		 		<nav-component></nav-component><dashboard-component></dashboard-component>
+    <!-- main right col -->
+        <div class="column col-sm-9 col-xs-11" id="main">
+            <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
+            <p>
+                Main content...
+            </p>
 		 		`
 });
