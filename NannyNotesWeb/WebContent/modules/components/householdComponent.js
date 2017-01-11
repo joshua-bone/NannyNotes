@@ -5,17 +5,17 @@ angular.module("NannyNotesApp")
 		    vm.newHousehold = "";
 		    vm.households = [];
 
-//		    vm.loadHouseholds = function(){
-//		    	householdService.getHouseholds()
-//		    	.then(function(response){
-//		    		console.log(response);
-//		    		vm.households = response.data;
-//		    	}).catch(function(err){
-//		    		console.log('in get error');
-//		    	});
-//		    }
-//		    vm.loadHouseholds();
-		    vm.loadHousehold = function(){
+		    vm.loadHouseholds = function(){
+		    	householdService.getHouseholds()
+		    	.then(function(response){
+		    		console.log(response);
+		    		vm.households = response.data;
+		    	}).catch(function(err){
+		    		console.log('in get error');
+		    	});
+		    }
+		    vm.loadHouseholds();
+		    vm.loadHousehold = function(id){
 		    	householdService.getHousehold(id)
 		    	.then(function(response){
 		    		console.log(response);
@@ -29,7 +29,7 @@ angular.module("NannyNotesApp")
 		      householdService.createHousehold(household)
 		      .then(function(response){
 		    	 vm.newHousehold = ""; 
-//		    	  vm.loadHouseholds();
+		    	  vm.loadHouseholds();
 
 		      }).catch(function(err){
 		  		console.log('in add error');
@@ -39,7 +39,7 @@ angular.module("NannyNotesApp")
 		    	householdService.deleteHousehold(id)
 		    	.then(function(response){
 		    		vm.households = response.data; 
-//		    		vm.loadHouseholds();
+		    		vm.loadHouseholds();
 		    		console.log("in households component");
 		    	}).catch(function(err){
 		    		console.log('in destroy error');
@@ -66,14 +66,16 @@ angular.module("NannyNotesApp")
             <p>
                 <table class="">
       <tr>
+       <th><h1>Household Name </h1></th>
         <th><h1>Parents </h1></th>
         <th><h1>Guardians </h1></th>
         <th><h1>Children </h1></th>
       </tr>
-      <tr ng-class="household" ng-repeat="household in $ctrl.data">
-        <td>{{household.users.PARENT}}</td>
-        <td>{{household.users.NANNY}}</td>
-        <td>{{household.child}}</td>
+      <tr ng-repeat="household in $ctrl.households">
+        <td>{{household.name}}</td>
+		<td>{{household.users}}</td>
+        <td>{{household.nannyNotes}}</td>
+        <td>{{household.parentNotes}}</td>
         </tr> 
   </table> 
             </p>

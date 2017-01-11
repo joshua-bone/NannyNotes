@@ -4,7 +4,7 @@ angular.module("NannyNotesApp")
       var getHouseholds= function(){
         return $http({
         	method : 'GET',
-        	url : 'api/households/'
+        	url : 'api/household/'
         })
         .catch(function(err){
         	console.error(err)
