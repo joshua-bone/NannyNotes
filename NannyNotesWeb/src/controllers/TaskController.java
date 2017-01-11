@@ -1,9 +1,16 @@
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import data.TaskDAO;
+
+@RestController
 public class TaskController {
 
-	public TaskController() {
-		// TODO Auto-generated constructor stub
-	}
+	@Autowired
+	TaskDAO taskDao;
+	
+	
 
 }

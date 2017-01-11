@@ -18,6 +18,8 @@
 	<bean id="userDao" class="data.UserDAOI"></bean>
 	<bean id="householdDao" class="data.HouseholdDAOI"></bean>
 	<bean id="shiftDao" class="data.ShiftDAOI"></bean>
+	<bean id="taskDao" class="data.TaskDAOI"></bean>
+	
 	
 	<!-- Inject SecretKeyGenerator Bean -->
 	<bean id="secretKeyGenerator" class="security.SecretKeyGenerator"></bean>

@@ -92,7 +92,7 @@ CREATE TABLE `shift` (
   KEY `fk_shift_user_id_idx` (`user_id`),
   CONSTRAINT `fk_shift_household_id` FOREIGN KEY (`household_id`) REFERENCES `household` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_shift_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,6 +101,7 @@ CREATE TABLE `shift` (
 
 LOCK TABLES `shift` WRITE;
 /*!40000 ALTER TABLE `shift` DISABLE KEYS */;
+INSERT INTO `shift` VALUES (1,2,1,NULL,NULL,'2017-01-27 08:00:00','2017-01-27 16:00:00'),(2,2,2,NULL,NULL,'2017-01-28 08:30:00','2017-01-28 12:30:00');
 /*!40000 ALTER TABLE `shift` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 15:19:48
+-- Dump completed on 2017-01-11 15:58:41

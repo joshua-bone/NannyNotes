@@ -1,12 +1,12 @@
 package data;
 
 import java.util.Collection;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import org.springframework.transaction.annotation.Transactional;
 import entities.Shift;
 
+@Transactional
 public class ShiftDAOI implements ShiftDAO {
 
 	@PersistenceContext

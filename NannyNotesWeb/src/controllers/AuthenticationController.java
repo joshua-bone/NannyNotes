@@ -46,7 +46,14 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(path="users/{id}", method=RequestMethod.PUT)
-	public User update(@PathVariable int id, @RequestBody User user){
+	public User update(@PathVariable int id, @RequestBody String jsonUser){
+		ObjectMapper mapper = new ObjectMapper();
+		User user = null;
+		try {
+		  user = mapper.readValue(jsonUser, User.class);
+		} catch (Exception e) {
+		  e.printStackTrace();
+		}
 		return userDao.update(id, user);
 	}
 	
