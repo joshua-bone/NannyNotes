@@ -21,34 +21,30 @@ public class Household {
 	private int id;
 	private String name;
 	@Column(name="parent_notes")
-	private int parentNotes;
+	private String parentNotes;
 	@Column(name="nanny_notes")
-	private int nannyNotes;
+	private String nannyNotes;
 	
 	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<User> users = new HashSet<>();
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Child> children = new HashSet<>();
 	
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Shift> shifts = new HashSet<>();
 
 	public Household() {
 	}
-	public Household(int id, String name) {
-		this.id = id;
-		this.name = name;
 
+	public int getId() {
+		return id;
 	}
 
-	public Household(int id, String name, int parentNotes, int nannyNotes) {
+	public void setId(int id) {
 		this.id = id;
-		this.name = name;
-		this.parentNotes = parentNotes;
-		this.nannyNotes = nannyNotes;
 	}
 
 	public String getName() {
@@ -59,29 +55,49 @@ public class Household {
 		this.name = name;
 	}
 
-	public int getParentNotes() {
+	public String getParentNotes() {
 		return parentNotes;
 	}
 
-	public void setParentNotes(int parentNotes) {
+	public void setParentNotes(String parentNotes) {
 		this.parentNotes = parentNotes;
 	}
 
-	public int getNannyNotes() {
+	public String getNannyNotes() {
 		return nannyNotes;
 	}
 
-	public void setNannyNotes(int nannyNotes) {
+	public void setNannyNotes(String nannyNotes) {
 		this.nannyNotes = nannyNotes;
 	}
 
-	public int getId() {
-		return id;
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Set<Child> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Child> children) {
+		this.children = children;
+	}
+
+	public Set<Shift> getShifts() {
+		return shifts;
+	}
+
+	public void setShifts(Set<Shift> shifts) {
+		this.shifts = shifts;
 	}
 
 	@Override
 	public String toString() {
 		return "Household [id=" + id + ", name=" + name + ", parentNotes=" + parentNotes + ", nannyNotes=" + nannyNotes
-				+ "]";
+				+ ", users=" + users + ", children=" + children + ", shifts=" + shifts + "]";
 	}
 }

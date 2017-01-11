@@ -16,6 +16,8 @@
 
     <context:component-scan base-package="data, controllers" />
 	<bean id="userDao" class="data.UserDAOI"></bean>
+	<bean id="householdDao" class="data.HouseholdDAOI"></bean>
+	
 	<!-- Inject SecretKeyGenerator Bean -->
 	<bean id="secretKeyGenerator" class="security.SecretKeyGenerator"></bean>
 	<!-- Inject JsonWebTokenGenerator Bean (To be created) -->

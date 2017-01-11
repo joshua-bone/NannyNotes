@@ -1,0 +1,5 @@
+id,username,password,role,name
+1,sparent1,parent1,PARENT,"Sarah P."
+2,mawfiananny1,nanny1,NANNY,Michael
+3,bonedaddy2,$2a$10$dIE.cHg4Sjp.18/dGTe2OO/D4fkhiKtvjJ8rHpsO5nvXvH7uXSBO2,PARENT,Josh
+4,username,$2a$10$TjNOakdUS6gDjIe.73mf4OopifJuh03/Q0tm8ytO18gwiNECm9H7S,ADMIN,Andrew

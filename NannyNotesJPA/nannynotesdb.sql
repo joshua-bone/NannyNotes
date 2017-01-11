@@ -147,7 +147,7 @@ CREATE TABLE `user` (
   `role` enum('ADMIN','PARENT','NANNY') NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,6 +156,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'sparent1','parent1','PARENT','Sarah P.'),(2,'mawfiananny1','nanny1','NANNY','Michael'),(3,'bonedaddy2','$2a$10$dIE.cHg4Sjp.18/dGTe2OO/D4fkhiKtvjJ8rHpsO5nvXvH7uXSBO2','PARENT','Josh'),(4,'username','$2a$10$TjNOakdUS6gDjIe.73mf4OopifJuh03/Q0tm8ytO18gwiNECm9H7S','ADMIN','Andrew');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 10:30:23
+-- Dump completed on 2017-01-11 10:26:14

@@ -14,8 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class User {
@@ -32,6 +34,9 @@ public class User {
 	@JsonBackReference
 	@JoinTable(name="user_household", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="household_id"))
 	private Set<Household> households = new HashSet<>();	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	@JsonManagedReference
+	private Set<Shift> shifts = new HashSet<>();
 	
 	public User() {
 	}
@@ -82,5 +87,19 @@ public class User {
 
 	public void setHouseholds(Set<Household> households) {
 		this.households = households;
+	}
+
+	public Set<Shift> getShifts() {
+		return shifts;
+	}
+
+	public void setShifts(Set<Shift> shifts) {
+		this.shifts = shifts;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ", name="
+				+ name + ", households=" + households + ", shifts=" + shifts + "]";
 	}
 }
