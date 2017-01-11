@@ -3,6 +3,7 @@ package entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,7 +28,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	private String name;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonBackReference
 	@JoinTable(name="user_household", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="household_id"))
 	private Set<Household> households = new HashSet<>();	

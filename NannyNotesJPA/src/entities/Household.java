@@ -2,7 +2,7 @@ package entities;
 
 import java.util.HashSet;
 import java.util.Set;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,9 +25,16 @@ public class Household {
 	@Column(name="nanny_notes")
 	private int nannyNotes;
 	
-	@ManyToMany(mappedBy="households", fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private Set<User> users = new HashSet<>();
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonManagedReference
+	private Set<Child> children = new HashSet<>();
+	
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonManagedReference
+	private Set<Shift> shifts = new HashSet<>();
 
 	public Household() {
 	}
