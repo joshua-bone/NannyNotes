@@ -37,8 +37,11 @@ public class HouseholdDAOI implements HouseholdDAO {
 	public Household update(int id, Household householdJson) {
 		Household oldHousehold = em.find(Household.class, id);
 		oldHousehold.setName(householdJson.getName());
+		oldHousehold.setUsers(householdJson.getUsers());
 		oldHousehold.setNannyNotes(householdJson.getNannyNotes());
 		oldHousehold.setParentNotes(householdJson.getParentNotes());
+		oldHousehold.setChildren(householdJson.getChildren());
+		oldHousehold.setShifts(householdJson.getShifts());
 		em.persist(oldHousehold);
 		em.flush();
 		return oldHousehold;
