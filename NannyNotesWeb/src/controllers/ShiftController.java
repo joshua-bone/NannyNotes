@@ -39,7 +39,7 @@ public class ShiftController {
 	}
 	
 	@RequestMapping(path="shifts", method=RequestMethod.POST)
-	public Household create(@RequestBody String jsonShift){
+	public Shift create(@RequestBody String jsonShift){
 		ObjectMapper mapper = new ObjectMapper();
 		Shift newShift = null;
 		try {

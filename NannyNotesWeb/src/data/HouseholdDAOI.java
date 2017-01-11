@@ -1,11 +1,13 @@
 package data;
 
 import java.util.Collection;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import entities.Household;
-import entities.User;
 
 @Transactional
 public class HouseholdDAOI implements HouseholdDAO{
