@@ -2,7 +2,6 @@ package data;
 
 import java.util.Collection;
 
-import entities.Household;
 import entities.Shift;
 
 public interface ShiftDAO {
@@ -13,9 +12,9 @@ public interface ShiftDAO {
 
 	Shift update(int id, Shift shift);
 
-	Household create(Shift newShift);
+	Shift create(Shift newShift);
 
-	void delete(int id);
+	Shift delete(int id);
 
 
 }
