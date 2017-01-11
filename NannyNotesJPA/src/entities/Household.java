@@ -74,30 +74,6 @@ public class Household {
 	public Set<User> getUsers() {
 		return users;
 	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
-
-	public Set<Child> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Set<Child> children) {
-		this.children = children;
-	}
-
-	public Set<Shift> getShifts() {
-		return shifts;
-	}
-
-	public void setShifts(Set<Shift> shifts) {
-		this.shifts = shifts;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
