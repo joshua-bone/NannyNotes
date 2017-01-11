@@ -8,7 +8,7 @@ angular.module("NannyNotesApp")
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
-		    		console.log(response);
+		    		//console.log(response);
 		    		vm.households = response.data;
 		    	}).catch(function(err){
 		    		console.log('in get error');
@@ -28,7 +28,7 @@ angular.module("NannyNotesApp")
 		    vm.addHousehold = function(household) {
 		      householdService.createHousehold(household)
 		      .then(function(response){
-		    	 vm.newHousehold = ""; 
+		    	 vm.newHousehold = "";
 		    	  vm.loadHouseholds();
 
 		      }).catch(function(err){
@@ -38,7 +38,7 @@ angular.module("NannyNotesApp")
 		    vm.destroyHousehold = function(id) {
 		    	householdService.deleteHousehold(id)
 		    	.then(function(response){
-		    		vm.households = response.data; 
+		    		vm.households = response.data;
 		    		vm.loadHouseholds();
 		    		console.log("in households component");
 		    	}).catch(function(err){
@@ -48,14 +48,14 @@ angular.module("NannyNotesApp")
 		    vm.editHousehold = function(id, household) {
 		    	householdService.updateHousehold()
 		    	.then(function(response){
-		    		vm.household = response.data; 
-		    		
+		    		vm.household = response.data;
+
 		    		console.log("in households component");
 		    	}).catch(function(err){
 		    		console.log('in edit error');
 		    	});
 		    };
-		    
+
 	  },
 	 template : `
 	 <nav-component></nav-component>
@@ -64,14 +64,14 @@ angular.module("NannyNotesApp")
         <div class="column col-sm-9 col-xs-11" id="main">
             <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
             <p>
-                <table class="householdview">
+                <table class="householdview" ng-repeat="household in $ctrl.households">
       <tr class="householdview">
        <th class="householdview"><h1>Household </h1></th>
         <th class="householdview"><h1>Parents </h1></th>
         <th class="householdview"><h1>Guardians </h1></th>
         <th class="householdview"><h1>Children </h1></th>
       </tr>
-      <tr class="householdview" ng-repeat="household in $ctrl.households">
+      <tr class="householdview">
         <td class="householdview">{{household.name}}</td>
 		<td class="householdview">{{household.users.NANNY}}</td>
         <td class="householdview">{{household.users.PARENT}}</td>

@@ -7,7 +7,7 @@ angular.module('NannyNotesApp')
             .when('/dailycalendar', {
             	template: `<dailycalendar-component></dailycalendar-component>`
             })
-            .when('/household', {
+            .when('/households', {
             	template: `<household-component></household-component>`
             })
             .when('/weeklycalendar', {

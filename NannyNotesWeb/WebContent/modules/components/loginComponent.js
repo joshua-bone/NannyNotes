@@ -1,15 +1,20 @@
 angular.module("NannyNotesApp")
 .component('loginComponent', {
-	controller : function(userService, authenticationService) {
+	controller : function(userService, authenticationService, $window, $location) {
 		  var vm = this;
       vm.signInUser = {};
-      vm.createUser = {};
+      vm.createUser = {"role" : "PARENT"};
       vm.create = function(){
         if (vm.createUser.password === vm.createUser.confirmpassword){
           delete vm.createUser.confirmpassword;
           userService.createUser(vm.createUser)
           .then(function(response){
-            console.log(response);
+            if (response.status < 400){
+              authenticationService.login(vm.createUser).then(function(){
+                $location.path("/");
+              });
+              vm.createUser = {"role" : "PARENT"};
+            }
           }).catch(function(err){
             console.log('loginComponent createUser error');
           });
@@ -17,8 +22,10 @@ angular.module("NannyNotesApp")
 
       };
       vm.signIn = function(){
-        console.log("user: " + vm.signInUser);
-        authenticationService.login(vm.signInUser);
+        authenticationService.login(vm.signInUser).then(function(){
+          $location.path("/");
+        });
+
       }
 	  },
   //  bindings : {
@@ -53,10 +60,10 @@ angular.module("NannyNotesApp")
             <input type="text" class="form-control" ng-model="$ctrl.createUser.username" placeholder="Username" required></input>
             <input type="password" class="form-control" ng-model="$ctrl.createUser.password" placeholder = "Password" required></input>
             <input type="password" class="form-control" ng-model="$ctrl.createUser.confirmpassword" placeholder = "Confirm Password" required></input><hr>
-            <input type="text" class="form-control" ng-model="ctrl.createUser.name" placeholder = "Real Name" required></input><br>
+            <input type="text" class="form-control" ng-model="$ctrl.createUser.name" placeholder = "Real Name" required></input><br>
             I am a:
             <select ng-model="$ctrl.createUser.role">
-              <option value="PARENT">Parent</option>
+              <option value="PARENT" selected="selected">Parent</option>
               <option value="NANNY">Nanny</option>
             </select>
             <hr>

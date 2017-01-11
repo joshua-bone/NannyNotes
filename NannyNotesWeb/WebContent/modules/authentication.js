@@ -1,15 +1,15 @@
 // app_client/services/authenticationService.js
 
 angular.module('NannyNotesApp')
-.factory('authenticationService', ['$window', '$http', '$rootScope', function($window, $http, $rootScope){
+.factory('authenticationService', ['$window', '$http', '$rootScope', '$location', function($window, $http, $rootScope, $location){
     // Place JWT into local storage
     var saveToken = function(token){
-      $window.localStorage['todo-token'] = token;
+      $window.localStorage['login-token'] = token;
     };
 
     // Retrieve JWT from local storage
     var getToken = function() {
-      return $window.localStorage['todo-token'];
+      return $window.localStorage['login-token'];
     };
 
     // Contact the server, authenticate user credentials
@@ -30,7 +30,7 @@ angular.module('NannyNotesApp')
 
     // Remove JWT from local storage
     var logout = function() {
-      $window.localStorage.removeItem('todo-token');
+      $window.localStorage.removeItem('login-token');
     };
 
     // Check that a user's login is valid (present AND not expired)

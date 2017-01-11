@@ -1,10 +1,6 @@
 angular.module("NannyNotesApp")
 .factory('userService', function($http){
-      var createUser = function(username, password, name, role){
-        var newUser= { "name" : name,
-                       "role" : role,
-                       "username" : username,
-                       "password" : password};
+      var createUser = function(newUser){
         return $http({
         	method : 'POST',
         	url : 'api/users/',
