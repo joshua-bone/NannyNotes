@@ -15,31 +15,29 @@ angular.module("NannyNotesApp")
 		    	});
 		    }
 		    vm.getUser();
-//		    vm.user.households = [{
-//		    "id": 1,
-//		    "name": "family robinson",
-//		    "parentNotes": "update 10",
-//		    "nannyNotes": null,
-//		    "children": [
-//		      {
-//		        "id": 1,
-//		        "name": "Jaime",
-//		        "age": 7,
-//		        "parentNotes": null,
-//		        "nannyNotes": null
-//		      }
-//		    ],
-//		    "shifts": []
-//		  },
-//		  {
-//		    "id": 2,
-//		    "name": "Adam's Family Values",
-//		    "parentNotes": null,
-//		    "nannyNotes": "Too many bats and cobwebs in the house. Also beware of cousin Itt",
-//		    "children": [],
-//		    "shifts": []
-//		  }];
+		    console.log(currentUser);
 		    console.log(vm.user);
+		    vm.destroyHousehold = function(id) {
+	    	householdService.deleteHousehold(id)
+	    	.then(function(response){
+	    		vm.households = response.data; 
+	    		vm.loadHouseholds();
+	    		console.log("in households component");
+	    	}).catch(function(err){
+	    		console.log('in destroy error');
+	    	});
+	    };
+	    vm.editHousehold = function(id, household) {
+	    	householdService.updateHousehold()
+	    	.then(function(response){
+	    		vm.household = response.data; 
+	    		
+	    		console.log("in households component");
+	    	}).catch(function(err){
+	    		console.log('in edit error');
+	    	});
+	    };
+	    
 		   
 	  },
 	 template : `

@@ -1,6 +1,6 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService) {
+	controller : function(householdService, $location) {
 		  var vm = this;
 //		    vm.newHousehold = {};
 		    vm.name = "";
@@ -21,6 +21,7 @@ angular.module("NannyNotesApp")
 		    	.then(function(response){
 		    		console.log(response);
 		    		vm.household = response.data;
+		    		$location.path("/households/{id}")
 		    	}).catch(function(err){
 		    		console.log('in get error');
 		    	});
@@ -37,27 +38,27 @@ angular.module("NannyNotesApp")
 		  		console.log('in add error');
 		  	});
 		    };
-		    vm.destroyHousehold = function(id) {
-		    	householdService.deleteHousehold(id)
-		    	.then(function(response){
-		    		vm.households = response.data; 
-		    		vm.loadHouseholds();
-		    		console.log("in households component");
-		    	}).catch(function(err){
-		    		console.log('in destroy error');
-		    	});
-		    };
-		    vm.editHousehold = function(id, household) {
-		    	householdService.updateHousehold()
-		    	.then(function(response){
-		    		vm.household = response.data; 
-		    		
-		    		console.log("in households component");
-		    	}).catch(function(err){
-		    		console.log('in edit error');
-		    	});
-		    };
-		    
+//		    vm.destroyHousehold = function(id) {
+//		    	householdService.deleteHousehold(id)
+//		    	.then(function(response){
+//		    		vm.households = response.data; 
+//		    		vm.loadHouseholds();
+//		    		console.log("in households component");
+//		    	}).catch(function(err){
+//		    		console.log('in destroy error');
+//		    	});
+//		    };
+//		    vm.editHousehold = function(id, household) {
+//		    	householdService.updateHousehold()
+//		    	.then(function(response){
+//		    		vm.household = response.data; 
+//		    		
+//		    		console.log("in households component");
+//		    	}).catch(function(err){
+//		    		console.log('in edit error');
+//		    	});
+//		    };
+//		    
 	  },
 	 template : `
 	 <nav-component></nav-component>
