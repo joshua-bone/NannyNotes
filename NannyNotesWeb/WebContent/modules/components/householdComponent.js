@@ -1,29 +1,15 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService, authenticationService) {
+	controller : function(householdService) {
 		  var vm = this;
-//		    vm.user.newHousehold = "";
-		    vm.user = authenticationService.currentUser();
-//		    vm.user.households = [{
-//		    	"id": 1,
-//		    	"name": "family robinson",
-//		    	"parentNotes": null,
-//		    	"nannyNotes": null,
-//		    	"children": []
-//		    },
-//		    {
-//		    	"id": 2,
-//		    	"name": "Adam's Family",
-//		    	"parentNotes": null,
-//		    	"nannyNotes": "Too many bats and cobwebs in the house. Also beware of cousin Itt",
-//		    	"children": []
-//		    }];
-		    console.log(vm.user);
-		    console.log(vm.user.households)
+//		    vm.newHousehold = {};
+		    vm.name = "";
+		    vm.households = [];
+
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
-		    		//console.log(response);
+		    		console.log(response);
 		    		vm.households = response.data;
 		    	}).catch(function(err){
 		    		console.log('in get error');
@@ -41,11 +27,12 @@ angular.module("NannyNotesApp")
 		    }
 
 		    vm.addHousehold = function(household) {
+		    	household.name= vm.name;
 		      householdService.createHousehold(household)
 		      .then(function(response){
-		    	 vm.user.newHousehold = "";
+		    	 vm.name = ""; 
 		    	  vm.loadHouseholds();
-
+//		    	  console.log(vm.households);
 		      }).catch(function(err){
 		  		console.log('in add error');
 		  	});
@@ -53,7 +40,7 @@ angular.module("NannyNotesApp")
 		    vm.destroyHousehold = function(id) {
 		    	householdService.deleteHousehold(id)
 		    	.then(function(response){
-		    		vm.households = response.data;
+		    		vm.households = response.data; 
 		    		vm.loadHouseholds();
 		    		console.log("in households component");
 		    	}).catch(function(err){
@@ -63,23 +50,26 @@ angular.module("NannyNotesApp")
 		    vm.editHousehold = function(id, household) {
 		    	householdService.updateHousehold()
 		    	.then(function(response){
-		    		vm.household = response.data;
-
+		    		vm.household = response.data; 
+		    		
 		    		console.log("in households component");
 		    	}).catch(function(err){
 		    		console.log('in edit error');
 		    	});
 		    };
-
+		    
 	  },
 	 template : `
 	 <nav-component></nav-component>
 	 <dashboard-component></dashboard-component>
-    <!-- main right col -->
-        <div class="column col-sm-9 col-xs-11" id="main">
-            <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
-            <p>
-                <table class="householdview" ng-repeat="household in $ctrl.user.households">
+  <!-- main right col -->
+      <div class="column col-sm-9 col-xs-11" id="main">
+          <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
+          <p>
+          <input type="text" ng-model="$ctrl.name"></input>
+          <button type="submit" ng-click="$ctrl.addHousehold($ctrl.name)">Add Household</button>
+          
+              <table class="householdview" ng-repeat="household in $ctrl.households">
       <tr class="householdview">
        <th class="householdview"><h3>Household </h3></th>
         <th class="householdview"><h3>Parents </h3></th>
@@ -101,5 +91,3 @@ angular.module("NannyNotesApp")
 		 		`
 		 
 });
-	  //		 		<td class="householdview">{{household.users.NANNY}}</td>
-	  //		 		<td class="householdview">{{household.users.PARENT}}</td>

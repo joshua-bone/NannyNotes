@@ -10,6 +10,9 @@ angular.module('NannyNotesApp')
             .when('/households', {
             	template: `<household-component></household-component>`
             })
+            .when('/users/:id', {
+            	template: `<user-component></user-component>`
+            })
             .when('/weeklycalendar', {
             	template: `<weeklycalendar-component></weeklycalendar-component>`
             })
