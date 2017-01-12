@@ -1,10 +1,11 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService, userService, $location) {
+	controller : function(householdService, userService, authenticationService, $location) {
 		  var vm = this;
 //		    vm.newHousehold = {};
 		    vm.name = "";
 		    vm.households = [];
+		    var currentUser = authenticationService.currentUser();
 
 		    vm.getUser = function(id){
 		    	userService.getUser(currentUser.id)
@@ -12,7 +13,6 @@ angular.module("NannyNotesApp")
 		    		vm.user =response.data;
 		    		console.log(response.data);
 		    		console.log('in get user component function');
-		    		$location.path('/users/' + id);
 		    	}).catch(function(err){
 		    		console.log('in get user component error');
 		    	});
@@ -50,6 +50,8 @@ angular.module("NannyNotesApp")
 		    	 vm.name = "";
 		    	  vm.loadHouseholds();
 //		    	  console.log(vm.households);
+		    		$location.path('/users/' + id);
+
 		      }).catch(function(err){
 		  		console.log('in add error');
 		  	});
