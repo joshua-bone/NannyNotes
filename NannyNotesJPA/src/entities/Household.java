@@ -32,7 +32,7 @@ public class Household {
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference(value="household-child")
 	private Set<Child> children = new HashSet<Child>();
-	@OneToMany(mappedBy="household", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference(value="household-shifts")
 	private Set<Shift> shifts = new HashSet<Shift>();
 

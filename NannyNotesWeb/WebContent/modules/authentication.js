@@ -12,6 +12,21 @@ angular.module('NannyNotesApp')
       return $window.localStorage['login-token'];
     };
 
+    var register = function(user) {
+        return $http({
+          method : "POST",
+          url : "/NannyNotesWeb/api/register",
+          headers : {
+            "Content-Type" : "application/json"
+          },
+          data : user
+        })
+         .then(function(response){
+            saveToken(response.data.token)
+            return response;
+         });
+      };
+    
     // Contact the server, authenticate user credentials
     var login = function(user) {
       return $http({
@@ -66,6 +81,7 @@ angular.module('NannyNotesApp')
       logout : logout,
       isLoggedIn : isLoggedIn,
       currentUser : currentUser,
-      getToken : getToken
+      getToken : getToken,
+      register : register
     }
 }]);

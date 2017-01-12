@@ -17,7 +17,6 @@ angular.module('NannyNotesApp')
             	template: `<household-component></household-component>`
             })
             .when('/shifts/:id', {
-            	template: `<shift-component></shift-component>`
             })
             .when('/weeklycalendar', {
             	template: `<weeklycalendar-component></weeklycalendar-component>`
