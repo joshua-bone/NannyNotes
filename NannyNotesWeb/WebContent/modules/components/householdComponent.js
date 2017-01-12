@@ -1,6 +1,6 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService) {
+	controller : function(householdService, $location) {
 		  var vm = this;
 //		    vm.newHousehold = {};
 		    vm.name = "";
@@ -22,6 +22,7 @@ angular.module("NannyNotesApp")
 		    	.then(function(response){
 		    		console.log("vm.loadHousehold" + response);
 		    		vm.household = response.data;
+		    		$location.path("/households/{id}")
 		    	}).catch(function(err){
 		    		console.log('in get error');
 		    	});
@@ -58,7 +59,6 @@ angular.module("NannyNotesApp")
 		    		console.log('in edit error');
 		    	});
 		    };
-
 	  },
 	 templateURL : 'templates/chooseHouseholdView.html'
 
