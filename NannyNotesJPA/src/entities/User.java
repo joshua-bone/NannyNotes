@@ -31,7 +31,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	private String name;
-	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(name="user_household", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="household_id"))
 	private Set<Household> households = new HashSet<Household>();	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
@@ -94,14 +94,14 @@ public class User {
 		if(households == null) households = new HashSet<Household>();
 		if(!households.contains(household)) {
 			households.add(household);
-			household.addUser(this);
+			//household.addUser(this);
 		}
 	}
 	
 	public void removeHousehold(Household household){
 		if(households != null && households.contains(household)){
 			households.remove(household);
-			household.removeUser(this);
+			//household.removeUser(this);
 		}
 	}
 
