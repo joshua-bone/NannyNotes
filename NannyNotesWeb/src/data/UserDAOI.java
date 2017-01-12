@@ -51,7 +51,7 @@ public class UserDAOI implements UserDAO {
 		// force EntityManager to persist immediately
 		em.flush();
 		// return the persisted user
-		return user;
+		return em.find(User.class, user.getId());
 	}
 
 	@Override

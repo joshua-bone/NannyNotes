@@ -28,13 +28,13 @@ CREATE TABLE `child` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `age` int(18) NOT NULL,
-  `household_id` int(11) NOT NULL,
+  `household_id` int(11) DEFAULT NULL,
   `parent_notes` varchar(255) DEFAULT NULL,
   `nanny_notes` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_household_id_idx` (`household_id`),
   KEY `fk_household_child_id_idx` (`household_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `child` (
 
 LOCK TABLES `child` WRITE;
 /*!40000 ALTER TABLE `child` DISABLE KEYS */;
+INSERT INTO `child` VALUES (1,'Jaime',7,1,NULL,NULL),(2,'Robbie',10,NULL,NULL,NULL),(3,'Chris',3,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `child` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +69,7 @@ CREATE TABLE `household` (
 
 LOCK TABLES `household` WRITE;
 /*!40000 ALTER TABLE `household` DISABLE KEYS */;
-INSERT INTO `household` VALUES (1,'family robinson',NULL,NULL),(2,'Adam\'s Family',NULL,'Too many bats and cobwebs in the house. Also beware of cousin Itt');
+INSERT INTO `household` VALUES (1,'family robinson','update 10',NULL),(2,'Adam\'s Family Values',NULL,'Too many bats and cobwebs in the house. Also beware of cousin Itt');
 /*!40000 ALTER TABLE `household` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,8 +82,8 @@ DROP TABLE IF EXISTS `shift`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shift` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `household_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `household_id` int(11) DEFAULT NULL,
   `parent_notes` varchar(255) DEFAULT NULL,
   `nanny_notes` varchar(255) DEFAULT NULL,
   `start_datetime` datetime DEFAULT NULL,
@@ -92,7 +93,7 @@ CREATE TABLE `shift` (
   KEY `fk_shift_user_id_idx` (`user_id`),
   CONSTRAINT `fk_shift_household_id` FOREIGN KEY (`household_id`) REFERENCES `household` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_shift_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,6 +102,7 @@ CREATE TABLE `shift` (
 
 LOCK TABLES `shift` WRITE;
 /*!40000 ALTER TABLE `shift` DISABLE KEYS */;
+INSERT INTO `shift` VALUES (1,NULL,NULL,'Take Johnny to swimming class',NULL,'2017-01-27 08:00:00','2017-01-27 16:00:00'),(2,NULL,NULL,'Make sure to take dog outside during shift',NULL,'2017-01-28 08:30:00','2017-01-28 12:30:00'),(3,2,NULL,NULL,NULL,'2017-01-15 12:00:00','2017-01-15 20:00:00');
 /*!40000 ALTER TABLE `shift` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +117,7 @@ CREATE TABLE `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `complete` tinyint(1) NOT NULL,
-  `shift_id` int(11) NOT NULL,
+  `shift_id` int(11) DEFAULT NULL,
   `parent_notes` varchar(255) DEFAULT NULL,
   `nanny_notes` varchar(255) DEFAULT NULL,
   `start_datetime` datetime DEFAULT NULL,
@@ -123,7 +125,7 @@ CREATE TABLE `task` (
   PRIMARY KEY (`id`),
   KEY `fk_shifttasks` (`shift_id`),
   CONSTRAINT `fk_shifttasks` FOREIGN KEY (`shift_id`) REFERENCES `shift` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,6 +134,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
+INSERT INTO `task` VALUES (1,'Task 1-1',0,1,NULL,NULL,'2017-01-27 08:00:00','2017-01-27 10:00:00'),(2,'Task 2-1',0,2,NULL,NULL,'2017-01-28 09:30:00','2017-01-28 10:30:00'),(3,'Task 1-2',0,NULL,'Last nanny forgot this task, please be sure it is completed.',NULL,'2017-01-27 10:00:00','2017-01-27 12:00:00'),(4,'Task 2-2',0,2,NULL,NULL,'2017-01-28 11:30:00','2017-01-28 12:00:00'),(6,'Task 1-3',0,NULL,NULL,NULL,'2017-01-27 11:00:00','2017-01-27 14:00:00');
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +152,7 @@ CREATE TABLE `user` (
   `role` enum('ADMIN','PARENT','NANNY') NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +161,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'sparent1','$2a$10$SuwcF1NtYLqP6U5EW20eeeGdA0VzruNlC6bPAUF8oe07VfqEZ4VD6','PARENT','Sarah P.'),(2,'mawfiananny1','$2a$10$ShxnAHp9HA2NCqugttcwwONsT5r6PCg80DE/AphZ3KM9qo.N5ekoi','NANNY','Michael'),(3,'bonedaddy2','$2a$10$nCGNAxAOkU4utG.o9GNJ6u2vFCFphFyHPAtmI6Q.D4doQRXctQ98C','PARENT','Josh'),(4,'username','$2a$10$W./RlANfic.jTuIKTUOgDOro6CCJiCts766.D0IzbeKemfjTUNO8G','ADMIN','Andrew');
+INSERT INTO `user` VALUES (1,'sparent1','$2a$10$SuwcF1NtYLqP6U5EW20eeeGdA0VzruNlC6bPAUF8oe07VfqEZ4VD6','PARENT','Sarah P.'),(2,'mawfiananny1','$2a$10$ShxnAHp9HA2NCqugttcwwONsT5r6PCg80DE/AphZ3KM9qo.N5ekoi','NANNY','Michael McKnight'),(3,'bonedaddy2','$2a$10$nCGNAxAOkU4utG.o9GNJ6u2vFCFphFyHPAtmI6Q.D4doQRXctQ98C','PARENT','Josh'),(4,'username','$2a$10$W./RlANfic.jTuIKTUOgDOro6CCJiCts766.D0IzbeKemfjTUNO8G','ADMIN','Andrew'),(5,'ananny2','$2a$10$CuWNBRv.beSBhqu9o7e9Suxc0AozhV7d5lMV9XppUyeD2KX2XZrsW','NANNY','Aaron Gamil');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +188,6 @@ CREATE TABLE `user_household` (
 
 LOCK TABLES `user_household` WRITE;
 /*!40000 ALTER TABLE `user_household` DISABLE KEYS */;
-INSERT INTO `user_household` VALUES (1,1),(2,1),(2,2),(3,2);
 /*!40000 ALTER TABLE `user_household` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -198,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 15:19:48
+-- Dump completed on 2017-01-12  3:31:31

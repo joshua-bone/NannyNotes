@@ -22,7 +22,7 @@ public class Task {
 	private int id;
 	private String name;
 	private boolean complete;
-	@JsonBackReference
+	@JsonBackReference(value="shift-tasks")
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="shift_id")
 	private Shift shift;

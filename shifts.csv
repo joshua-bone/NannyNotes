@@ -1,0 +1,4 @@
+id,user_id,household_id,parent_notes,nanny_notes,start_datetime,end_datetime
+1,NULL,NULL,"Take Johnny to swimming class",NULL,"2017-01-27 08:00:00","2017-01-27 16:00:00"
+2,NULL,NULL,"Make sure to take dog outside during shift",NULL,"2017-01-28 08:30:00","2017-01-28 12:30:00"
+3,2,NULL,NULL,NULL,"2017-01-15 12:00:00","2017-01-15 20:00:00"

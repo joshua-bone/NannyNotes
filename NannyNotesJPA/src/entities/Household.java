@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,16 +26,15 @@ public class Household {
 	private String parentNotes;
 	@Column(name="nanny_notes")
 	private String nannyNotes;
-	
+	@JsonBackReference(value="user-household")
 	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonIgnore
-	private Set<User> users = new HashSet<>();
+	private Set<User> users = new HashSet<User>();
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
-	private Set<Child> children = new HashSet<>();
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonIgnore
-	private Set<Shift> shifts = new HashSet<>();
+	@JsonManagedReference(value="household-child")
+	private Set<Child> children = new HashSet<Child>();
+	@OneToMany(mappedBy="household", fetch=FetchType.EAGER)
+	@JsonManagedReference(value="household-shifts")
+	private Set<Shift> shifts = new HashSet<Shift>();
 
 	public Household() {
 	}
@@ -43,8 +42,8 @@ public class Household {
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+	
+	public void setId(int id){
 		this.id = id;
 	}
 
@@ -79,6 +78,21 @@ public class Household {
 		this.users = users;
 	}
 	
+	public void addUser(User user){
+		if(users == null) users = new HashSet<User>();
+		if(!users.contains(user)) {
+			users.add(user);
+			user.addHousehold(this);
+		}
+	}
+	
+	public void removeUser(User user){
+		if(users != null && users.contains(user)) {
+			users.remove(user);
+			user.removeHousehold(this);
+		}
+	}
+	
 	public Set<Child> getChildren() {
 		return children;
 	}
@@ -87,12 +101,42 @@ public class Household {
 		this.children = children;
 	}
 	
+	public void addChild(Child child){
+		if(children == null) children = new HashSet<Child>();
+		if(!children.contains(child)){
+			children.add(child);
+			child.setHousehold(this);
+		}
+	}
+	
+	public void removeChild(Child child){
+		if(children != null && children.contains(child)){
+			children.remove(child);
+			child.setHousehold(null);
+		}
+	}
+	
 	public Set<Shift> getShifts() {
 		return shifts;
 	}
 	
 	public void setShifts(Set<Shift> shifts) {
 		this.shifts = shifts;
+	}
+	
+	public void addShift(Shift shift){
+		if(shifts == null) shifts = new HashSet<Shift>();
+		if(!shifts.contains(shift)){
+			shifts.add(shift);
+			shift.setHousehold(this);
+		}
+	}
+	
+	public void removeShift(Shift shift){
+		if(shifts != null && shifts.contains(shift)){
+			shifts.remove(shift);
+			shift.setHousehold(null);
+		}
 	}
 
 	@Override

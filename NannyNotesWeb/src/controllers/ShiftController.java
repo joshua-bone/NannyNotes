@@ -22,8 +22,12 @@ public class ShiftController {
 	@Autowired
 	ShiftDAO shiftDao;
 	
+	@RequestMapping(value="shifts/ping", method=RequestMethod.GET)
+	public String ping(){
+		return "pong";
+	}
 
-	@RequestMapping(path="shift", method=RequestMethod.GET)
+	@RequestMapping(path="shifts", method=RequestMethod.GET)
 	public Collection<Shift> index(){
 	  return shiftDao.index();
 	}
@@ -34,7 +38,14 @@ public class ShiftController {
 	}
 	
 	@RequestMapping(path="shifts/{id}", method=RequestMethod.PUT)
-	public Shift update(@PathVariable int id, @RequestBody Shift shift){
+	public Shift update(@PathVariable int id, @RequestBody String jsonShift){
+		ObjectMapper mapper = new ObjectMapper();
+		Shift shift = null;
+		try {
+		  shift = mapper.readValue(jsonShift, Shift.class);
+		} catch (Exception e) {
+		  e.printStackTrace();
+		}
 		return shiftDao.update(id, shift);
 	}
 	
