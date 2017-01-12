@@ -1,10 +1,25 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService) {
+	controller : function(householdService, authenticationService) {
 		  var vm = this;
-		    vm.newHousehold = "";
-		    vm.households = [];
-
+//		    vm.user.newHousehold = "";
+		    vm.user = authenticationService.currentUser();
+//		    vm.user.households = [{
+//		    	"id": 1,
+//		    	"name": "family robinson",
+//		    	"parentNotes": null,
+//		    	"nannyNotes": null,
+//		    	"children": []
+//		    },
+//		    {
+//		    	"id": 2,
+//		    	"name": "Adam's Family",
+//		    	"parentNotes": null,
+//		    	"nannyNotes": "Too many bats and cobwebs in the house. Also beware of cousin Itt",
+//		    	"children": []
+//		    }];
+		    console.log(vm.user);
+		    console.log(vm.user.households)
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
@@ -28,7 +43,7 @@ angular.module("NannyNotesApp")
 		    vm.addHousehold = function(household) {
 		      householdService.createHousehold(household)
 		      .then(function(response){
-		    	 vm.newHousehold = "";
+		    	 vm.user.newHousehold = "";
 		    	  vm.loadHouseholds();
 
 		      }).catch(function(err){
@@ -64,20 +79,27 @@ angular.module("NannyNotesApp")
         <div class="column col-sm-9 col-xs-11" id="main">
             <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
             <p>
-                <table class="householdview" ng-repeat="household in $ctrl.households">
+                <table class="householdview" ng-repeat="household in $ctrl.user.households">
       <tr class="householdview">
-       <th class="householdview"><h1>Household </h1></th>
-        <th class="householdview"><h1>Parents </h1></th>
-        <th class="householdview"><h1>Guardians </h1></th>
-        <th class="householdview"><h1>Children </h1></th>
+       <th class="householdview"><h3>Household </h3></th>
+        <th class="householdview"><h3>Parents </h3></th>
+		 <th class="householdview"><h3>Parent Notes </h3></th>
+        <th class="householdview"><h3>Guardians </h3></th>
+		 <th class="householdview"><h3>Guardian Notes </h3></th>
+        <th class="householdview"><h3>Children </h3></th>
       </tr>
       <tr class="householdview">
-        <td class="householdview">{{household.name}}</td>
-		<td class="householdview">{{household.users.NANNY}}</td>
-        <td class="householdview">{{household.users.PARENT}}</td>
+		 <td class="householdview">{{household.name}}</td>
+		 <td class="householdview">{{household.users}}</td>
+		 <td class="householdview">{{household.parentNotes}}</td>
+		 <td class="householdview">{{household.users}}</td>
+		 <td class="householdview">{{household.nannyNotes}}</td>
         <td class="householdview">{{household.children}}</td>
         </tr> 
   </table> 
             </p>
 		 		`
+		 
 });
+	  //		 		<td class="householdview">{{household.users.NANNY}}</td>
+	  //		 		<td class="householdview">{{household.users.PARENT}}</td>
