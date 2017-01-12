@@ -1,11 +1,26 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService, $location) {
+	controller : function(householdService, userService, $location) {
 		  var vm = this;
 //		    vm.newHousehold = {};
 		    vm.name = "";
 		    vm.households = [];
 
+		    vm.getUser = function(id){
+		    	userService.getUser(currentUser.id)
+		    	.then(function(response){
+		    		vm.user =response.data;
+		    		console.log(response.data);
+		    		console.log('in get user component function');
+		    		$location.path('/users/' + id);
+		    	}).catch(function(err){
+		    		console.log('in get user component error');
+		    	});
+		    }
+		    vm.getUser();
+		    console.log(currentUser);
+		    console.log(vm.user);
+		    
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
