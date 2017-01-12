@@ -1,35 +1,45 @@
 angular.module("NannyNotesApp")
 .component('userComponent', {
-	controller : function(authenticationService) {
+	controller : function(authenticationService, userService) {
 		  var vm = this;
 //		    vm.user.newHousehold = "";
-		    vm.user = authenticationService.currentUser();
-		    vm.user.households = [{
-		    "id": 1,
-		    "name": "family robinson",
-		    "parentNotes": "update 10",
-		    "nannyNotes": null,
-		    "children": [
-		      {
-		        "id": 1,
-		        "name": "Jaime",
-		        "age": 7,
-		        "parentNotes": null,
-		        "nannyNotes": null
-		      }
-		    ],
-		    "shifts": []
-		  },
-		  {
-		    "id": 2,
-		    "name": "Adam's Family Values",
-		    "parentNotes": null,
-		    "nannyNotes": "Too many bats and cobwebs in the house. Also beware of cousin Itt",
-		    "children": [],
-		    "shifts": []
-		  }];
+		    var currentUser = authenticationService.currentUser();
+		    vm.getUser = function(id){
+		    	userService.getUser(currentUser.id)
+		    	.then(function(response){
+		    		vm.user =response.data;
+		    		console.log(response.data);
+		    		console.log('in get user component function');
+		    	}).catch(function(err){
+		    		console.log('in get user component error');
+		    	});
+		    }
+		    vm.getUser();
+//		    vm.user.households = [{
+//		    "id": 1,
+//		    "name": "family robinson",
+//		    "parentNotes": "update 10",
+//		    "nannyNotes": null,
+//		    "children": [
+//		      {
+//		        "id": 1,
+//		        "name": "Jaime",
+//		        "age": 7,
+//		        "parentNotes": null,
+//		        "nannyNotes": null
+//		      }
+//		    ],
+//		    "shifts": []
+//		  },
+//		  {
+//		    "id": 2,
+//		    "name": "Adam's Family Values",
+//		    "parentNotes": null,
+//		    "nannyNotes": "Too many bats and cobwebs in the house. Also beware of cousin Itt",
+//		    "children": [],
+//		    "shifts": []
+//		  }];
 		    console.log(vm.user);
-		    console.log(vm.user.households)
 		   
 	  },
 	 template : `

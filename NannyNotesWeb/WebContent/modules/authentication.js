@@ -56,7 +56,8 @@ angular.module('NannyNotesApp')
 
         return {
           name : payload.username,
-          id : payload.user_id
+          id : payload.id,
+     
         };
       }
     };
