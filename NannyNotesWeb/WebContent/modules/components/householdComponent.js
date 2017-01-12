@@ -20,7 +20,7 @@ angular.module("NannyNotesApp")
 		    vm.getUser();
 		    console.log(currentUser);
 		    console.log(vm.user);
-		    
+
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
@@ -77,6 +77,6 @@ angular.module("NannyNotesApp")
 		    	});
 		    };
 	  },
-	 templateURL : 'templates/chooseHouseholdView.html'
+	 templateUrl : 'templates/chooseHouseholdView.html'
 
 });
