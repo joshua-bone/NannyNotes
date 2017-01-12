@@ -34,7 +34,7 @@ public class User {
 	@JsonIgnore
 	@JoinTable(name="user_household", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="household_id"))
 	private Set<Household> households = new HashSet<>();	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Shift> shifts = new HashSet<>();
 	
