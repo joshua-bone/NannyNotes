@@ -43,7 +43,7 @@ CREATE TABLE `child` (
 
 LOCK TABLES `child` WRITE;
 /*!40000 ALTER TABLE `child` DISABLE KEYS */;
-INSERT INTO `child` VALUES (1,'Jaime',7,1,NULL,NULL),(2,'Robbie',10,NULL,NULL,NULL),(3,'Chris',3,NULL,NULL,NULL);
+INSERT INTO `child` VALUES (1,'Jaime',7,1,NULL,NULL),(2,'Robbie',10,1,NULL,NULL),(3,'Chris',3,2,NULL,NULL);
 /*!40000 ALTER TABLE `child` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ CREATE TABLE `household` (
 
 LOCK TABLES `household` WRITE;
 /*!40000 ALTER TABLE `household` DISABLE KEYS */;
-INSERT INTO `household` VALUES (1,'family robinson','update 10',NULL),(2,'Adam\'s Family Values',NULL,'Too many bats and cobwebs in the house. Also beware of cousin Itt');
+INSERT INTO `household` VALUES (1,'family robinson','update 10',NULL),(2,'Adams Family',NULL,'Too many bats and cobwebs in the house. Also beware of cousin Itt');
 /*!40000 ALTER TABLE `household` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'sparent1','$2a$10$SuwcF1NtYLqP6U5EW20eeeGdA0VzruNlC6bPAUF8oe07VfqEZ4VD6','PARENT','Sarah P.'),(2,'mawfiananny1','$2a$10$ShxnAHp9HA2NCqugttcwwONsT5r6PCg80DE/AphZ3KM9qo.N5ekoi','NANNY','Michael McKnight'),(3,'bonedaddy2','$2a$10$nCGNAxAOkU4utG.o9GNJ6u2vFCFphFyHPAtmI6Q.D4doQRXctQ98C','PARENT','Josh'),(4,'username','$2a$10$W./RlANfic.jTuIKTUOgDOro6CCJiCts766.D0IzbeKemfjTUNO8G','ADMIN','Andrew'),(5,'ananny2','$2a$10$CuWNBRv.beSBhqu9o7e9Suxc0AozhV7d5lMV9XppUyeD2KX2XZrsW','NANNY','Aaron Gamil');
+INSERT INTO `user` VALUES (1,'sparent1','$2a$10$SuwcF1NtYLqP6U5EW20eeeGdA0VzruNlC6bPAUF8oe07VfqEZ4VD6','PARENT','Sarah P.'),(2,'mawfiananny1','$2a$10$ShxnAHp9HA2NCqugttcwwONsT5r6PCg80DE/AphZ3KM9qo.N5ekoi','NANNY','Michael Williams'),(3,'bonedaddy2','$2a$10$nCGNAxAOkU4utG.o9GNJ6u2vFCFphFyHPAtmI6Q.D4doQRXctQ98C','PARENT','Josh'),(4,'username','$2a$10$W./RlANfic.jTuIKTUOgDOro6CCJiCts766.D0IzbeKemfjTUNO8G','ADMIN','Andrew'),(5,'ananny2','$2a$10$CuWNBRv.beSBhqu9o7e9Suxc0AozhV7d5lMV9XppUyeD2KX2XZrsW','NANNY','Aaron Gamil');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,6 +188,7 @@ CREATE TABLE `user_household` (
 
 LOCK TABLES `user_household` WRITE;
 /*!40000 ALTER TABLE `user_household` DISABLE KEYS */;
+INSERT INTO `user_household` VALUES (1,1),(2,1),(2,2),(3,2);
 /*!40000 ALTER TABLE `user_household` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -200,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-12  3:31:31
+-- Dump completed on 2017-01-12  9:50:34
