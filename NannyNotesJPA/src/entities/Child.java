@@ -19,7 +19,7 @@ public class Child {
 	private String name;
 	private int age;
 	@ManyToOne(cascade=CascadeType.MERGE)
-	@JsonManagedReference(value="household-child")
+//	@JsonManagedReference(value="household-child")
 	@JoinColumn(name = "household_id")
 	private Household household;
 	@Column(name="parent_notes")
