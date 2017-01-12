@@ -11,17 +11,13 @@ angular.module('NannyNotesApp')
             	template: `<household-component></household-component>`
             })
             .when('/users/:id', {
-<<<<<<< HEAD
             	template: `<user-component></user-component>`
-=======
-            	template: `<household-component></household-component>`
             })
             .when('/households/:id', {
             	template: `<household-component></household-component>`
             })
             .when('/shifts/:id', {
             	template: `<shift-component></shift-component>`
->>>>>>> ad6933685181756e2a48c2da419304d0cc0147a4
             })
             .when('/weeklycalendar', {
             	template: `<weeklycalendar-component></weeklycalendar-component>`
