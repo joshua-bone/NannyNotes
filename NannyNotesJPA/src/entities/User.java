@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -31,12 +32,11 @@ public class User {
 	private Role role;
 	private String name;
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
 	@JoinTable(name="user_household", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="household_id"))
-	private Set<Household> households = new HashSet<>();	
+	private Set<Household> households = new HashSet<Household>();	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
-	private Set<Shift> shifts = new HashSet<>();
+	@JsonManagedReference(value="user-shifts")
+	private Set<Shift> shifts = new HashSet<Shift>();
 	
 	public User() {
 	}
@@ -87,6 +87,21 @@ public class User {
 
 	public void setHouseholds(Set<Household> households) {
 		this.households = households;
+	}
+	
+	public void addHousehold(Household household){
+		if(households == null) households = new HashSet<Household>();
+		if(!households.contains(household)) {
+			households.add(household);
+			household.addUser(this);
+		}
+	}
+	
+	public void removeHousehold(Household household){
+		if(households != null && households.contains(household)){
+			households.remove(household);
+			household.removeUser(this);
+		}
 	}
 
 	public Set<Shift> getShifts() {

@@ -19,20 +19,23 @@ public class Child {
 	private int id;
 	private String name;
 	private int age;
-
 	@ManyToOne(cascade=CascadeType.ALL , fetch = FetchType.EAGER)
-	@JsonBackReference
+	@JsonBackReference(value="household-child")
 	@JoinColumn(name = "household_id")
 	private Household household;
 	@Column(name="parent_notes")
-	private int parentNotes;
+	private String parentNotes;
 	@Column(name="nanny_notes")
-	private int nannyNotes;
+	private String nannyNotes;
 
 	public Child() {
 	}
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 
 	public String getName() {
@@ -59,19 +62,19 @@ public class Child {
 		this.household = household;
 	}
 
-	public int getParentNotes() {
+	public String getParentNotes() {
 		return parentNotes;
 	}
 
-	public void setParentNotes(int parentNotes) {
+	public void setParentNotes(String parentNotes) {
 		this.parentNotes = parentNotes;
 	}
 
-	public int getNannyNotes() {
+	public String getNannyNotes() {
 		return nannyNotes;
 	}
 
-	public void setNannyNotes(int nannyNotes) {
+	public void setNannyNotes(String nannyNotes) {
 		this.nannyNotes = nannyNotes;
 	}
 
