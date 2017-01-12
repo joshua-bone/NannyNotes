@@ -30,10 +30,10 @@ public class Household {
 	@ManyToMany(mappedBy="households", cascade=CascadeType.MERGE)
 	private Set<User> users = new HashSet<User>();
 	@OneToMany(mappedBy="household", cascade=CascadeType.MERGE)
-	@JsonManagedReference(value="household-child")
+	@JsonBackReference(value="household-child")
 	private Set<Child> children = new HashSet<Child>();
 	@OneToMany(mappedBy="household")
-	@JsonManagedReference(value="household-shifts")
+	@JsonBackReference(value="household-shifts")
 	private Set<Shift> shifts = new HashSet<Shift>();
 
 	public Household() {

@@ -30,7 +30,7 @@ public class Shift {
 	@JoinColumn(name="user_id")
 	private User user;
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonBackReference(value="household-shifts")
+	@JsonManagedReference(value="household-shifts")
 	@JoinColumn(name="household_id")
 	private Household household;
 	@Column(name="nanny_notes")
