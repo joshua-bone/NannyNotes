@@ -27,12 +27,12 @@ public class Household {
 	@Column(name="nanny_notes")
 	private String nannyNotes;
 	@JsonBackReference(value="user-household")
-	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="households", cascade=CascadeType.MERGE)
 	private Set<User> users = new HashSet<User>();
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="household", cascade=CascadeType.MERGE)
 	@JsonManagedReference(value="household-child")
 	private Set<Child> children = new HashSet<Child>();
-	@OneToMany(mappedBy="household", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="household")
 	@JsonManagedReference(value="household-shifts")
 	private Set<Shift> shifts = new HashSet<Shift>();
 
@@ -82,14 +82,14 @@ public class Household {
 		if(users == null) users = new HashSet<User>();
 		if(!users.contains(user)) {
 			users.add(user);
-			user.addHousehold(this);
+			//user.addHousehold(this);
 		}
 	}
 	
 	public void removeUser(User user){
 		if(users != null && users.contains(user)) {
 			users.remove(user);
-			user.removeHousehold(this);
+			//user.removeHousehold(this);
 		}
 	}
 	

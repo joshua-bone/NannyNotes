@@ -19,7 +19,7 @@ public class Child {
 	private int id;
 	private String name;
 	private int age;
-	@ManyToOne(cascade=CascadeType.ALL , fetch = FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JsonBackReference(value="household-child")
 	@JoinColumn(name = "household_id")
 	private Household household;
