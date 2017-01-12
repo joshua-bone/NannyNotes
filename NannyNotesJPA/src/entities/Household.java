@@ -2,7 +2,6 @@ package entities;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -27,11 +26,13 @@ public class Household {
 	@Column(name="nanny_notes")
 	private String nannyNotes;
 	@JsonBackReference(value="user-household")
-	@ManyToMany(mappedBy="households", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="households", cascade=CascadeType.MERGE)
 	private Set<User> users = new HashSet<User>();
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference(value="household-child")
+	@OneToMany(mappedBy="household", cascade=CascadeType.MERGE)
+	//@JsonBackReference(value="household-child")
+	@JsonIgnore
 	private Set<Child> children = new HashSet<Child>();
+
 	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference(value="household-shifts")
 	private Set<Shift> shifts = new HashSet<Shift>();
@@ -82,14 +83,14 @@ public class Household {
 		if(users == null) users = new HashSet<User>();
 		if(!users.contains(user)) {
 			users.add(user);
-			user.addHousehold(this);
+			//user.addHousehold(this);
 		}
 	}
 	
 	public void removeUser(User user){
 		if(users != null && users.contains(user)) {
 			users.remove(user);
-			user.removeHousehold(this);
+			//user.removeHousehold(this);
 		}
 	}
 	

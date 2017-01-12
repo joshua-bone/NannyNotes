@@ -10,7 +10,16 @@ angular.module("NannyNotesApp")
         	data : newUser
         });
       };
+      var getUser= function(userId){
+    	  
+    	  return $http({
+    		  method : 'GET',
+    		  url : 'api/users/' + userId
+    		  });
+    	  console.log(userId);
+      }
       return {
-        createUser : createUser
+        createUser : createUser,
+        getUser: getUser
       };
     });

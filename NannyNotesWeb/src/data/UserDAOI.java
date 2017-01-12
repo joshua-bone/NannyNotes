@@ -18,7 +18,7 @@ public class UserDAOI implements UserDAO {
 	private EntityManager em;
 
 	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
+	public BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public Collection<User> index() {
@@ -69,6 +69,11 @@ public class UserDAOI implements UserDAO {
 		User user;
 		if((user = em.find(User.class, id)) != null) { em.remove(user); return user;}
 		else return null;
+	}
+
+	@Override
+	public BCryptPasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
 	}
 
 }

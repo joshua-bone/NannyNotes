@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.persistence.NoResultException;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import entities.User;
 
 public interface UserDAO {
@@ -19,5 +21,7 @@ public interface UserDAO {
 	public User update(int id, User user);
 
 	public User delete(int id);
+	
+	public BCryptPasswordEncoder getPasswordEncoder();
 	
 }

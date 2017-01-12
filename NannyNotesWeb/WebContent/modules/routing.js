@@ -2,7 +2,7 @@ angular.module('NannyNotesApp')
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
-                template: `<household-component></household-component>`
+              template: `<household-component></household-component>`
             })
             .when('/dailycalendar', {
             	template: `<dailycalendar-component></dailycalendar-component>`
@@ -11,7 +11,7 @@ angular.module('NannyNotesApp')
             	template: `<household-component></household-component>`
             })
             .when('/users/:id', {
-            	template: `<household-component></household-component>`
+            	template: `<user-component></user-component>`
             })
             .when('/households/:id', {
             	template: `<household-component></household-component>`

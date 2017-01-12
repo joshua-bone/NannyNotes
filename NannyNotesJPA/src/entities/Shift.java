@@ -25,12 +25,13 @@ public class Shift {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JsonBackReference(value="user-shifts")
 	@JoinColumn(name="user_id")
 	private User user;
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonBackReference(value="household-shifts")
+	@ManyToOne(cascade=CascadeType.ALL)
+	//@JsonManagedReference(value="household-shifts")
+	@JsonIgnore
 	@JoinColumn(name="household_id")
 	private Household household;
 	@Column(name="nanny_notes")
@@ -41,8 +42,9 @@ public class Shift {
 	private Date startDateTime;
 	@Column(name="end_datetime")
 	private Date endDateTime;
-	@JsonManagedReference(value="shift-tasks")
-	@OneToMany(mappedBy="shift", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	//@JsonManagedReference(value="shift-tasks")
+	@OneToMany(mappedBy="shift", cascade=CascadeType.ALL)
+	@JsonIgnore
 	private Set<Task> tasks = new HashSet<Task>();
 	
 	public Shift(){}
