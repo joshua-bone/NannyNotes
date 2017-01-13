@@ -1,0 +1,30 @@
+	 <nav-component></nav-component>
+	 <dashboard-component></dashboard-component>
+    <!-- main right col -->
+        <div class="column col-sm-9 col-xs-11" id="main">
+            <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
+            <p>
+                <table class="householdview" ng-repeat="household in $ctrl.user.households">
+      <tr class="householdview">
+       <th class="householdview"><h3>Household </h3></th>
+        <th class="householdview"><h3>Parents </h3></th>
+		 <th class="householdview"><h3>Parent Notes </h3></th>
+        <th class="householdview"><h3>Guardians </h3></th>
+		 <th class="householdview"><h3>Guardian Notes </h3></th>
+        <th class="householdview"><h3>Children </h3></th>
+      </tr>
+      <tr class="householdview">
+		 <td class="householdview">{{household.name}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.name"></td>
+		 <td class="householdview">{{$ctrl.user.name}}<br>
+		 </td>
+		 <td class="householdview">{{household.parentNotes}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.parentNotes"></input>
+		 </td>
+		 <td class="householdview">{{household.users}}</td>
+		 <td class="householdview">{{household.nannyNotes}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.nannyNotes"></input>
+		 </td>
+        <td class="householdview">{{household.children}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.children"></input>
+        </td>
+        </tr> 
+  </table> 
+            </p>
+            </div>
