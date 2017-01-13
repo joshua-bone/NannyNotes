@@ -1,24 +1,55 @@
 <nav-component></nav-component>
-<dashboard-component></dashboard-component>
-<!-- main right col -->
-<div class="column col-sm-9 col-xs-11" id="main">
-    <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
-    <p>
-        <input type="text" ng-model="$ctrl.name"></input>
-        <button type="submit" ng-click="$ctrl.addHousehold($ctrl.name)">Add Household</button>
+<div class="container-fluid">
+    <div class="row is-table-row">
+        <!-- main right col -->
+        <div class="col-sm-4">
+            <div class="well my-fixed-height">
+                <h3>Households you belong to: </h3>
+                <div class="list-group my-scroll-div">
+                    <ul>
+                        <li class="list-group-item my-list-group-item" ng-repeat="household in $ctrl.households">
+                            <button class="btn btn-primary" ng-click=""><span class="glyphicon glyphicon-zoom-in"></span></button> {{household.name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- <div id="main"> -->
+        <!-- <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p> -->
 
-    <select id="sol-household" name="household-id">
-        <option ng-repeat="household in $ctrl.households" value="{{household.id}}">Peter Griffin</option>
-    </select>
+        <div class="col-sm-4">
+            <div class="well my-fixed-height">
+                <h3>Add An Existing Household To Your List</h3>
+                <select id="sol-household" name="household-id">
+                  <option ng-repeat="household in $ctrl.households" value="{{household.id}}">{{household.name}}</option>
+                </select>
+                <button class="btn btn-primary" ng-click="">Add</button>
 
-    <script type="text/javascript">
-        $(function() {
-            // initialize sol
-            $('#sol-household').searchableOptionList();
-        });
-    </script>
-    </p>
+                <script type="text/javascript">
+                    $(function() {
+                        // initialize sol
+                        $('#sol-household').searchableOptionList({
+                            maxHeight: '250px'
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <hr>
+        <div class="col-sm-4">
+            <div class="well my-fixed-height">
+                <h3> Create a New Household </h3>
+                <form>
+                  <input type="text" class="form-control" ng-model="$ctrl.name" placeholder="Household Name..."></input>
+                  <input type="submit" class="btn btn-primary" ng-click="$ctrl.addHousehold($ctrl.name)" value="Create"></input>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <img src="http://i.imgur.com/J71Xamn.jpg" style="width:10%; display:block; margin:auto; "/>
+    <!-- </div> -->
 </div>
 
 <!-- <div class="column col-sm-9 col-xs-11" id="main">

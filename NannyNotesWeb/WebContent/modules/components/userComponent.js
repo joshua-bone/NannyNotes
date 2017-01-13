@@ -1,8 +1,8 @@
 angular.module("NannyNotesApp")
 .component('userComponent', {
-	controller : function(authenticationService, userService) {
+	controller : function(authenticationService, userService, householdService) {
 		  var vm = this;
-//		    vm.user.newHousehold = "";
+
 		    var currentUser = authenticationService.currentUser();
 		    vm.getUser = function(id){
 		    	userService.getUser(currentUser.id)
@@ -10,6 +10,12 @@ angular.module("NannyNotesApp")
 		    		vm.user =response.data;
 		    		console.log(response.data);
 		    		console.log('in get user component function');
+//				    vm.user.households = [{
+//				        "id": 500,
+//				        "name": "The Gore family",
+//				        "parentNotes": "Please remember that Alfonso has plot practice this week.",
+//				        "nannyNotes": "I've been having trouble with Jude segmenting with the smoother strikers lately."
+//				      }];
 		    	}).catch(function(err){
 		    		console.log('in get user component error');
 		    	});
@@ -27,8 +33,8 @@ angular.module("NannyNotesApp")
 	    		console.log('in destroy error');
 	    	});
 	    };
-	    vm.editHousehold = function(id, household) {
-	    	householdService.updateHousehold()
+	    vm.editHousehold = function(household) {
+	    	householdService.updateHousehold(household)
 	    	.then(function(response){
 	    		vm.household = response.data; 
 	    		
@@ -40,32 +46,6 @@ angular.module("NannyNotesApp")
 	    
 		   
 	  },
-	 template : `
-	 <nav-component></nav-component>
-	 <dashboard-component></dashboard-component>
-    <!-- main right col -->
-        <div class="column col-sm-9 col-xs-11" id="main">
-            <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
-            <p>
-                <table class="householdview" ng-repeat="household in $ctrl.user.households">
-      <tr class="householdview">
-       <th class="householdview"><h3>Household </h3></th>
-        <th class="householdview"><h3>Parents </h3></th>
-		 <th class="householdview"><h3>Parent Notes </h3></th>
-        <th class="householdview"><h3>Guardians </h3></th>
-		 <th class="householdview"><h3>Guardian Notes </h3></th>
-        <th class="householdview"><h3>Children </h3></th>
-      </tr>
-      <tr class="householdview">
-		 <td class="householdview">{{household.name}}</td>
-		 <td class="householdview">{{household.users}}</td>
-		 <td class="householdview">{{household.parentNotes}}</td>
-		 <td class="householdview">{{household.users}}</td>
-		 <td class="householdview">{{household.nannyNotes}}</td>
-        <td class="householdview">{{household.children}}</td>
-        </tr> 
-  </table> 
-            </p>
-		 		`
+	 templateUrl : 'templates/viewUpdateHousehold.html'
 		 
 });

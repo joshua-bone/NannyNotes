@@ -36,7 +36,7 @@ angular.module("NannyNotesApp")
         });
       }
         var updateHousehold = function(newHousehold){
-            var newHousehold = {id: newHousehold.id , name : newHousehold.name , users : newHousehold.users };
+            var newHousehold = {id: newHousehold.id , name : newHousehold.name , parentNotes : newHousehold.parentNotes, nannyNotes : newHousehold.nannyNotes };
         	return $http({
         		method : 'PUT',
         		url : 'api/households/' + newHousehold.id,
