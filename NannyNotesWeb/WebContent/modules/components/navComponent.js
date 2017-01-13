@@ -1,18 +1,18 @@
 angular.module("NannyNotesApp")
-.component('navComponent', {
-	controller : function($location, authenticationService) {
-	    var vm = this;
-			vm.loggedIn = authenticationService.isLoggedIn();
-			vm.logout = function($scope){
-				authenticationService.logout();
-				$location.path('/login');
-				//$scope.apply();
-				}
+    .component('navComponent', {
+        controller: function($location, authenticationService) {
+            var vm = this;
+            vm.loggedIn = authenticationService.isLoggedIn();
+            vm.logout = function($scope) {
+                authenticationService.logout();
+                $location.path('/login');
+                //$scope.apply();
+            }
 
-	  },
-	 template : `
-	 <nav class="navbar navbar-default">
+        },
+        template: `
   <div class="container-fluid">
+	<nav class="navbar navbar-inverse bg-inverse">
     <div class="navbar-header">
 			<img src="http://i.imgur.com/J71Xamn.jpg" style="width:50px"/>
       <a class="navbar-brand" href="#!/">NannyNotes</a>
@@ -25,7 +25,7 @@ angular.module("NannyNotesApp")
       <li><a href="#sign-in-to-account">Sign In</a></li>
 			<li><a href="#create-new-account">Create Account</a></li>
     </ul>
+		</nav>
   </div>
-</nav>
 		 		`
-});
+    });

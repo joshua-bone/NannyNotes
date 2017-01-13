@@ -5,3 +5,31 @@
   margin: 1%;
   padding: 2%;
 }
+
+.my-scroll-div {
+  max-height: 250px;
+  overflow-y:scroll;
+}
+
+.my-list-group-item {
+  max-width: 90%;
+}
+
+.my-fixed-height {
+  min-height: 400px;
+}
+
+.my-background {
+  background-color: black;
+}
+
+@media only screen and (min-width : 768px) {
+    .is-table-row {
+        display: table;
+    }
+    .is-table-row [class*="col-"] {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+    }
+}
