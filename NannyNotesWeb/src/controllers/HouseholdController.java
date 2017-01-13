@@ -40,7 +40,8 @@ public class HouseholdController {
 		  household = mapper.readValue(jsonhousehold, Household.class);
 		} catch (Exception e) {
 		  e.printStackTrace();
-		}		return householdDao.update(id, household);
+		}		
+		return householdDao.update(id, household);
 	}
 	
 	@RequestMapping(path="households", method=RequestMethod.POST)
