@@ -1,17 +1,23 @@
 angular.module("NannyNotesApp")
 .component('dailycalendarComponent', {
-	controller : function(shiftService) {
+	controller : function(shiftService, householdService) {
 	    var vm = this;
-	    vm.newShift = "";
+	    vm.newShift = {};
 	    vm.shifts = [];
+	    vm.household= {
+	        "id": 500,
+	        "name": "The Gore family",
+	        "parentNotes": "Please remember that Alfonso has plot practice this week.",
+	        "nannyNotes": "I've been having trouble with Jude segmenting with the smoother strikers lately."
+	      };
 
 	    vm.loadShifts = function(){
-	    	shiftService.getShifts()
+	    	householdService.getHouseholdShifts(vm.household)
 	    	.then(function(response){
-	    		console.log(response);
+	    		console.log(response.data);
 	    		vm.shifts = response.data;
 	    	}).catch(function(err){
-	    		console.log('in get error');
+	    		console.log('in get error of load shifts in daily component');
 	    	});
 	    }
 	    vm.loadShifts();
@@ -21,7 +27,7 @@ angular.module("NannyNotesApp")
 	    		console.log(response);
 	    		vm.shift = response.data;
 	    	}).catch(function(err){
-	    		console.log('in get error');
+	    		console.log('in get error of load shift in daily component');
 	    	});
 	    }
 
@@ -63,8 +69,24 @@ angular.module("NannyNotesApp")
         <div class="column col-sm-9 col-xs-11" id="main">
             <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
             <p>
-                Main content...
-		 <div id="dp"></div>
+                              <table class="householdview" ng-repeat="shift in $ctrl.shifts">
+      <tr class="householdview">
+       <th class="householdview"><h3>Shift Id: </h3></th>
+        <th class="householdview"><h3>Nanny Notes </h3></th>
+		 <th class="householdview"><h3>Parent Notes </h3></th>
+        <th class="householdview"><h3>Start Date </h3></th>
+		 <th class="householdview"><h3>End Date </h3></th>
+      </tr>
+      <tr class="householdview">
+		 <td class="householdview">{{shift.id}}</td>
+		 <td class="householdview">{{shift.nannyNotes}}</td>
+		 <td class="householdview">{{shift.parentNotes}}</td>
+		 <td class="householdview">{{shift.startDateTime}}</td>
+		 <td class="householdview">{{shift.endDateTime}}</td>
+        </tr> 
+  </table> 
+                <h1>Stuff should appear here</h1>
+		 <div id="dp" events="$ctrl.shifts"></div>
 		 
 		 <script type="text/javascript">
 		 
@@ -73,6 +95,7 @@ angular.module("NannyNotesApp")
 		 dp.init();
 		 
 		 </script>
+
             </p>
 
 
