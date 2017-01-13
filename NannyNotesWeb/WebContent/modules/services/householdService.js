@@ -46,11 +46,20 @@ angular.module("NannyNotesApp")
         		data : newHousehold
         	});
       }
+        var getHouseholdChildren = function(household){
+        	return $http({
+      		  method : 'GET',
+      		  url : 'api/households/' + household.id + '/children'
+      		  });
+        }
+        
       return {
         getHouseholds : getHouseholds,
         getHousehold : getHousehold,
         createHousehold : createHousehold,
         deleteHousehold : deleteHousehold,
-        updateHousehold : updateHousehold
+        updateHousehold : updateHousehold,
+        getHouseholdChildren : getHouseholdChildren
+        
       };
     });

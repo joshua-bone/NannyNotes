@@ -14,7 +14,7 @@ angular.module("NannyNotesApp")
 	    		console.log('in get error');
 	    	});
 	    }
-//	    vm.loadShifts();
+	    vm.loadShifts();
 	    vm.loadShift = function(id){
 	    	shiftService.getShift(id)
 	    	.then(function(response){
@@ -63,7 +63,13 @@ angular.module("NannyNotesApp")
         <div class="column col-sm-9 col-xs-11" id="main">
             <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
             <p>
-                Main content...
+                <span ng-model="shift in $ctrl.shifts">
+                {{shift.user}}
+                {{shift.household}}
+                {{shift.startDateTime}}
+                {{shift.endDateTime}}
+                
+                </span>
             </p>
 		 		`
 });
