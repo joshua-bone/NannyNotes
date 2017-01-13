@@ -13,9 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import data.ChildDAO;
 import data.HouseholdDAO;
+import data.ShiftDAO;
 import data.UserDAO;
 import entities.Child;
 import entities.Household;
+import entities.Shift;
 
 @RestController
 public class HouseholdController {
@@ -28,6 +30,9 @@ public class HouseholdController {
 	
 	@Autowired
 	UserDAO userDao;
+	
+	@Autowired
+	ShiftDAO shiftDao;
 	
 	@RequestMapping(value="households/ping", method=RequestMethod.GET)
 	public String ping(){
@@ -47,6 +52,11 @@ public class HouseholdController {
 	@RequestMapping(path="households/{id}/children", method=RequestMethod.GET)
 	public Collection<Child> showChildren(@PathVariable int id){
 	  return childDao.index(id);
+	}
+	
+	@RequestMapping(path="households/{id}/shifts", method=RequestMethod.GET)
+	public Collection<Shift> showShifts(@PathVariable int id){
+	  return shiftDao.index(id);
 	}
 	
 //	@RequestMapping(path="households/{id}/users", method=RequestMethod.GET)
