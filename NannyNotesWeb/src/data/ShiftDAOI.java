@@ -17,11 +17,16 @@ public class ShiftDAOI implements ShiftDAO {
 		String query = "Select s FROM Shift s";
 		return em.createQuery(query, Shift.class).getResultList();
 	}
+	
+	@Override
+	public Collection<Shift> index(int id) {
+		String query = "Select s FROM Shift s WHERE s.household.id = ?1";
+		return em.createQuery(query, Shift.class).setParameter(1, id).getResultList();
+	}
 
 	@Override
 	public Shift show(int id) {
 		return em.find(Shift.class, id);
-
 	}
 
 	@Override

@@ -1,21 +1,38 @@
 package controllers;
 
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import data.ChildDAO;
 import data.HouseholdDAO;
+import data.ShiftDAO;
+import data.UserDAO;
+import entities.Child;
 import entities.Household;
+import entities.Shift;
 
 @RestController
 public class HouseholdController {
 
 	@Autowired
 	HouseholdDAO householdDao;
+	
+	@Autowired
+	ChildDAO childDao;
+	
+	@Autowired
+	UserDAO userDao;
+	
+	@Autowired
+	ShiftDAO shiftDao;
 	
 	@RequestMapping(value="households/ping", method=RequestMethod.GET)
 	public String ping(){
@@ -31,6 +48,21 @@ public class HouseholdController {
 	public Household show(@PathVariable int id){
 	  return householdDao.show(id);
 	}
+	
+	@RequestMapping(path="households/{id}/children", method=RequestMethod.GET)
+	public Collection<Child> showChildren(@PathVariable int id){
+	  return childDao.index(id);
+	}
+	
+	@RequestMapping(path="households/{id}/shifts", method=RequestMethod.GET)
+	public Collection<Shift> showShifts(@PathVariable int id){
+	  return shiftDao.index(id);
+	}
+	
+//	@RequestMapping(path="households/{id}/users", method=RequestMethod.GET)
+//	public Collection<Users> showUsers(@PathVariable int id){
+//	  return userDao.index(id);
+//	}
 	
 	@RequestMapping(path="households/{id}", method=RequestMethod.PUT)
 	public Household update(@PathVariable int id, @RequestBody String jsonhousehold){

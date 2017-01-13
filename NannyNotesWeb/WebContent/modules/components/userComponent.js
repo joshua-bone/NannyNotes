@@ -28,7 +28,7 @@ angular.module("NannyNotesApp")
 	    	.then(function(response){
 	    		vm.households = response.data; 
 	    		vm.loadHouseholds();
-	    		console.log("in households component");
+	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
 	    		console.log('in destroy error');
 	    	});
@@ -38,11 +38,22 @@ angular.module("NannyNotesApp")
 	    	.then(function(response){
 	    		vm.household = response.data; 
 	    		
-	    		console.log("in households component");
+	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
 	    		console.log('in edit error');
 	    	});
 	    };
+	    vm.getChildren = function(household){
+	    	householdService.getHouseholdChildren(household)
+	    	.then(function(response){
+	    		vm.children = response.data;
+	    		console.log(vm.children);
+	    		console.log("in users component calling household service");
+	    	}).catch(function(err){
+	    		console.log('in getChildren error');
+	    	});
+	    	
+	    }
 	    
 		   
 	  },

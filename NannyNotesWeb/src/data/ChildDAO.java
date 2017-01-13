@@ -16,4 +16,6 @@ public interface ChildDAO {
 
 	public Child delete(int id);
 
+	public Collection<Child> index(int id);
+
 }

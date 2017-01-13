@@ -22,8 +22,10 @@
 		 <td class="householdview">{{household.users}}</td>
 		 <td class="householdview">{{household.nannyNotes}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.nannyNotes"></input>
 		 </td>
-        <td class="householdview">{{household.children}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.children"></input>
+		 <span ng-model="$ctrl.getChildren(household);">
+        <td class="householdview" ng-repeat="child in $ctrl.children">{{child.name}}<br><input type="text"></input>
         </td>
+        </span>
         </tr> 
   </table> 
             </p>

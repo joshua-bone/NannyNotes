@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import entities.Child;
 import entities.User;
 
 @Transactional
@@ -25,6 +26,11 @@ public class UserDAOI implements UserDAO {
 		String query = "Select u FROM User u";
 		return em.createQuery(query, User.class).getResultList();
 	}
+	
+//	public Collection<User> index(int id) {
+//		String query = "Select u FROM User u INNER JOIN user_household uh ON u.id = uh.user.id AND = uh.household.id = ?1";
+//		return em.createQuery(query, Child.class).setParameter(1, id).getResultList();
+//	}
 	
 	@Override
 	public User show(int id) {
