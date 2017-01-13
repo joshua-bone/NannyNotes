@@ -7,8 +7,9 @@
                 <h3>Households you belong to: </h3>
                 <div class="list-group my-scroll-div">
                     <ul>
-                        <li class="list-group-item my-list-group-item" ng-repeat="household in $ctrl.households">
-                            <button class="btn btn-primary" ng-click=""><span class="glyphicon glyphicon-zoom-in"></span></button> {{household.name}}
+                        <li class="list-group-item my-list-group-item" ng-repeat="household in $ctrl.user.households">
+                            <button class="btn btn-primary" ng-click="$ctrl.selectHousehold(household)"><span class="glyphicon glyphicon-zoom-in"></span></button> {{household.name}}
+                            <button class="btn btn-danger pull-right" ng-click="$ctrl.removeHouseholdFromUserList(household)"><span class="glyphicon glyphicon-remove"></span></button>
                         </li>
                     </ul>
                 </div>
@@ -21,19 +22,10 @@
         <div class="col-sm-4">
             <div class="well my-fixed-height">
                 <h3>Add An Existing Household To Your List</h3>
-                <select id="sol-household" name="household-id">
-                  <option ng-repeat="household in $ctrl.households" value="{{household.id}}">{{household.name}}</option>
+                <select id="sol-household" name="sol-household">
+                  <option ng-repeat="household in $ctrl.households | filter:$ctrl.notInUserHHs" value="{{household.id}}" >{{household.name}}</option>
                 </select>
-                <button class="btn btn-primary" ng-click="">Add</button>
-
-                <script type="text/javascript">
-                    $(function() {
-                        // initialize sol
-                        $('#sol-household').searchableOptionList({
-                            maxHeight: '250px'
-                        });
-                    });
-                </script>
+                <button class="btn btn-primary" ng-click="$ctrl.addHouseholdToUserList()">Add</button>
             </div>
         </div>
         <hr>

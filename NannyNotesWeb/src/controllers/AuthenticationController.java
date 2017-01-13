@@ -55,7 +55,6 @@ public class AuthenticationController {
 	
 	@RequestMapping(path="users", method=RequestMethod.POST)
 	public User create(@RequestBody String jsonUser){
-		System.out.println(jsonUser);
 		ObjectMapper mapper = new ObjectMapper();
 		User newUser = null;
 		try {
@@ -89,7 +88,6 @@ public class AuthenticationController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public Map<String,String> login(HttpServletRequest req, HttpServletResponse res, @RequestBody String userJsonString) {
-		System.out.println(userJsonString);
 	    ObjectMapper mapper = new ObjectMapper();
 	    User user = null;
 	    // Parse User from JSON
@@ -98,7 +96,6 @@ public class AuthenticationController {
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	    }
-	    System.out.println(user);
 	    // Find managed User, return it if password is correct
 	    try {
 	      user = userDao.authenticateUser(user);
@@ -108,7 +105,6 @@ public class AuthenticationController {
 	      res.setStatus(401);
 	      return null;
 	    }
-	    System.out.println(user);
 
 	    // Create encoded JWT for User
 	    String jws = jwtGen.generateUserJwt(user);

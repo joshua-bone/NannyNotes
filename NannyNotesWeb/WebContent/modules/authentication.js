@@ -26,7 +26,7 @@ angular.module('NannyNotesApp')
             return response;
          });
       };
-    
+
     // Contact the server, authenticate user credentials
     var login = function(user) {
       return $http({
@@ -38,7 +38,7 @@ angular.module('NannyNotesApp')
         data : user
       })
        .then(function(response){
-          saveToken(response.data.token)
+          saveToken(response.data.token);
           return response;
        });
     };
@@ -70,9 +70,8 @@ angular.module('NannyNotesApp')
         var payload = JSON.parse($window.atob(token.split('.')[1]));
 
         return {
-          name : payload.username,
+          username : payload.username,
           id : payload.id,
-     
         };
       }
     };

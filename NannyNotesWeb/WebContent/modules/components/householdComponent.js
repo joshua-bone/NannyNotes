@@ -1,30 +1,41 @@
 angular.module("NannyNotesApp")
 .component('householdComponent', {
-	controller : function(householdService, userService, authenticationService, $location) {
+	controller : function(householdService, userService, authenticationService, $location, $scope) {
 		  var vm = this;
 //		    vm.newHousehold = {};
-		    vm.name = "";
-		    vm.households = [];
-		    var currentUser = authenticationService.currentUser();
+		    vm.user = userService.getCurrentUser();
 
-		    vm.getUser = function(id){
-		    	userService.getUser(currentUser.id)
-		    	.then(function(response){
-		    		vm.user =response.data;
-		    		console.log(response.data);
-		    		console.log('in get user component function');
-		    	}).catch(function(err){
-		    		console.log('in get user component error');
-		    	});
-		    }
-		    vm.getUser();
-		    console.log(currentUser);
-		    console.log(vm.user);
+		    //vm.households = [];
+
+				//custom filter for ng-repeat directive
+				vm.notInUserHHs = function(hh){
+					if (!hh) return false;
+					var include = true;
+					for (var i = 0; i < vm.user.households.length; i++){
+						if (vm.user.households[i].id===hh.id) include = false;
+					}
+					return include;
+				}
+
+				vm.addHouseholdToUserList = function(){
+					var id = $('#sol-household').find(':selected')[0].value;
+					var hh = {};
+					for (var i = 0; i < vm.households.length; i++){
+						if (id == vm.households[i].id){
+							hh = vm.households[i];
+							break;
+						}
+					}
+					vm.user.households.push(hh);
+				}
+
+				vm.removeHouseholdFromUserList = function(household){
+					vm.user.households.splice(vm.user.households.indexOf(household), 1);
+				}
 
 		    vm.loadHouseholds = function(){
 		    	householdService.getHouseholds()
 		    	.then(function(response){
-		    		console.log(response);
 		    		vm.households = response.data;
 		    	}).catch(function(err){
 		    		console.log('in get error');
@@ -35,7 +46,6 @@ angular.module("NannyNotesApp")
 		    vm.loadHousehold = function(id){
 		    	householdService.getHousehold(id)
 		    	.then(function(response){
-		    		console.log("vm.loadHousehold" + response);
 		    		vm.household = response.data;
 		    		$location.path("/households/{id}")
 		    	}).catch(function(err){
@@ -43,17 +53,23 @@ angular.module("NannyNotesApp")
 		    	});
 		    }
 
+				vm.selectHousehold = function(household){
+					householdService.setCurrentHousehold(household);
+					userService.updateUser(vm.user).then(function(response){
+						if (response.status < 400){
+							$location.path('/users/{response.data.id}');
+						}
+					});
+				}
+
 		    vm.addHousehold = function(household) {
-		    	household.name= vm.name;
 		      householdService.createHousehold(household)
 		      .then(function(response){
-		    	 vm.name = "";
 		    	  vm.loadHouseholds();
-//		    	  console.log(vm.households);
-		    		$location.path('/users/' + id);
-
+						vm.user.households.push(response.data);
 		      }).catch(function(err){
-		  		console.log('in add error');
+		  			console.log('in add hh error');
+						console.log(err);
 		  	});
 		    };
 		    vm.destroyHousehold = function(id) {
@@ -61,7 +77,6 @@ angular.module("NannyNotesApp")
 		    	.then(function(response){
 		    		vm.households = response.data;
 		    		vm.loadHouseholds();
-		    		console.log("in households component");
 		    	}).catch(function(err){
 		    		console.log('in destroy error');
 		    	});
@@ -70,13 +85,10 @@ angular.module("NannyNotesApp")
 		    	householdService.updateHousehold()
 		    	.then(function(response){
 		    		vm.household = response.data;
-
-		    		console.log("in households component");
 		    	}).catch(function(err){
 		    		console.log('in edit error');
 		    	});
 		    };
 	  },
 	 templateUrl : 'templates/chooseHouseholdView.html'
-
 });
