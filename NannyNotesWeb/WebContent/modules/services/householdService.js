@@ -1,5 +1,12 @@
 angular.module("NannyNotesApp")
 .factory('householdService', function($http){
+      var currentHousehold = {};
+      var getCurrentHousehold = function(){
+        return currentHousehold;
+      }
+      var setCurrentHousehold = function(hh){
+        currentHousehold = hh;
+      }
 
       var getHouseholds= function(){
         return $http({
@@ -17,15 +24,15 @@ angular.module("NannyNotesApp")
     		  });
     	  console.log(householdId);
       }
-      var createHousehold = function(household){
-        var newHousehold = {name : household};
+      var createHousehold = function(householdName){
+        var household = {"name" : householdName};
         return $http({
         	method : 'POST',
         	url : 'api/households/',
         	headers:{
             'Content-Type' : 'application/json'
         	},
-        	data : newHousehold
+        	data : household
         });
       }
       var deleteHousehold = function(household){
@@ -66,7 +73,8 @@ angular.module("NannyNotesApp")
         deleteHousehold : deleteHousehold,
         updateHousehold : updateHousehold,
         getHouseholdChildren : getHouseholdChildren,
-        getHouseholdShifts : getHouseholdShifts
-        
+        getHouseholdShifts : getHouseholdShifts,
+        setCurrentHousehold : setCurrentHousehold,
+        getCurrentHousehold : getCurrentHousehold
       };
     });

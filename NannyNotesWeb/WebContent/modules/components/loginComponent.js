@@ -1,6 +1,6 @@
 angular.module("NannyNotesApp")
 .component('loginComponent', {
-	controller : function(userService, authenticationService, $window, $location) {
+	controller : function(userService, authenticationService, $window, $location, $scope) {
 		  var vm = this;
       vm.signInUser = {};
       vm.createUser = {"role" : "PARENT"};
@@ -11,7 +11,9 @@ angular.module("NannyNotesApp")
           .then(function(response){
             if (response.status < 400){
               authenticationService.login(vm.createUser).then(function(){
-                $location.path("/");
+								userService.updateCurrentUser().then(function(){
+									$location.path("/");
+								});
               });
               vm.createUser = {"role" : "PARENT"};
             }
@@ -23,7 +25,9 @@ angular.module("NannyNotesApp")
       };
       vm.signIn = function(){
         authenticationService.login(vm.signInUser).then(function(){
-          $location.path("/");
+					userService.updateCurrentUser().then(function(){
+						$location.path("/");
+					});
         });
 
       }

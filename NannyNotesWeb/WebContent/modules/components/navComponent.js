@@ -1,14 +1,17 @@
 angular.module("NannyNotesApp")
     .component('navComponent', {
-        controller: function($location, authenticationService) {
+        controller: function($location, userService, authenticationService, $scope) {
             var vm = this;
             vm.loggedIn = authenticationService.isLoggedIn();
-            vm.logout = function($scope) {
+            vm.user = userService.getCurrentUser();
+            vm.logout = function() {
                 authenticationService.logout();
                 $location.path('/login');
                 //$scope.apply();
+            };
+            vm.test = function(){
+              console.log(vm.user.households);
             }
-
         },
         template: `
   <div class="container-fluid">
@@ -20,6 +23,7 @@ angular.module("NannyNotesApp")
     <ul class="nav navbar-nav" ng-show="$ctrl.loggedIn">
       <li><a href="#!/about">About</a></li>
       <li><a href="" ng-click="$ctrl.logout()">Sign Out</a></li>
+      <li><a href="" ng-click="$ctrl.test()">Signed in as {{$ctrl.user.username}} (Role: {{$ctrl.user.role}})</a></li>
     </ul>
 		<ul class="nav navbar-nav" ng-show="!$ctrl.loggedIn">
       <li><a href="#sign-in-to-account">Sign In</a></li>
