@@ -67,7 +67,7 @@ angular.module("NannyNotesApp")
         deleteHousehold : deleteHousehold,
         updateHousehold : updateHousehold,
         setCurrentHousehold : setCurrentHousehold,
-        getCurrentHousehold : getCurrentHousehold
+        getCurrentHousehold : getCurrentHousehold,
         getHouseholdChildren : getHouseholdChildren
       };
     });
