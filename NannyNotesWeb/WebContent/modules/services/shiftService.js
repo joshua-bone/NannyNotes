@@ -1,15 +1,15 @@
 angular.module("NannyNotesApp")
 .factory('shiftService', function($http){
 
-      var getShifts= function(){
-        return $http({
-        	method : 'GET',
-        	url : 'api/shift/'
-        })
-        .catch(function(err){
-        	console.error(err)
-        });
-      }
+//      var getShifts= function(){
+//        return $http({
+//        	method : 'GET',
+//        	url : 'api/shift/'
+//        })
+//        .catch(function(err){
+//        	console.error(err)
+//        });
+//      }
       var getShift= function(shiftId){
     	  return $http({
     		  method : 'GET',
@@ -35,7 +35,7 @@ angular.module("NannyNotesApp")
         	data : shift
         });
       }
-        var updateHousehold = function(newShift){
+        var updateShift = function(newShift){
             var newShift = {id: newShift.id , userId : newShift.userId , householdId : newShift.householdId };
         	return $http({
         		method : 'PUT',
@@ -47,7 +47,7 @@ angular.module("NannyNotesApp")
         	});
       }
       return {
-        getShifts : getShifts,
+//        getShifts : getShifts,
         getShift : getShift,
         createShift : createShift,
         deleteShift : deleteShift,

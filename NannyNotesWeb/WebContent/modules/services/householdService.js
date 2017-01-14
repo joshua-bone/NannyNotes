@@ -59,15 +59,21 @@ angular.module("NannyNotesApp")
       		  url : 'api/households/' + household.id + '/children'
       		  });
         }
-
+        var getHouseholdShifts = function(household){
+        	return $http({
+        		method : 'GET',
+        		url : 'api/households/' + household.id + '/shifts'
+        	});
+        }
+        
       return {
         getHouseholds : getHouseholds,
         getHousehold : getHousehold,
         createHousehold : createHousehold,
         deleteHousehold : deleteHousehold,
         updateHousehold : updateHousehold,
-        setCurrentHousehold : setCurrentHousehold,
-        getCurrentHousehold : getCurrentHousehold,
-        getHouseholdChildren : getHouseholdChildren
+        getHouseholdChildren : getHouseholdChildren,
+        getHouseholdShifts : getHouseholdShifts,
+        setCurrentHousehold : setCurrentHousehold
       };
     });
