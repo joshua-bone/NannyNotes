@@ -1,0 +1,23 @@
+<nav-component></nav-component>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2">
+			<dashboard-component></dashboard-component>
+		</div>
+		<div class="col-sm-10">
+			<div class="well">
+				<h3> {{$ctrl.household.name}} </h3>
+				<p> Parent Notes:</p><textarea ng-model="$ctrl.household.parentNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.editHousehold($ctrl.household)">Save</button>
+				<p> Nanny Notes:</p><textarea ng-model="$ctrl.household.nannyNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.editHousehold($ctrl.household)">Save</button>
+				<p> Children: </p>
+				<ul>
+					<li ng-repeat="child in $ctrl.children">
+						<h6> {{child.name}}, age {{child.age}}</h6>
+						<p> Parent Notes: </p><textarea value="child.parentNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.editHousehold($ctrl.household)">Save</button>
+						<p> Nanny Notes: </p><textarea value="child.parentNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.editHousehold($ctrl.household)">Save</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
