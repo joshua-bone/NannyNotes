@@ -3,7 +3,6 @@ angular.module("NannyNotesApp")
 	controller : function(authenticationService, userService, householdService) {
 		  var vm = this;
 
-		    var currentUser = authenticationService.currentUser();
 		    vm.getUser = function(id){
 		    	userService.getUser(currentUser.id)
 		    	.then(function(response){
@@ -20,29 +19,29 @@ angular.module("NannyNotesApp")
 		    		console.log('in get user component error');
 		    	});
 		    }
-		    vm.getUser();
-		    console.log(currentUser);
-		    console.log(vm.user);
-		    vm.destroyHousehold = function(id) {
+
+		  vm.destroyHousehold = function(id) {
 	    	householdService.deleteHousehold(id)
 	    	.then(function(response){
-	    		vm.households = response.data; 
+	    		vm.households = response.data;
 	    		vm.loadHouseholds();
 	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
 	    		console.log('in destroy error');
 	    	});
 	    };
+
 	    vm.editHousehold = function(household) {
 	    	householdService.updateHousehold(household)
 	    	.then(function(response){
-	    		vm.household = response.data; 
-	    		
+	    		vm.household = response.data;
+
 	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
 	    		console.log('in edit error');
 	    	});
 	    };
+
 	    vm.getChildren = function(household){
 	    	householdService.getHouseholdChildren(household)
 	    	.then(function(response){
@@ -52,11 +51,13 @@ angular.module("NannyNotesApp")
 	    	}).catch(function(err){
 	    		console.log('in getChildren error');
 	    	});
-	    	
+
 	    }
-	    
-		   
+			vm.user = userService.getCurrentUser();
+			vm.household = householdService.getCurrentHousehold();
+			vm.children = vm.getChildren(vm.household);
+
 	  },
 	 templateUrl : 'templates/viewUpdateHousehold.html'
-		 
+
 });

@@ -9,9 +9,6 @@ angular.module("NannyNotesApp")
                 $location.path('/login');
                 //$scope.apply();
             };
-            vm.test = function(){
-              console.log(vm.user.households);
-            }
         },
         template: `
   <div class="container-fluid">
@@ -23,11 +20,11 @@ angular.module("NannyNotesApp")
     <ul class="nav navbar-nav" ng-show="$ctrl.loggedIn">
       <li><a href="#!/about">About</a></li>
       <li><a href="" ng-click="$ctrl.logout()">Sign Out</a></li>
-      <li><a href="" ng-click="$ctrl.test()">Signed in as {{$ctrl.user.username}} (Role: {{$ctrl.user.role}})</a></li>
+      <li><a href="" ng-click="">Signed in as {{$ctrl.user.username}} (Role: {{$ctrl.user.role}})</a></li>
     </ul>
 		<ul class="nav navbar-nav" ng-show="!$ctrl.loggedIn">
-      <li><a href="#sign-in-to-account">Sign In</a></li>
-			<li><a href="#create-new-account">Create Account</a></li>
+      <li><a href="">Sign In</a></li>
+			<li><a href="">Create Account</a></li>
     </ul>
 		</nav>
   </div>
