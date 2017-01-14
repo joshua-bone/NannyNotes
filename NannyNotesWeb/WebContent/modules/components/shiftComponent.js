@@ -4,8 +4,6 @@ angular.module("NannyNotesApp")
 	    var vm = this;
 	    vm.newShift = "";
 	    vm.shifts = [];
-	    
-	    
 //	    <div ng-controller="KitchenSinkCtrl as vm">
 //
 //	    vm.loadShifts = function(){
