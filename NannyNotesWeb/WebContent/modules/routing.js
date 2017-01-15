@@ -19,7 +19,7 @@ angular.module('NannyNotesApp')
             .when('/shifts/:id', {
             })
             .when('/shifts', {
-            	template: `<example-component></example-component>`
+            	template: `<shift-component></shift-component>`
             })
             .when('/weeklycalendar', {
             	template: `<weeklycalendar-component></weeklycalendar-component>`
