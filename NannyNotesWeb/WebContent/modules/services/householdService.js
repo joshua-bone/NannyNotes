@@ -92,6 +92,18 @@ angular.module("NannyNotesApp")
             data : child
           });
         }
+        var updateChild = function(child){
+            var child = {id: child.id , name : child.name , age: child.age, household: child.household, parentNotes : child.parentNotes, nannyNotes : child.nannyNotes };
+        	console.log(child);
+        	return $http({
+        		method : 'PUT',
+        		url : 'api/children/' + child.id,
+        		headers:{
+        			'Content-Type' : 'application/json'
+        		},
+        		data : child
+        	});
+        }
 
       return {
         getHouseholds : getHouseholds,
@@ -105,6 +117,7 @@ angular.module("NannyNotesApp")
         setCurrentHousehold : setCurrentHousehold,
         getCurrentHousehold : getCurrentHousehold,
         removeChild : removeChild,
+        updateChild : updateChild,
         addChild : addChild
       };
     });

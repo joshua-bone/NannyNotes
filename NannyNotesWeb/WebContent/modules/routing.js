@@ -31,7 +31,7 @@ angular.module('NannyNotesApp')
             	template: `<notes-component></notes-component>`
             })
             .when('/about', {
-                template: '<nav-component></nav-component><dashboard-component></dashboard-component><h1>About!</h1>'
+                templateUrl: 'templates/about.html'
             })
             .when('/login', {
                 template: `<login-component></login-component>`
