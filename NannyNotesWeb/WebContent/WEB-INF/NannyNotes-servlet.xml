@@ -17,9 +17,10 @@
     <context:component-scan base-package="data, controllers" />
 	<bean id="userDao" class="data.UserDAOI"></bean>
 	<bean id="householdDao" class="data.HouseholdDAOI"></bean>
-	<bean id="shiftDao" class="data.ShiftDAOI"></bean>
+	<bean id="eventDao" class="data.EventDAOI"></bean>
 	<bean id="taskDao" class="data.TaskDAOI"></bean>
 	<bean id="childDao" class="data.ChildDAOI"></bean>
+	<bean id="shiftDao" class="data.ShiftDAOI"></bean>
 	
 	
 	

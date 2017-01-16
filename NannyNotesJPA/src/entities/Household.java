@@ -2,21 +2,25 @@ package entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Household {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -32,10 +36,10 @@ public class Household {
 	//@JsonBackReference(value="household-child")
 	@JsonIgnore
 	private Set<Child> children = new HashSet<Child>();
-
-	@OneToMany(mappedBy="household", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonBackReference(value="household-shifts")
-	private Set<Shift> shifts = new HashSet<Shift>();
+	@OneToOne(cascade=CascadeType.ALL)
+	@JsonManagedReference(value="household-event")
+	@JoinColumn(name="event_id")
+	private Event event;
 
 	public Household() {
 	}
@@ -117,32 +121,10 @@ public class Household {
 		}
 	}
 	
-	public Set<Shift> getShifts() {
-		return shifts;
-	}
-	
-	public void setShifts(Set<Shift> shifts) {
-		this.shifts = shifts;
-	}
-	
-	public void addShift(Shift shift){
-		if(shifts == null) shifts = new HashSet<Shift>();
-		if(!shifts.contains(shift)){
-			shifts.add(shift);
-			shift.setHousehold(this);
-		}
-	}
-	
-	public void removeShift(Shift shift){
-		if(shifts != null && shifts.contains(shift)){
-			shifts.remove(shift);
-			shift.setHousehold(null);
-		}
-	}
 
 	@Override
 	public String toString() {
 		return "Household [id=" + id + ", name=" + name + ", parentNotes=" + parentNotes + ", nannyNotes=" + nannyNotes
-				+ ", users=" + users + ", children=" + children + ", shifts=" + shifts + "]";
+				+ ", users=" + users + ", children=" + children + "]";
 	}
 }
