@@ -27,10 +27,12 @@ public class UserDAOI implements UserDAO {
 		return em.createQuery(query, User.class).getResultList();
 	}
 	
-//	public Collection<User> index(int id) {
-//		String query = "Select u FROM User u INNER JOIN user_household uh ON u.id = uh.user.id AND = uh.household.id = ?1";
-//		return em.createQuery(query, Child.class).setParameter(1, id).getResultList();
-//	}
+	@Override
+	public Collection<User> index(int id) {
+		//String query = "Select u FROM User u INNER JOIN user_household uh ON u.id = uh.user.id AND = uh.household.id = ?1";
+		String query = "SELECT u FROM User u JOIN u.households h ON h.id = :id";
+		return em.createQuery(query, User.class).setParameter("id", id).getResultList();
+	}
 	
 	@Override
 	public User show(int id) {

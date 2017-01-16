@@ -46,16 +46,59 @@ angular.module("NannyNotesApp")
 	    	householdService.getHouseholdChildren(household)
 	    	.then(function(response){
 	    		vm.children = response.data;
-	    		console.log(vm.children);
-	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
-	    		console.log('in getChildren error');
+	    		console.log('in getChildren error (userComponent)');
 	    	});
-
 	    }
+
+			vm.getUsers = function(household){
+				householdService.getHouseholdUsers(household)
+				.then(function(response){
+					vm.users = response.data;
+				}).catch(function(err){
+					console.log('in getUsers error (userComponent)');
+				});
+			}
+
+			vm.getShifts = function(household){
+				householdService.getHouseholdChildren(household)
+				.then(function(response){
+					vm.shifts = response.data;
+				}).catch(function(err){
+					console.log('in getShifts error (userComponent)');
+				});
+			}
+
+			vm.removeChild = function(child){
+				householdService.removeChild(child)
+				.then(function(response){
+					vm.getChildren(vm.household);
+				}).catch(function(err){
+					console.log('error in removeChild() (userComponent)');
+				});
+			}
+
+			vm.addChild = function(){
+				householdService.addChild(vm.household, vm.newChild)
+				.then(function(response){
+					vm.getChildren(vm.household);
+					vm.newChild = {};
+				}).catch(function(err){
+					console.log('error in addChild() (userComponent)');
+				});
+			}
+
+			vm.toggleNewChildForm = function(){
+				vm.showNewChildForm = !vm.showNewChildForm;
+			}
+
 			vm.user = userService.getCurrentUser();
 			vm.household = householdService.getCurrentHousehold();
-			vm.children = vm.getChildren(vm.household);
+			vm.getChildren(vm.household);
+			vm.getUsers(vm.household);
+			vm.getShifts(vm.household);
+			vm.newChild={};
+			vm.showNewChildForm = false;
 
 	  },
 	 templateUrl : 'templates/viewUpdateHousehold.html'

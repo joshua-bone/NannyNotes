@@ -7,56 +7,66 @@
 		<div class="col-sm-10">
 			<div class="well">
 				<h3> {{$ctrl.household.name}} </h3>
-				<p> Parent Notes: {{$ctrl.household.parentNotes}} </p>
-				<p> Nanny Notes: {{$ctrl.household.nannyNotes}} </p>
-				<p> Children: </p>
-				<ul>
-					<li ng-repeat="child in $ctrl.children">
-						<h6> {{child.name}}, age {{child.age}}</h6>
-						<p> Parent Notes: {{child.parentNotes}} </p>
-						<p> Nanny Notes: {{child.nannyNotes}} </p>
-					</li>
-				</ul>
+				<div class="row">
+					<div class="col-xs-4">
+						<h4 class="text-center"> Parents: </h4>
+						<ul>
+							<li ng-repeat="user in $ctrl.users | filter: { role: 'PARENT'}"> {{user.name}} </li>
+						</ul>
+					</div>
+					<div class="col-xs-4">
+						<h4 class="text-center"> Nannies: </h4>
+						<ul>
+							<li ng-repeat="user in $ctrl.users | filter: { role: 'NANNY'}"> {{user.name}} </li>
+						</ul>
+					</div>
+					<div class="col-xs-4">
+						<h4 class="text-center"> Children: </h4>
+						<ul>
+							<div class="table-responsive">
+							<table class="table table-striped table-border">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Age</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="child in $ctrl.children">
+										<td>{{child.name}}</td>
+										<td>{{child.age}} years</td>
+										<td><button class="btn btn-xs btn-danger" ng-show="$ctrl.user.role==='PARENT'" ng-click="$ctrl.removeChild(child)"><span class="glyphicon glyphicon-remove"></span></button></td>
+									</tr>
+								</tbody>
+							</table>
+							<form novalidate ng-show="$ctrl.showNewChildForm">
+								<input type="text" ng-model="$ctrl.newChild.name" placeholder="Name of Child..." />
+								<input type="number" ng-model="$ctrl.newChild.age" placeholder="Age..." />
+								<input type="submit" class="btn btn-xs btn-primary" ng-click="$ctrl.addChild()" value="Submit" />
+							</form>
+							<button class="btn btn-xs btn-primary" ng-show="$ctrl.user.role==='PARENT'" ng-click="$ctrl.toggleNewChildForm()"><span class="glyphicon glyphicon-plus"></span></button>
+						</div>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 
-<!-- main right col -->
-<!--
-<div class="column col-sm-9 col-xs-11" id="main">
-	<p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
-	<p>
-		<table class="householdview" ng-repeat="household in $ctrl.user.households">
-			<tr class="householdview">
-				<th class="householdview">
-					<h3>Household </h3></th>
-				<th class="householdview">
-					<h3>Parents </h3></th>
-				<th class="householdview">
-					<h3>Parent Notes </h3></th>
-				<th class="householdview">
-					<h3>Guardians </h3></th>
-				<th class="householdview">
-					<h3>Guardian Notes </h3></th>
-				<th class="householdview">
-					<h3>Children </h3></th>
-			</tr>
-			<tr class="householdview">
-				<td class="householdview">{{household.name}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.name"></td>
-				<td class="householdview">{{$ctrl.user.name}}<br>
-				</td>
-				<td class="householdview">{{household.parentNotes}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.parentNotes"></input>
-				</td>
-				<td class="householdview">{{household.users}}</td>
-				<td class="householdview">{{household.nannyNotes}}<br><input type="text" ng-blur="$ctrl.editHousehold(household);" ng-model="household.nannyNotes"></input>
-				</td>
-				<span ng-model="$ctrl.getChildren(household);">
-        <td class="householdview" ng-repeat="child in $ctrl.children">{{child.name}}<br><input type="text"></input>
-        </td>
-        </span>
-			</tr>
-		</table>
-	</p>
+
+<!-- <div class="well">
+	<h3> {{$ctrl.household.name}} </h3>
+	<p> Parent Notes: {{$ctrl.household.parentNotes}} </p>
+	<p> Nanny Notes: {{$ctrl.household.nannyNotes}} </p>
+	<p> Children: </p>
+	<ul>
+		<li ng-repeat="child in $ctrl.children">
+			<h6> {{child.name}}, age {{child.age}}</h6>
+			<p> Parent Notes: {{child.parentNotes}} </p>
+			<p> Nanny Notes: {{child.nannyNotes}} </p>
+		</li>
+	</ul>
 </div> -->

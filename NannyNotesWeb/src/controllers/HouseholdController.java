@@ -18,6 +18,7 @@ import data.UserDAO;
 import entities.Child;
 import entities.Household;
 import entities.Shift;
+import entities.User;
 
 @RestController
 public class HouseholdController {
@@ -59,10 +60,10 @@ public class HouseholdController {
 	  return shiftDao.index(id);
 	}
 	
-//	@RequestMapping(path="households/{id}/users", method=RequestMethod.GET)
-//	public Collection<Users> showUsers(@PathVariable int id){
-//	  return userDao.index(id);
-//	}
+	@RequestMapping(path="households/{id}/users", method=RequestMethod.GET)
+	public Collection<User> showUsers(@PathVariable int id){
+	  return userDao.index(id);
+	}
 	
 	@RequestMapping(path="households/{id}", method=RequestMethod.PUT)
 	public Household update(@PathVariable int id, @RequestBody String jsonhousehold){
