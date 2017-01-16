@@ -1,103 +1,106 @@
+
 angular.module("NannyNotesApp")
 .component('dailycalendarComponent', {
-	controller : function(shiftService, householdService) {
-	    var vm = this;
-	    vm.newShift = {};
-	    vm.shifts = [];
-	    vm.household= {
-	        "id": 500,
-	        "name": "The Gore family",
-	        "parentNotes": "Please remember that Alfonso has plot practice this week.",
-	        "nannyNotes": "I've been having trouble with Jude segmenting with the smoother strikers lately."
-	      };
+	controller : function(moment, alert, calendarConfig, $http) {  
+var vm = this;
 
-	    vm.loadShifts = function(){
-	    	householdService.getHouseholdShifts(vm.household)
-	    	.then(function(response){
-	    		console.log(response.data);
-	    		vm.shifts = response.data;
-	    	}).catch(function(err){
-	    		console.log('in get error of load shifts in daily component');
-	    	});
-	    }
-	    vm.loadShifts();
-	    vm.loadShift = function(id){
-	    	shiftService.getShift(id)
-	    	.then(function(response){
-	    		console.log(response);
-	    		vm.shift = response.data;
-	    	}).catch(function(err){
-	    		console.log('in get error of load shift in daily component');
-	    	});
-	    }
+    // These variables MUST be set as a minimum for the calendar to work
+    vm.calendarView = 'day';
+    vm.viewDate = new Date();
+    var actions = [{
+      label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+      onClick: function(args) {
+        alert.show('Edited', args.calendarEvent);
+      }
+    }, {
+      label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+      onClick: function(args) {
+        alert.show('Deleted', args.calendarEvent);
+      }
+    }];
+    vm.events = [
+      {
+        title: 'An event',
+        color: calendarConfig.colorTypes.warning,
+        startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
+        endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+        draggable: true,
+        resizable: true,
+        actions: actions
+      }, {
+        title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment().subtract(1, 'day').toDate(),
+        endsAt: moment().add(5, 'days').toDate(),
+        draggable: true,
+        resizable: true,
+        actions: actions
+      }, {
+        title: 'This is a really long event title that occurs on every year',
+        color: calendarConfig.colorTypes.important,
+        startsAt: moment().startOf('day').add(7, 'hours').toDate(),
+        endsAt: moment().startOf('day').add(19, 'hours').toDate(),
+        recursOn: 'year',
+        draggable: true,
+        resizable: true,
+        actions: actions
+      }
+    ];
 
-	    vm.addShift = function(shift) {
-	      shiftService.createShift(shift)
-	      .then(function(response){
-	    	 vm.newShift = ""; 
-	    	  vm.loadShifts();
+    vm.cellIsOpen = true;
 
-	      }).catch(function(err){
-	  		console.log('in add error');
-	  	});
-	    };
-	    vm.destroyShift = function(id) {
-	    	shiftService.deleteShift(id)
-	    	.then(function(response){
-	    		vm.shifts = response.data; 
-	    		vm.loadShifts();
-	    		console.log("in destroy shifts component function");
-	    	}).catch(function(err){
-	    		console.log('in destroy error');
-	    	});
-	    };
-	    vm.editShift = function(id, shift) {
-	    	shiftService.updateShift()
-	    	.then(function(response){
-	    		vm.shift = response.data; 
-	    		
-	    		console.log("in update shifts component function");
-	    	}).catch(function(err){
-	    		console.log('in edit error');
-	    	});
-	    };
-	  },
-	 template : `
-	 <nav-component></nav-component>
-	 <dashboard-component></dashboard-component>
-    <!-- main right col -->
-        <div class="column col-sm-9 col-xs-11" id="main">
-            <p><a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-2x"></i></a></p>
-            <p>
-                              <table class="householdview" ng-repeat="shift in $ctrl.shifts">
-      <tr class="householdview">
-       <th class="householdview"><h3>Shift Id: </h3></th>
-        <th class="householdview"><h3>Nanny Notes </h3></th>
-		 <th class="householdview"><h3>Parent Notes </h3></th>
-        <th class="householdview"><h3>Start Date </h3></th>
-		 <th class="householdview"><h3>End Date </h3></th>
-      </tr>
-      <tr class="householdview">
-		 <td class="householdview">{{shift.id}}</td>
-		 <td class="householdview">{{shift.nannyNotes}}</td>
-		 <td class="householdview">{{shift.parentNotes}}</td>
-		 <td class="householdview">{{shift.startDateTime}}</td>
-		 <td class="householdview">{{shift.endDateTime}}</td>
-        </tr> 
-  </table> 
-                <h1>Stuff should appear here</h1>
-		 <div id="dp" events="$ctrl.shifts"></div>
-		 
-		 <script type="text/javascript">
-		 
-		 var dp = new DayPilot.Calendar("dp");
-		 dp.viewType = "Day";
-		 dp.init();
-		 
-		 </script>
+    vm.addEvent = function() {
+      vm.events.push({
+        title: 'New event',
+        startsAt: moment().startOf('day').toDate(),
+        endsAt: moment().endOf('day').toDate(),
+        color: calendarConfig.colorTypes.important,
+        draggable: true,
+        resizable: true
+      });
+    };
 
-            </p>
+    vm.eventClicked = function(event) {
+      alert.show('Clicked', event);
+    };
 
+    vm.eventEdited = function(event) {
+      alert.show('Edited', event);
+    };
 
-		 		`
-});
+    vm.eventDeleted = function(event) {
+      alert.show('Deleted', event);
+    };
+
+    vm.eventTimesChanged = function(event) {
+      alert.show('Dropped or resized', event);
+    };
+
+    vm.toggle = function($event, field, event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      event[field] = !event[field];
+    };
+
+    vm.timespanClicked = function(date, cell) {
+
+      if (vm.calendarView === 'month') {
+        if ((vm.cellIsOpen && moment(date).startOf('day').isSame(moment(vm.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
+          vm.cellIsOpen = false;
+        } else {
+          vm.cellIsOpen = true;
+          vm.viewDate = date;
+        }
+      } else if (vm.calendarView === 'year') {
+        if ((vm.cellIsOpen && moment(date).startOf('month').isSame(moment(vm.viewDate).startOf('month'))) || cell.events.length === 0) {
+          vm.cellIsOpen = false;
+        } else {
+          vm.cellIsOpen = true;
+          vm.viewDate = date;
+        }
+      }
+
+    };
+	},
+	templateUrl: `templates/calendar.html`
+	  });
