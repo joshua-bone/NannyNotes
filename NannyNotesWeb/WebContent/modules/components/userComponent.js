@@ -1,6 +1,6 @@
 angular.module("NannyNotesApp")
 .component('userComponent', {
-	controller : function(authenticationService, userService, householdService) {
+	controller : function(authenticationService, userService, householdService, $location) {
 		  var vm = this;
 
 		    vm.getUser = function(id){
@@ -93,6 +93,11 @@ angular.module("NannyNotesApp")
 			}
 
 			vm.user = userService.getCurrentUser();
+			if (!vm.user.households) { //this happens on page refresh
+				userService.updateCurrentUser().then(function(){
+					$location.path("/"); //redirect to select household screen
+				});
+			}
 			vm.household = householdService.getCurrentHousehold();
 			vm.getChildren(vm.household);
 			vm.getUsers(vm.household);

@@ -29,7 +29,6 @@ angular.module("NannyNotesApp")
 						$location.path("/");
 					});
         });
-
       }
 	  },
   //  bindings : {

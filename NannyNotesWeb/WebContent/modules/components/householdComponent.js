@@ -4,6 +4,11 @@ angular.module("NannyNotesApp")
 		  var vm = this;
 //		    vm.newHousehold = {};
 		    vm.user = userService.getCurrentUser();
+				if (!vm.user.households) { //this happens on page refresh
+					userService.updateCurrentUser().then(function(){
+						vm.user = userService.getCurrentUser();
+					});
+				}
 
 		    //vm.households = [];
 
@@ -57,7 +62,7 @@ angular.module("NannyNotesApp")
 					householdService.setCurrentHousehold(household);
 					userService.updateUser(vm.user).then(function(response){
 						if (response.status < 400){
-							$location.path('/users/{response.data.id}');
+							$location.path('/users/' + response.data.id);
 						}
 					});
 				}

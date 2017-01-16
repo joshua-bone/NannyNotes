@@ -3,7 +3,11 @@ angular.module("NannyNotesApp")
         controller: function($location, userService, authenticationService, $scope) {
             var vm = this;
             vm.loggedIn = authenticationService.isLoggedIn();
-            vm.user = userService.getCurrentUser();
+            if (vm.loggedIn){
+              userService.updateCurrentUser().then(function(){
+                vm.user = userService.getCurrentUser();
+              });
+            }
             vm.logout = function() {
                 authenticationService.logout();
                 $location.path('/login');
