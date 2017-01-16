@@ -1,9 +1,11 @@
 
 angular.module("NannyNotesApp")
 .component('monthlycalendarComponent', {
-	controller : function(moment, alert, calendarConfig, $http) {  
+	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {  
 var vm = this;
-
+//vm.user = userService.getCurrentUser();
+vm.household = householdService.getCurrentHousehold();
+//vm.children = vm.getChildren(vm.household);
     // These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'month';
     vm.viewDate = new Date();

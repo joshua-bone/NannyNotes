@@ -1,9 +1,9 @@
 
 angular.module("NannyNotesApp")
 .component('weeklycalendarComponent', {
-	controller : function(moment, alert, calendarConfig, $http) {  
+	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {  
 var vm = this;
-
+    vm.household = householdService.getCurrentHousehold();
     // These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'week';
     vm.viewDate = new Date();

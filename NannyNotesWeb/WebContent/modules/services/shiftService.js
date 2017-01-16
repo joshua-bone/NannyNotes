@@ -1,24 +1,24 @@
 angular.module("NannyNotesApp")
 .factory('shiftService', function($http){
 
-//      var getShifts= function(){
-//        return $http({
-//        	method : 'GET',
-//        	url : 'api/shift/'
-//        })
-//        .catch(function(err){
-//        	console.error(err)
-//        });
-//      }
-      var getShift= function(shiftId){
+      var getShifts= function(household){
+        return $http({
+        	method : 'GET',
+        	url : 'api/households/' + household.id + '/shifts'
+        })
+        .catch(function(err){
+        	console.error(err)
+        });
+      }
+      var getShift= function(shift){
     	  return $http({
     		  method : 'GET',
-    		  url : 'api/shifts/' + shiftId
+    		  url : 'api/shifts/' + shift.id
     		  });
-    	  console.log(shiftId);
+    	  console.log(shift.id);
       }
-      var createShift = function(uId, hId){
-        var newShift = {userId : uId, householdId: hId};
+      var createShift = function(u, h, newShift){
+          var newShift = { "userId": u.id, "householdId": h.id, "id": newShift.id,"nannyNotes":"","parentNotes":"","startDateTime":newShift.startDateTime,"endDateTime": newShift.endDateTime}
         return $http({
         	method : 'POST',
         	url : 'api/shifts/',
@@ -36,7 +36,7 @@ angular.module("NannyNotesApp")
         });
       }
         var updateShift = function(newShift){
-            var newShift = {id: newShift.id , userId : newShift.userId , householdId : newShift.householdId };
+            var newShift = {"id": newShift.id,"nannyNotes":"","parentNotes":"","startDateTime":newShift.startDateTime,"endDateTime": newShift.endDateTime}
         	return $http({
         		method : 'PUT',
         		url : 'api/shifts/' + newShift.id,
@@ -47,7 +47,7 @@ angular.module("NannyNotesApp")
         	});
       }
       return {
-//        getShifts : getShifts,
+        getShifts : getShifts,
         getShift : getShift,
         createShift : createShift,
         deleteShift : deleteShift,
