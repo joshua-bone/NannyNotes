@@ -3,8 +3,8 @@ angular.module("NannyNotesApp")
 .component('dailycalendarComponent', {
 	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {  
 		var vm = this;
-		vm.newShift = "";
-	    vm.shifts = [ {
+		vm.household = householdService.getCurrentHousehold();
+	    vm.events = [ {
 	        "id": 1,
 	        "nannyNotes": "",
 	        "parentNotes": "",
@@ -23,28 +23,15 @@ angular.module("NannyNotesApp")
 	    		    "startDateTime": 1484506800000,
 	    		    "endDateTime": 1484485200000
 	    		  }];
-//		var household = householdService.getCurrentHousehold();
-//	    vm.loadShifts = function(){
-//	    	shiftService.getShifts(vm.household)
-//	    	.then(function(response){
-//	    		console.log(response);
-//	    		vm.shifts = response.data;
-//	    	}).catch(function(err){
-//	    		console.log('in get error');
-//	    	});
-//	    }
-	    
-//	    vm.addShift = function(shift) {
-//	      shiftService.createShift(shift)
-//	      .then(function(response){
-//	    	 vm.newShift = ""; 
-//	    	  vm.loadShifts();
-//
-//	      }).catch(function(err){
-//	  		console.log('in add error');
-//	  	});
-//	    };
-
+// vm.loadShifts = function(){
+// shiftService.getShifts(vm.household)
+// .then(function(response){
+// console.log(response);
+// vm.shifts = response.data;
+// }).catch(function(err){
+// console.log('in get error');
+// });
+// }
     // These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'day';
     vm.viewDate = new Date();
@@ -98,13 +85,21 @@ angular.module("NannyNotesApp")
 
     vm.addEvent = function() {
       vm.events.push({
-        title: 'New event',
+    	  
+    	nannyNotes: "",
+        parentNotes: "",
         startsAt: moment().startOf('day').toDate(),
         endsAt: moment().endOf('day').toDate(),
         color: calendarConfig.colorTypes.important,
         draggable: true,
         resizable: true
       });
+	      shiftService.createShift(vm.events[vm.events.length-1])
+	      .then(function(response){
+	    	 vm.newShift = ""; 
+	      }).catch(function(err){
+	  		console.log('in add error');
+	  	});
     };
 
     vm.eventClicked = function(event) {

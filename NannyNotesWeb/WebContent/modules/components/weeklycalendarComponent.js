@@ -2,8 +2,37 @@
 angular.module("NannyNotesApp")
 .component('weeklycalendarComponent', {
 	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {  
-var vm = this;
-    vm.household = householdService.getCurrentHousehold();
+		var vm = this;
+		vm.calendarTitle= "Shift Schedule";
+		vm.household = householdService.getCurrentHousehold();
+	    vm.events = [ {
+	        "id": 1,
+	        "nannyNotes": "",
+	        "parentNotes": "",
+	        "startDateTime": 1484506800000,
+	        "endDateTime": 1484485200000
+	      },  {
+	    	    "id": 2,
+	    	    "nannyNotes": "",
+	    	    "parentNotes": "",
+	    	    "startDateTime": 1484506800000,
+	    	    "endDateTime": 1484485200000
+	    	  },  {
+	    		    "id": 3,
+	    		    "nannyNotes": "",
+	    		    "parentNotes": "",
+	    		    "startDateTime": 1484506800000,
+	    		    "endDateTime": 1484485200000
+	    		  }];
+// vm.loadShifts = function(){
+// shiftService.getShifts(vm.household)
+// .then(function(response){
+// console.log(response);
+// vm.shifts = response.data;
+// }).catch(function(err){
+// console.log('in get error');
+// });
+// }
     // These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'week';
     vm.viewDate = new Date();
@@ -20,7 +49,9 @@ var vm = this;
     }];
     vm.events = [
       {
-        title: 'An event',
+        id: 1,
+        nannyNotes: "he wouldn't take his vitamins",
+        parentNotes: "don't feed the squirrels",
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
         endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
@@ -28,16 +59,20 @@ var vm = this;
         resizable: true,
         actions: actions
       }, {
-        title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
+        id: 2,
         color: calendarConfig.colorTypes.info,
+        nannyNotes: "I need the hair of the dog",
+        parentNotes: "take a sip off our Jose Cuervo",
         startsAt: moment().subtract(1, 'day').toDate(),
         endsAt: moment().add(5, 'days').toDate(),
         draggable: true,
         resizable: true,
         actions: actions
       }, {
-        title: 'This is a really long event title that occurs on every year',
+        id: 3,
         color: calendarConfig.colorTypes.important,
+        nannyNotes: "he wouldn't take his shoes off before getting into bed",
+        parentNotes: "make sure you don't get their lice",
         startsAt: moment().startOf('day').add(7, 'hours').toDate(),
         endsAt: moment().startOf('day').add(19, 'hours').toDate(),
         recursOn: 'year',
@@ -51,25 +86,54 @@ var vm = this;
 
     vm.addEvent = function() {
       vm.events.push({
-        title: 'New event',
+    	  
+    	nannyNotes: "",
+        parentNotes: "",
         startsAt: moment().startOf('day').toDate(),
         endsAt: moment().endOf('day').toDate(),
         color: calendarConfig.colorTypes.important,
         draggable: true,
         resizable: true
       });
+	      shiftService.createShift(vm.events[vm.events.length-1])
+	      .then(function(response){
+	    	 vm.newShift = ""; 
+	      }).catch(function(err){
+	  		console.log('in add error');
+	  	});
     };
 
     vm.eventClicked = function(event) {
       alert.show('Clicked', event);
+  	shiftService.getShift(event)
+  	.then(function(response){
+  		vm.event = response.data;
+  		console.log("in show event component function");
+  	}).catch(function(err){
+  		console.log('in get error');
+  	});
     };
 
     vm.eventEdited = function(event) {
       alert.show('Edited', event);
-    };
+  	shiftService.updateShift(event)
+  	.then(function(response){
+  		vm.event = response.data; 
+  		console.log("in update events component function");
+  	}).catch(function(err){
+  		console.log('in edit error');
+  	});
+  };
 
     vm.eventDeleted = function(event) {
       alert.show('Deleted', event);
+	    	shiftService.deleteShift(event)
+	    	.then(function(response){
+	    		vm.events = response.data; 
+	    		console.log("in destroy events component function");
+	    	}).catch(function(err){
+	    		console.log('in destroy error');
+	    	});
     };
 
     vm.eventTimesChanged = function(event) {
