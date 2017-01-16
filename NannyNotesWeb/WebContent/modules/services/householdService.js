@@ -65,7 +65,34 @@ angular.module("NannyNotesApp")
         		url : 'api/households/' + household.id + '/shifts'
         	});
         }
-        
+        var getHouseholdUsers = function(household){
+          return $http({
+            method : 'GET',
+            url : 'api/households/' + household.id + '/users'
+          });
+        }
+        var removeChild = function(child){
+          return $http({
+            method : 'DELETE',
+            url : 'api/children/' + child.id
+          });
+        }
+        var addChild = function(household, child){
+          child.household = household;
+          child.parentNotes = "";
+          child.nannyNotes = "";
+          console.log("householdService.addChild():");
+          console.log(child);
+          return $http({
+            method : 'POST',
+            url : 'api/children/',
+            headers:{
+              'Content-Type' : 'application/json'
+            },
+            data : child
+          });
+        }
+
       return {
         getHouseholds : getHouseholds,
         getHousehold : getHousehold,
@@ -74,7 +101,10 @@ angular.module("NannyNotesApp")
         updateHousehold : updateHousehold,
         getHouseholdChildren : getHouseholdChildren,
         getHouseholdShifts : getHouseholdShifts,
+        getHouseholdUsers : getHouseholdUsers,
         setCurrentHousehold : setCurrentHousehold,
-        getCurrentHousehold : getCurrentHousehold
+        getCurrentHousehold : getCurrentHousehold,
+        removeChild : removeChild,
+        addChild : addChild
       };
     });

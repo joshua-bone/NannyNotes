@@ -15,6 +15,7 @@ public interface UserDAO {
 	public User authenticateUser(User user) throws NoResultException;
 
 	public Collection<User> index();
+	public Collection<User> index(int hhid);
 
 	public User show(int id);
 

@@ -47,6 +47,7 @@ public class ChildController {
 	@RequestMapping(path="children", method=RequestMethod.POST)
 	public Child create(@RequestBody String jsonChild){
 		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(jsonChild);
 		Child child = null;
 		try {
 		  child = mapper.readValue(jsonChild, Child.class);
