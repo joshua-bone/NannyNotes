@@ -47,8 +47,20 @@ angular.module("NannyNotesApp")
 	    	});
 
 	    }
+	    vm.household = householdService.getCurrentHousehold();
+	    vm.updateChild = function(child){
+	    	child.householdId= vm.household.id;
+	    	householdService.updateChild(child)
+	    	.then(function(response){
+	    		vm.child = response.data;
+	    		console.log(vm.child);
+	    		console.log("in users component calling household service's update child");
+	    	}).catch(function(err){
+	    		console.log('in updateChildren error');
+	    	});
+	    	
+	    }
 			vm.user = userService.getCurrentUser();
-			vm.household = householdService.getCurrentHousehold();
 			vm.children = vm.getChildren(vm.household);
 
 	  },

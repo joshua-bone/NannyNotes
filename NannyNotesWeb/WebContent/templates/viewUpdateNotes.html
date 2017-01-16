@@ -13,8 +13,8 @@
 				<ul>
 					<li ng-repeat="child in $ctrl.children">
 						<h6> {{child.name}}, age {{child.age}}</h6>
-						<p> Parent Notes: </p><textarea value="child.parentNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.editHousehold($ctrl.household)">Save</button>
-						<p> Nanny Notes: </p><textarea value="child.parentNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.editHousehold($ctrl.household)">Save</button>
+						<p> Parent Notes: </p><textarea ng-model="child.parentNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.updateChild(child)">Save</button>
+						<p> Nanny Notes: </p><textarea ng-model="child.nannyNotes"></textarea><button class="btn btn-primary" ng-click="$ctrl.updateChild(child)">Save</button>
 					</li>
 				</ul>
 			</div>
