@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,6 @@ public class Event {
 	private String title;
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "household_id")
-	@JsonIgnore
 	private Household household;
 	@Column(name="nanny_notes")
 	private String nannyNotes;

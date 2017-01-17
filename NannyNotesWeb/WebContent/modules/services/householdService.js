@@ -81,8 +81,6 @@ angular.module("NannyNotesApp")
           child.household = household;
           child.parentNotes = "";
           child.nannyNotes = "";
-          console.log("householdService.addChild():");
-          console.log(child);
           return $http({
             method : 'POST',
             url : 'api/children/',
