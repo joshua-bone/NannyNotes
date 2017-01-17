@@ -46,6 +46,7 @@ public class EventController {
 	
 	@RequestMapping(path="events", method=RequestMethod.POST)
 	public Event create(@RequestBody String jsonEvent){
+		System.out.println(jsonEvent);
 		ObjectMapper mapper = new ObjectMapper();
 		Event event = null;
 		try {

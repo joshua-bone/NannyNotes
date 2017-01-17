@@ -126,33 +126,33 @@
 						<form novalidate ng-show="$ctrl.showNewEventForm">
 
 								<input type="text" ng-model="$ctrl.newEvent.title"
-									placeholder="Name of Event..." />
+									placeholder="Title..." />
 								
 								<input type="hidden"
-									ng-model="$ctrl.newEvent.household" />
+									ng-model="$ctrl.household" />
 								<input class="form-control" colorpicker type="text"
-									ng-model="event.primaryColor">
+									ng-model="$ctrl.newEvent.primaryColor">
 
 								<input class="form-control" colorpicker type="text"
-									ng-model="event.secondaryColor">
+									ng-model="$ctrl.newEvent.secondaryColor">
 
 								<textarea class="form-control"
-										ng-model="event.nannyNotes"></textarea>
+										ng-model="$ctrl.newEvent.nannyNotes"></textarea>
 
 								<textarea class="form-control"
-										ng-model="event.parentNotes"></textarea>
+										ng-model="$ctrl.newEvent.parentNotes"></textarea>
 
 								
 
 									<p class="input-group" style="max-width: 250px">
 
 										<input type="text" class="form-control" readonly
-											uib-datepicker-popup="dd MMMM yyyy" ng-model="event.startsAt"
-											is-open="event.startOpen" close-text="Close"> <span
+											uib-datepicker-popup="dd MMMM yyyy" ng-model="$ctrl.newEvent.startsAt"
+											is-open="$ctrl.newEvent.startOpen" close-text="Close"> <span
 											class="input-group-btn">
 
 											<button type="button" class="btn btn-default"
-												ng-click="$ctrl.toggle($event, 'startOpen', event)">
+												ng-click="$ctrl.toggle($event, 'startOpen', $ctrl.newEvent)">
 
 												<i class="glyphicon glyphicon-calendar"></i>
 
@@ -162,22 +162,18 @@
 
 									</p>
 
-									<div uib-timepicker ng-model="event.startsAt" hour-step="1"
+									<div uib-timepicker ng-model="$ctrl.newEvent.startsAt" hour-step="1"
 										minute-step="15" show-meridian="true"></div>
 
-								
-
-								
-
 									<p class="input-group" style="max-width: 250px">
 
 										<input type="text" class="form-control" readonly
-											uib-datepicker-popup="dd MMMM yyyy" ng-model="event.endsAt"
-											is-open="event.endOpen" close-text="Close"> <span
+											uib-datepicker-popup="dd MMMM yyyy" ng-model="$ctrl.newEvent.endsAt"
+											is-open="$ctrl.newEvent.endOpen" close-text="Close"> <span
 											class="input-group-btn">
 
 											<button type="button" class="btn btn-default"
-												ng-click="$ctrl.toggle($event, 'endOpen', event)">
+												ng-click="$ctrl.toggle($event, 'endOpen', $ctrl.newEvent)">
 
 												<i class="glyphicon glyphicon-calendar"></i>
 
@@ -187,19 +183,16 @@
 
 									</p>
 
-									<div uib-timepicker ng-model="event.endsAt" hour-step="1"
+									<div uib-timepicker ng-model="$ctrl.newEvent.endsAt" hour-step="1"
 										minute-step="15" show-meridian="true"></div>
 								<input type="submit" class="btn btn-xs btn-primary"
-									ng-click="$ctrl.addEvent(event)" value="Submit" />
+									ng-click="$ctrl.addEvent($ctrl.newEvent)" value="Submit" />
 
 								</form>
-								
 								<button class="btn btn-xs btn-primary"
 									ng-show="$ctrl.user.role==='PARENT'"
 									ng-click="$ctrl.toggleNewEventForm()">
-
 									<span class="glyphicon glyphicon-plus"></span>
-
 								</button>
 								</div>
 								</div>
@@ -207,4 +200,3 @@
 			</div>
 	</div>
 	</div>
-		<!-- </div> -->

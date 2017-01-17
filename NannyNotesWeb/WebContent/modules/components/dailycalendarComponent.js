@@ -15,6 +15,8 @@ angular.module("NannyNotesApp")
 	vm.user = userService.getCurrentUser();
 	vm.events =vm.getEvents(vm.household);
 	vm.newEvent={};
+//	vm.newEvent.household = vm.household;
+	vm.newEvent.startOpen = true;
 	vm.showNewEventForm = false;
 	
     vm.calendarView = 'day';
@@ -37,11 +39,13 @@ angular.module("NannyNotesApp")
     vm.cellIsOpen = true;
 
     vm.addEvent = function(newEvent) {
+    	newEvent.household = vm.household;
     	eventService.createEvent(newEvent)
     	.then(function(response){
-//    		vm.newEvent = ""; 
+			vm.getEvents(vm.household);
+			vm.showNewEventForm = false; 
     	}).catch(function(err){
-    		console.log('in add error');
+    		console.log('in add event error');
     	});
     };
 
