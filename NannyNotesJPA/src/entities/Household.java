@@ -36,10 +36,11 @@ public class Household {
 	//@JsonBackReference(value="household-child")
 	@JsonIgnore
 	private Set<Child> children = new HashSet<Child>();
-	@OneToOne(cascade=CascadeType.ALL)
-	@JsonManagedReference(value="household-event")
-	@JoinColumn(name="event_id")
-	private Event event;
+	@OneToMany(mappedBy="household", cascade=CascadeType.ALL)
+	//@JsonManagedReference(value="household-event")
+	@JsonIgnore
+	//@JoinColumn(name="event_id")
+	private Set<Event> events;
 
 	public Household() {
 	}
@@ -120,11 +121,17 @@ public class Household {
 			child.setHousehold(null);
 		}
 	}
-	
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
 
 	@Override
 	public String toString() {
-		return "Household [id=" + id + ", name=" + name + ", parentNotes=" + parentNotes + ", nannyNotes=" + nannyNotes
-				+ ", users=" + users + ", children=" + children + "]";
+		return "Household [id=" + id + ", name=" + name + ", parentNotes=" + parentNotes + ", nannyNotes=" + nannyNotes + "]";
 	}
 }

@@ -1,7 +1,7 @@
-
+	
 angular.module("NannyNotesApp")
 .component('weeklycalendarComponent', {
-	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {  
+	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {
 		var vm = this;
 		vm.calendarTitle= "Shift Schedule";
 		vm.household = householdService.getCurrentHousehold();
@@ -59,7 +59,7 @@ angular.module("NannyNotesApp")
 
     vm.addEvent = function() {
       vm.events.push({
-    	  
+
     	nannyNotes: "",
         parentNotes: "",
         startsAt: moment().startOf('day').toDate(),
@@ -70,7 +70,7 @@ angular.module("NannyNotesApp")
       });
 	      shiftService.createShift(vm.events[vm.events.length-1])
 	      .then(function(response){
-	    	 vm.newShift = ""; 
+	    	 vm.newShift = "";
 	      }).catch(function(err){
 	  		console.log('in add error');
 	  	});
@@ -91,7 +91,7 @@ angular.module("NannyNotesApp")
       alert.show('Edited', event);
   	shiftService.updateShift(event)
   	.then(function(response){
-  		vm.event = response.data; 
+  		vm.event = response.data;
   		console.log("in update events component function");
   	}).catch(function(err){
   		console.log('in edit error');
@@ -102,7 +102,7 @@ angular.module("NannyNotesApp")
       alert.show('Deleted', event);
 	    	shiftService.deleteShift(event)
 	    	.then(function(response){
-	    		vm.events = response.data; 
+	    		vm.events = response.data;
 	    		console.log("in destroy events component function");
 	    	}).catch(function(err){
 	    		console.log('in destroy error');

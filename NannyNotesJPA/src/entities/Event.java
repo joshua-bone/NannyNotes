@@ -1,14 +1,17 @@
 package entities;
 
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Event {
@@ -17,8 +20,9 @@ public class Event {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	@JsonBackReference(value="household-event")
-	@OneToOne(mappedBy="event", cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "household_id")
+	@JsonIgnore
 	private Household household;
 	@Column(name="nanny_notes")
 	private String nannyNotes;
@@ -32,9 +36,7 @@ public class Event {
 	private String primaryColor;
 	@Column(name="secondary_color")
 	private String secondaryColor;
-	private boolean draggable;
-	private boolean resizable;
-//	@Column(name="all_day")
+	@Column(name="all_day")
 	private boolean allDay;
 	
 	public Event() {
@@ -119,28 +121,13 @@ public class Event {
 		this.primaryColor = primaryColor;
 	}
 
-	public String getSeondaryColor() {
+	public String getSecondaryColor() {
 		return secondaryColor;
+
 	}
 
-	public void setSeondaryColor(String seondaryColor) {
-		this.secondaryColor = seondaryColor;
-	}
-
-	public boolean isDraggable() {
-		return draggable;
-	}
-
-	public void setDraggable(boolean draggable) {
-		this.draggable = draggable;
-	}
-
-	public boolean isResizable() {
-		return resizable;
-	}
-
-	public void setResizable(boolean resizable) {
-		this.resizable = resizable;
+	public void setSecondaryColor(String secondaryColor) {
+		this.secondaryColor = secondaryColor;
 	}
 
 	public boolean isAllDay() {
@@ -153,10 +140,10 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", title=" + title + ", household=" + household + ", nannyNotes=" + nannyNotes
+		return "Event [id=" + id + ", title=" + title + ", nannyNotes=" + nannyNotes
 				+ ", parentNotes=" + parentNotes + ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", primaryColor="
-				+ primaryColor + ", secondaryColor=" + secondaryColor + ", draggable=" + draggable + ", resizable="
-				+ resizable + ", allDay=" + allDay + "]";
+				+ primaryColor + ", secondaryColor=" + secondaryColor + ", allDay=" + allDay + "]";
+
 	}
 	
 }

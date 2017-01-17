@@ -7,6 +7,8 @@ import entities.Event;
 public interface EventDAO {
 
 	public Collection<Event> index();
+	
+	public Collection<Event> index(int hhid);
 
 	public Event show(int id);
 
@@ -15,7 +17,5 @@ public interface EventDAO {
 	public Event create(Event event);
 
 	public Event delete(int id);
-
-	public Collection<Event> index(int id);
 
 }

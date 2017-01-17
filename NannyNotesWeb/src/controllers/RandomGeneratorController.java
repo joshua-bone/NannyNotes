@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import data.ChildDAO;
+import data.EventDAO;
 import data.HouseholdDAO;
 import data.UserDAO;
 import random.RDG;
@@ -23,9 +24,11 @@ public class RandomGeneratorController {
 	UserDAO userDAO;
 	@Autowired
 	ChildDAO childDAO;
+	@Autowired
+	EventDAO eventDAO;
 	
-//	@RequestMapping(path="generate", method=RequestMethod.GET)
-//	public void generate(){
-//		RDG.generateHouseholds(householdDAO, userDAO, childDAO);
-//	}
+	@RequestMapping(path="generate", method=RequestMethod.GET)
+	public void generate(){
+		RDG.generateEvents(householdDAO, eventDAO);
+	}
 }
