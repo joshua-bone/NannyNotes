@@ -16,4 +16,6 @@ public interface EventDAO {
 
 	public Event delete(int id);
 
+	public Collection<Event> index(int id);
+
 }

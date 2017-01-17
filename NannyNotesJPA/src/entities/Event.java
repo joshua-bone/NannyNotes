@@ -22,19 +22,19 @@ public class Event {
 	private Household household;
 	@Column(name="nanny_notes")
 	private String nannyNotes;
-	@Column(name="parent_notes")
+	@Column(name="parents_notes")
 	private String parentNotes;
-	@Column(name="starts_at")
+//	@Column(name="starts_at")
 	private Date startsAt;
-	@Column(name="ends_at")
+//	@Column(name="ends_at")
 	private Date endsAt;
 	@Column(name="primary_color")
 	private String primaryColor;
-	@Column(name="seondary_color")
-	private String seondaryColor;
+	@Column(name="secondary_color")
+	private String secondaryColor;
 	private boolean draggable;
 	private boolean resizable;
-	@Column(name="all_day")
+//	@Column(name="all_day")
 	private boolean allDay;
 	
 	public Event() {
@@ -120,11 +120,11 @@ public class Event {
 	}
 
 	public String getSeondaryColor() {
-		return seondaryColor;
+		return secondaryColor;
 	}
 
 	public void setSeondaryColor(String seondaryColor) {
-		this.seondaryColor = seondaryColor;
+		this.secondaryColor = seondaryColor;
 	}
 
 	public boolean isDraggable() {
@@ -155,7 +155,7 @@ public class Event {
 	public String toString() {
 		return "Event [id=" + id + ", title=" + title + ", household=" + household + ", nannyNotes=" + nannyNotes
 				+ ", parentNotes=" + parentNotes + ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", primaryColor="
-				+ primaryColor + ", seondaryColor=" + seondaryColor + ", draggable=" + draggable + ", resizable="
+				+ primaryColor + ", secondaryColor=" + secondaryColor + ", draggable=" + draggable + ", resizable="
 				+ resizable + ", allDay=" + allDay + "]";
 	}
 	
