@@ -48,21 +48,21 @@ angular.module("NannyNotesApp")
 		    }
 		    vm.loadHouseholds();
 
-		    vm.loadHousehold = function(id){
-		    	householdService.getHousehold(id)
-		    	.then(function(response){
-		    		vm.household = response.data;
-		    		$location.path("/households/{id}")
-		    	}).catch(function(err){
-		    		console.log('in get error');
-		    	});
-		    }
+		    // vm.loadHousehold = function(id){
+		    // 	householdService.getHousehold(id)
+		    // 	.then(function(response){
+		    // 		vm.household = response.data;
+		    // 		$location.path("/household")
+		    // 	}).catch(function(err){
+		    // 		console.log('in get error');
+		    // 	});
+		    // }
 
 				vm.selectHousehold = function(household){
 					householdService.setCurrentHousehold(household);
 					userService.updateUser(vm.user).then(function(response){
 						if (response.status < 400){
-							$location.path('/users/' + response.data.id);
+							$location.path('/household');
 						}
 					});
 				}

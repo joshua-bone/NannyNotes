@@ -40,8 +40,6 @@ angular.module("NannyNotesApp")
 	    	householdService.getHouseholdChildren(household)
 	    	.then(function(response){
 	    		vm.children = response.data;
-	    		console.log(vm.children);
-	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
 	    		console.log('in getChildren error');
 	    	});
@@ -58,7 +56,7 @@ angular.module("NannyNotesApp")
 	    	}).catch(function(err){
 	    		console.log('in updateChildren error');
 	    	});
-	    	
+
 	    }
 			vm.user = userService.getCurrentUser();
 			vm.children = vm.getChildren(vm.household);

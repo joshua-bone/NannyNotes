@@ -1,24 +1,33 @@
 
 angular.module("NannyNotesApp")
 .component('dailycalendarComponent', {
-	controller : function(moment, alert, calendarConfig, $http, householdService, userService, eventService) {  
+	controller : function(moment, alert, calendarConfig, $http, householdService, userService, eventService) {
 		var vm = this;
 		vm.household = householdService.getCurrentHousehold();
+
+
 		vm.getEvents = function(household){
 			eventService.getEvents(household)
 			.then(function(response){
+				response.data.forEach(function(e){      //convert the dates to Javascript dates
+					e.startsAt = new Date(e.startsAt);
+					e.endsAt = new Date(e.endsAt);
+				});
 				vm.events = response.data;
 			}).catch(function(err){
 				console.log('in getEvents error (dailyCalendarComp)');
 			});
 		}
+
+
+
 	vm.user = userService.getCurrentUser();
 	vm.events =vm.getEvents(vm.household);
 	vm.newEvent={};
 //	vm.newEvent.household = vm.household;
 	vm.newEvent.startOpen = true;
 	vm.showNewEventForm = false;
-	
+
     vm.calendarView = 'day';
     vm.viewDate = new Date();
     var actions = [{
@@ -32,7 +41,7 @@ angular.module("NannyNotesApp")
         alert.show('Deleted', args.calendarEvent);
       }
     }];
-    
+
 	vm.toggleNewEventForm = function(){
 		vm.showNewEventForm = !vm.showNewEventForm;
 	}
@@ -43,7 +52,7 @@ angular.module("NannyNotesApp")
     	eventService.createEvent(newEvent)
     	.then(function(response){
 			vm.getEvents(vm.household);
-			vm.showNewEventForm = false; 
+			vm.showNewEventForm = false;
     	}).catch(function(err){
     		console.log('in add event error');
     	});
@@ -64,7 +73,7 @@ angular.module("NannyNotesApp")
       alert.show('Edited', event);
   	eventService.updateEvent(event)
   	.then(function(response){
-  		vm.event = response.data; 
+  		vm.event = response.data;
   		console.log("in update events component function");
   	}).catch(function(err){
   		console.log('in edit error');
@@ -75,7 +84,7 @@ angular.module("NannyNotesApp")
       alert.show('Deleted', event);
 	    	eventService.deleteEvent(event)
 	    	.then(function(response){
-	    		vm.events = response.data; 
+	    		vm.events = response.data;
 	    		console.log("in destroy events component function");
 	    	}).catch(function(err){
 	    		console.log('in destroy error');
