@@ -12,10 +12,11 @@ angular.module("NannyNotesApp")
 				console.log('in getEvents error (dailyCalendarComp)');
 			});
 		}
-		vm.getEvents(vm.household);
-		vm.newEvent={};
-		vm.showNewEventForm = false;
-	// These variables MUST be set as a minimum for the calendar to work
+	vm.user = userService.getCurrentUser();
+	vm.events =vm.getEvents(vm.household);
+	vm.newEvent={};
+	vm.showNewEventForm = false;
+	
     vm.calendarView = 'day';
     vm.viewDate = new Date();
     var actions = [{
@@ -29,49 +30,7 @@ angular.module("NannyNotesApp")
         alert.show('Deleted', args.calendarEvent);
       }
     }];
-    vm.events= [
     
-//    	{
-//    	id: 1,
-//    	title: newEvent.title, 
-//    	household: newEvent.household,
-//    	nannyNotes: newEvent.nannyNotes,
-//    	parentNotes: newEvent.parentNotes,
-//    	startsAt:newEvent.startsAt,
-//    	endsAt: newEvent.endsAt, 
-//    	primary_color: newEvent.primaryColor, 
-//    	secondaryColor: newEvent.secondaryColor, 
-//    	draggable: newEvent.draggable, 
-//    	resizable: newEvent.resizable, 
-//    	allDay: newEvent.allDay
-//        color: calendarConfig.colorTypes.warning,
-//        startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-//        endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-//      }, 
-    	{
-        title: "recital day",
-        color: calendarConfig.colorTypes.info,
-        nannyNotes: "I need the hair of the dog",
-        parentNotes: "take a sip off our Jose Cuervo",
-        startsAt: moment().subtract(1, 'day').toDate(),
-        endsAt: moment().add(5, 'days').toDate(),
-        draggable: true,
-        resizable: true,
-        actions: actions
-      }, {
-        title: "worst day",
-        color: calendarConfig.colorTypes.important,
-        nannyNotes: "he wouldn't take his shoes off before getting into bed",
-        parentNotes: "make sure you don't get their lice",
-        startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-        endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-        recursOn: 'year',
-        draggable: true,
-        resizable: true,
-        actions: actions
-      }
-    ];
-    vm.household.events= vm.events;
 	vm.toggleNewEventForm = function(){
 		vm.showNewEventForm = !vm.showNewEventForm;
 	}
@@ -85,17 +44,6 @@ angular.module("NannyNotesApp")
     		console.log('in add error');
     	});
     };
-//    	title: newEvent.title, 
-//    	household: newEvent.household,
-//    	nannyNotes: newEvent.nannyNotes,
-//    	parentNotes: newEvent.parentNotes,
-//    	startsAt: moment().startOf('day').toDate(),
-//    	endsAt: moment().endOf('day').toDate(),
-//    	primaryColor: newEvent.primaryColor, 
-//    	secondaryColor: newEvent.secondaryColor, 
-//    	draggable: true,
-//    	resizable: true,
-//    	allDay: newEvent.allDay
 
     vm.eventClicked = function(event) {
       alert.show('Clicked', event);
