@@ -18,7 +18,7 @@ angular.module("NannyNotesApp")
     	  console.log(event.id);
       }
       var createEvent = function(newEvent){
-          var newShift = { "title": newEvent.title, "household": newEvent.household,"nannyNotes": newEvent.nannyNotes,"parentNotes": newEvent.parentNotes,"startDateTime":newEvent.startDateTime,"endDateTime": newEvent.endDateTime}
+          var newEvent = { "title": newEvent.title, "household": newEvent.household,"nannyNotes": newEvent.nannyNotes,"parentNotes": newEvent.parentNotes,"startsAt":newEvent.startsAt,"endsAt": newEvent.endsAt, "primary_color": newEvent.primaryColor, "secondaryColor": newEvent.secondaryColor, "draggable": newEvent.draggable, "resizable": newEvent.resizable, "allDay": newEvent.allDay}
         return $http({
         	method : 'POST',
         	url : 'api/events/',
@@ -32,18 +32,18 @@ angular.module("NannyNotesApp")
         return $http({
         	method : 'DELETE',
         	url : 'api/events/' + event.id,
-        	data : shift
+        	data : event
         });
       }
         var updateEvent = function(newEvent){
-            var newEvent = {"id": newEvent.id,"nannyNotes":"","parentNotes":"","startDateTime":newEvent.startDateTime,"endDateTime": newEvent.endDateTime}
+            var newEvent = { "title": newEvent.title, "household": newEvent.household,"nannyNotes": newEvent.nannyNotes,"parentNotes": newEvent.parentNotes,"startsAt":newEvent.startsAt,"endsAt": newEvent.endsAt, "primary_color": newEvent.primaryColor, "secondaryColor": newEvent.secondaryColor, "draggable": newEvent.draggable, "resizable": newEvent.resizable, "allDay": newEvent.allDay}
         	return $http({
         		method : 'PUT',
         		url : 'api/events/' + newEvent.id,
         		headers:{
                     'Content-Type' : 'application/json'
                 	},
-        		data : newShift
+        		data : newEvent
         	});
       }
       return {

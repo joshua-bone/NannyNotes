@@ -1,38 +1,21 @@
 
 angular.module("NannyNotesApp")
 .component('dailycalendarComponent', {
-	controller : function(moment, alert, calendarConfig, $http, householdService, shiftService) {  
+	controller : function(moment, alert, calendarConfig, $http, householdService, userService, eventService) {  
 		var vm = this;
 		vm.household = householdService.getCurrentHousehold();
-	    vm.events = [ {
-	        "id": 1,
-	        "nannyNotes": "",
-	        "parentNotes": "",
-	        "startDateTime": 1484506800000,
-	        "endDateTime": 1484485200000
-	      },  {
-	    	    "id": 2,
-	    	    "nannyNotes": "",
-	    	    "parentNotes": "",
-	    	    "startDateTime": 1484506800000,
-	    	    "endDateTime": 1484485200000
-	    	  },  {
-	    		    "id": 3,
-	    		    "nannyNotes": "",
-	    		    "parentNotes": "",
-	    		    "startDateTime": 1484506800000,
-	    		    "endDateTime": 1484485200000
-	    		  }];
-// vm.loadShifts = function(){
-// shiftService.getShifts(vm.household)
-// .then(function(response){
-// console.log(response);
-// vm.shifts = response.data;
-// }).catch(function(err){
-// console.log('in get error');
-// });
-// }
-    // These variables MUST be set as a minimum for the calendar to work
+		vm.getEvents = function(household){
+			eventService.getEvents(household)
+			.then(function(response){
+				vm.events = response.data;
+			}).catch(function(err){
+				console.log('in getEvents error (dailyCalendarComp)');
+			});
+		}
+		vm.getEvents(vm.household);
+		vm.newEvent={};
+		vm.showNewEventForm = false;
+	// These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'day';
     vm.viewDate = new Date();
     var actions = [{
@@ -46,19 +29,27 @@ angular.module("NannyNotesApp")
         alert.show('Deleted', args.calendarEvent);
       }
     }];
-    vm.events = [
-      {
-        id: 1,
-        nannyNotes: "he wouldn't take his vitamins",
-        parentNotes: "don't feed the squirrels",
-        color: calendarConfig.colorTypes.warning,
-        startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-        endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-        draggable: true,
-        resizable: true,
-        actions: actions
-      }, {
-        id: 2,
+    vm.events= [
+    
+//    	{
+//    	id: 1,
+//    	title: newEvent.title, 
+//    	household: newEvent.household,
+//    	nannyNotes: newEvent.nannyNotes,
+//    	parentNotes: newEvent.parentNotes,
+//    	startsAt:newEvent.startsAt,
+//    	endsAt: newEvent.endsAt, 
+//    	primary_color: newEvent.primaryColor, 
+//    	secondaryColor: newEvent.secondaryColor, 
+//    	draggable: newEvent.draggable, 
+//    	resizable: newEvent.resizable, 
+//    	allDay: newEvent.allDay
+//        color: calendarConfig.colorTypes.warning,
+//        startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
+//        endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+//      }, 
+    	{
+        title: "recital day",
         color: calendarConfig.colorTypes.info,
         nannyNotes: "I need the hair of the dog",
         parentNotes: "take a sip off our Jose Cuervo",
@@ -68,7 +59,7 @@ angular.module("NannyNotesApp")
         resizable: true,
         actions: actions
       }, {
-        id: 3,
+        title: "worst day",
         color: calendarConfig.colorTypes.important,
         nannyNotes: "he wouldn't take his shoes off before getting into bed",
         parentNotes: "make sure you don't get their lice",
@@ -80,31 +71,35 @@ angular.module("NannyNotesApp")
         actions: actions
       }
     ];
-
+    vm.household.events= vm.events;
+	vm.toggleNewEventForm = function(){
+		vm.showNewEventForm = !vm.showNewEventForm;
+	}
     vm.cellIsOpen = true;
 
-    vm.addEvent = function() {
-      vm.events.push({
-    	  
-    	nannyNotes: "",
-        parentNotes: "",
-        startsAt: moment().startOf('day').toDate(),
-        endsAt: moment().endOf('day').toDate(),
-        color: calendarConfig.colorTypes.important,
-        draggable: true,
-        resizable: true
-      });
-	      shiftService.createShift(vm.events[vm.events.length-1])
-	      .then(function(response){
-	    	 vm.newShift = ""; 
-	      }).catch(function(err){
-	  		console.log('in add error');
-	  	});
+    vm.addEvent = function(newEvent) {
+    	eventService.createEvent(newEvent)
+    	.then(function(response){
+//    		vm.newEvent = ""; 
+    	}).catch(function(err){
+    		console.log('in add error');
+    	});
     };
+//    	title: newEvent.title, 
+//    	household: newEvent.household,
+//    	nannyNotes: newEvent.nannyNotes,
+//    	parentNotes: newEvent.parentNotes,
+//    	startsAt: moment().startOf('day').toDate(),
+//    	endsAt: moment().endOf('day').toDate(),
+//    	primaryColor: newEvent.primaryColor, 
+//    	secondaryColor: newEvent.secondaryColor, 
+//    	draggable: true,
+//    	resizable: true,
+//    	allDay: newEvent.allDay
 
     vm.eventClicked = function(event) {
       alert.show('Clicked', event);
-  	shiftService.getShift(event)
+  	eventService.getEvent(event)
   	.then(function(response){
   		vm.event = response.data;
   		console.log("in show event component function");
@@ -115,7 +110,7 @@ angular.module("NannyNotesApp")
 
     vm.eventEdited = function(event) {
       alert.show('Edited', event);
-  	shiftService.updateShift(event)
+  	eventService.updateEvent(event)
   	.then(function(response){
   		vm.event = response.data; 
   		console.log("in update events component function");
@@ -126,7 +121,7 @@ angular.module("NannyNotesApp")
 
     vm.eventDeleted = function(event) {
       alert.show('Deleted', event);
-	    	shiftService.deleteShift(event)
+	    	eventService.deleteEvent(event)
 	    	.then(function(response){
 	    		vm.events = response.data; 
 	    		console.log("in destroy events component function");

@@ -5,34 +5,7 @@ angular.module("NannyNotesApp")
 		var vm = this;
 		vm.calendarTitle= "Shift Schedule";
 		vm.household = householdService.getCurrentHousehold();
-	    vm.events = [ {
-	        "id": 1,
-	        "nannyNotes": "",
-	        "parentNotes": "",
-	        "startDateTime": 1484506800000,
-	        "endDateTime": 1484485200000
-	      },  {
-	    	    "id": 2,
-	    	    "nannyNotes": "",
-	    	    "parentNotes": "",
-	    	    "startDateTime": 1484506800000,
-	    	    "endDateTime": 1484485200000
-	    	  },  {
-	    		    "id": 3,
-	    		    "nannyNotes": "",
-	    		    "parentNotes": "",
-	    		    "startDateTime": 1484506800000,
-	    		    "endDateTime": 1484485200000
-	    		  }];
-// vm.loadShifts = function(){
-// shiftService.getShifts(vm.household)
-// .then(function(response){
-// console.log(response);
-// vm.shifts = response.data;
-// }).catch(function(err){
-// console.log('in get error');
-// });
-// }
+
     // These variables MUST be set as a minimum for the calendar to work
     vm.calendarView = 'week';
     vm.viewDate = new Date();
