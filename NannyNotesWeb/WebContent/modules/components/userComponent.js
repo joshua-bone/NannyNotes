@@ -83,6 +83,7 @@ angular.module("NannyNotesApp")
 				.then(function(response){
 					vm.getChildren(vm.household);
 					vm.newChild = {};
+					vm.showNewChildForm = false;
 				}).catch(function(err){
 					console.log('error in addChild() (userComponent)');
 				});

@@ -4,6 +4,8 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
+
+import entities.Child;
 import entities.Event;
 
 @Transactional
@@ -16,6 +18,12 @@ public class EventDAOI implements EventDAO {
 	public Collection<Event> index() {
 		String query = "Select e FROM Event e";
 		return em.createQuery(query, Event.class).getResultList();
+	}
+	
+	@Override
+	public Collection<Event> index(int hhId) {
+		String query = "Select e FROM Event e WHERE e.household.id = ?1";
+		return em.createQuery(query, Event.class).setParameter(1, hhId).getResultList();
 	}
 
 	@Override

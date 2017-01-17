@@ -22,7 +22,7 @@ public class EventController {
 		return "pong";
 	}
 
-	@RequestMapping(path="event", method=RequestMethod.GET)
+	@RequestMapping(path="events", method=RequestMethod.GET)
 	public Collection<Event> index(){
 	  return eventDao.index();
 	}

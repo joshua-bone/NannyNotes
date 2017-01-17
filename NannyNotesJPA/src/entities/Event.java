@@ -1,14 +1,17 @@
 package entities;
 
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Event {
@@ -17,8 +20,9 @@ public class Event {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	@JsonBackReference(value="household-event")
-	@OneToOne(mappedBy="event", cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "household_id")
+	@JsonIgnore
 	private Household household;
 	@Column(name="nanny_notes")
 	private String nannyNotes;
@@ -30,10 +34,8 @@ public class Event {
 	private Date endsAt;
 	@Column(name="primary_color")
 	private String primaryColor;
-	@Column(name="seondary_color")
-	private String seondaryColor;
-	private boolean draggable;
-	private boolean resizable;
+	@Column(name="secondary_color")
+	private String secondaryColor;
 	@Column(name="all_day")
 	private boolean allDay;
 	
@@ -119,28 +121,12 @@ public class Event {
 		this.primaryColor = primaryColor;
 	}
 
-	public String getSeondaryColor() {
-		return seondaryColor;
+	public String getSecondaryColor() {
+		return secondaryColor;
 	}
 
-	public void setSeondaryColor(String seondaryColor) {
-		this.seondaryColor = seondaryColor;
-	}
-
-	public boolean isDraggable() {
-		return draggable;
-	}
-
-	public void setDraggable(boolean draggable) {
-		this.draggable = draggable;
-	}
-
-	public boolean isResizable() {
-		return resizable;
-	}
-
-	public void setResizable(boolean resizable) {
-		this.resizable = resizable;
+	public void setSecondaryColor(String secondaryColor) {
+		this.secondaryColor = secondaryColor;
 	}
 
 	public boolean isAllDay() {
@@ -153,10 +139,9 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", title=" + title + ", household=" + household + ", nannyNotes=" + nannyNotes
+		return "Event [id=" + id + ", title=" + title + ", nannyNotes=" + nannyNotes
 				+ ", parentNotes=" + parentNotes + ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", primaryColor="
-				+ primaryColor + ", seondaryColor=" + seondaryColor + ", draggable=" + draggable + ", resizable="
-				+ resizable + ", allDay=" + allDay + "]";
+				+ primaryColor + ", secondaryColor=" + secondaryColor + ", allDay=" + allDay + "]";
 	}
 	
 }
