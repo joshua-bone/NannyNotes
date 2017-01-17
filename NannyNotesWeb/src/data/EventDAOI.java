@@ -24,6 +24,7 @@ public class EventDAOI implements EventDAO {
 	public Collection<Event> index(int hhId) {
 		String query = "Select e FROM Event e WHERE e.household.id = ?1";
 		return em.createQuery(query, Event.class).setParameter(1, hhId).getResultList();
+
 	}
 
 	@Override
@@ -54,4 +55,5 @@ public class EventDAOI implements EventDAO {
 		} else
 			return null;
 	}
+
 }

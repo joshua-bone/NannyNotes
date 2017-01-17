@@ -26,11 +26,11 @@ public class Event {
 	private Household household;
 	@Column(name="nanny_notes")
 	private String nannyNotes;
-	@Column(name="parent_notes")
+	@Column(name="parents_notes")
 	private String parentNotes;
-	@Column(name="starts_at")
+//	@Column(name="starts_at")
 	private Date startsAt;
-	@Column(name="ends_at")
+//	@Column(name="ends_at")
 	private Date endsAt;
 	@Column(name="primary_color")
 	private String primaryColor;
@@ -123,6 +123,7 @@ public class Event {
 
 	public String getSecondaryColor() {
 		return secondaryColor;
+
 	}
 
 	public void setSecondaryColor(String secondaryColor) {
@@ -142,6 +143,7 @@ public class Event {
 		return "Event [id=" + id + ", title=" + title + ", nannyNotes=" + nannyNotes
 				+ ", parentNotes=" + parentNotes + ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", primaryColor="
 				+ primaryColor + ", secondaryColor=" + secondaryColor + ", allDay=" + allDay + "]";
+
 	}
 	
 }

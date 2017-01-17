@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import data.ChildDAO;
+import data.EventDAO;
 import data.HouseholdDAO;
 import data.UserDAO;
 import data.EventDAO;
