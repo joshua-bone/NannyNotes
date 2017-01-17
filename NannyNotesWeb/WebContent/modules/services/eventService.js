@@ -36,8 +36,8 @@ angular.module("NannyNotesApp")
         });
       }
         var updateEvent = function(newEvent){
-            var newEvent = { "title": newEvent.title, "household": newEvent.household,"nannyNotes": newEvent.nannyNotes,"parentNotes": newEvent.parentNotes,"startsAt":newEvent.startsAt,"endsAt": newEvent.endsAt, "primaryColor": newEvent.primaryColor, "secondaryColor": newEvent.secondaryColor, "allDay": newEvent.allDay}
-        	return $http({
+          var newEvent = {"id":newEvent.id, "title": newEvent.title, "household": newEvent.household,"nannyNotes": newEvent.nannyNotes,"parentNotes": newEvent.parentNotes,"startsAt":newEvent.startsAt,"endsAt": newEvent.endsAt, "primaryColor": newEvent.primaryColor, "secondaryColor": newEvent.secondaryColor, "allDay": newEvent.allDay}
+          return $http({
         		method : 'PUT',
         		url : 'api/events/' + newEvent.id,
         		headers:{

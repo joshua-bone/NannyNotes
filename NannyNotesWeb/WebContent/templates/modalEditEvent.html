@@ -1,0 +1,64 @@
+
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Event</h3>
+      </div>
+      <div class="modal-body">
+        <h5>Event Title</h5>
+        <input class="form-control" ng-model="vm.event.title">
+        Parent Notes:
+        <textarea class="form-control"
+            ng-model="vm.event.parentNotes"></textarea>
+        Nanny Notes:
+        <textarea class="form-control"
+            ng-model="vm.event.nannyNotes"></textarea>
+
+
+
+        <hr>
+          <p class="input-group" style="max-width: 250px">
+            <input type="text" class="form-control" readonly
+              uib-datepicker-popup="dd MMMM yyyy"
+              ng-model="vm.event.startsAt" is-open="vm.event.startOpen"
+              close-text="Close"> <span class="input-group-btn">
+              <!-- <button type="button" class="btn btn-default"
+                ng-click="vm.toggle($event, 'startOpen', event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button> -->
+            </span>
+          </p>
+
+          <div uib-timepicker ng-model="vm.event.startsAt" hour-step="1"
+            minute-step="15" show-meridian="true"></div>
+
+
+          <p class="input-group" style="max-width: 250px">
+            <input type="text" class="form-control" readonly
+              uib-datepicker-popup="dd MMMM yyyy" ng-model="vm.event.endsAt"
+              is-open="vm.event.endOpen" close-text="Close"> <span
+              class="input-group-btn">
+              <!-- <button type="button" class="btn btn-default"
+                ng-click="vm.toggle($event, 'endOpen', event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button> -->
+            </span>
+          </p>
+          <div uib-timepicker ng-model="vm.event.endsAt" hour-step="1"
+            minute-step="15" show-meridian="true"></div>
+            <hr>
+            Primary Color:
+            <input class="form-control" colorpicker type="text"
+              ng-model="vm.event.primaryColor">
+            Secondary Color:
+            <input class="form-control" colorpicker type="text"
+              ng-model="vm.event.secondaryColor">
+
+          <!-- <button class="btn btn-danger"
+            ng-click="vm.events.splice($index, 1)">Delete</button> -->
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="$close()">Cancel</button>
+        <button class="btn btn-primary" ng-click="vm.update(vm.event); $close()">Save</button>
+        <hr>
+        <button class="btn btn-danger" ng-show="vm.event.id" ng-click="vm.delete(vm.event); $close()">Delete Event</button>
+      </div>

@@ -4,28 +4,11 @@ angular.module('NannyNotesApp')
             .when('/', {
               template: `<household-component></household-component>`
             })
-            .when('/dailycalendar', {
-            	template: `<dailycalendar-component></dailycalendar-component>`
-            })
-            .when('/households', {
-            	template: `<household-component></household-component>`
-            })
-            .when('/users/:id', {
+            .when('/household', {
             	template: `<user-component></user-component>`
             })
-            .when('/households/:id', {
-            	template: `<household-component></household-component>`
-            })
-            .when('/shifts/:id', {
-            })
-            .when('/shifts', {
-            	template: `<shift-component></shift-component>`
-            })
-            .when('/weeklycalendar', {
-            	template: `<weeklycalendar-component></weeklycalendar-component>`
-            })
-            .when('/monthlycalendar', {
-            	template: `<monthlycalendar-component></monthlycalendar-component>`
+            .when('/calendar', {
+            	template: `<dailycalendar-component></dailycalendar-component>`
             })
             .when('/notes', {
             	template: `<notes-component></notes-component>`
@@ -53,19 +36,3 @@ angular.module('NannyNotesApp')
             }
         });
       }]);
-
-
-
-    // .run(['$rootScope', '$location', 'authenticationService', function ($rootScope, $location, authenticationService) {
-    //         $rootScope.$on('$routeChangeStart', function (event) {
-    //         console.log('In Login Redirect')
-    //         if (!authenticationService.isLoggedIn()) {
-    //           console.log('DENY : Redirecting to Login');
-    //           event.preventDefault();
-    //           $location.path('/login');
-    //         }
-    //         else {
-    //           console.log('ALLOW');
-    //         }
-    //   });
-    // }]);

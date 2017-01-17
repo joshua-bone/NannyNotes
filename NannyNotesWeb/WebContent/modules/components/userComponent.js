@@ -3,22 +3,14 @@ angular.module("NannyNotesApp")
 	controller : function(authenticationService, userService, householdService, $location) {
 		  var vm = this;
 
-		    vm.getUser = function(id){
-		    	userService.getUser(currentUser.id)
-		    	.then(function(response){
-		    		vm.user =response.data;
-		    		console.log(response.data);
-		    		console.log('in get user component function');
-//				    vm.user.households = [{
-//				        "id": 500,
-//				        "name": "The Gore family",
-//				        "parentNotes": "Please remember that Alfonso has plot practice this week.",
-//				        "nannyNotes": "I've been having trouble with Jude segmenting with the smoother strikers lately."
-//				      }];
-		    	}).catch(function(err){
-		    		console.log('in get user component error');
-		    	});
-		    }
+	    vm.getUser = function(id){
+	    	userService.getUser(currentUser.id)
+	    	.then(function(response){
+	    		vm.user =response.data;
+	    	}).catch(function(err){
+	    		console.log('in get user component error');
+	    	});
+	    };
 
 		  vm.destroyHousehold = function(id) {
 	    	householdService.deleteHousehold(id)
@@ -35,8 +27,6 @@ angular.module("NannyNotesApp")
 	    	householdService.updateHousehold(household)
 	    	.then(function(response){
 	    		vm.household = response.data;
-
-	    		console.log("in users component calling household service");
 	    	}).catch(function(err){
 	    		console.log('in edit error');
 	    	});
