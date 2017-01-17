@@ -26,11 +26,11 @@ public class Event {
 	private Household household;
 	@Column(name="nanny_notes")
 	private String nannyNotes;
-	@Column(name="parents_notes")
+	@Column(name="parent_notes")
 	private String parentNotes;
-//	@Column(name="starts_at")
+	@Column(name="starts_at")
 	private Date startsAt;
-//	@Column(name="ends_at")
+	@Column(name="ends_at")
 	private Date endsAt;
 	@Column(name="primary_color")
 	private String primaryColor;

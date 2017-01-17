@@ -381,15 +381,19 @@ public class RDG {
 		
 		Collection<Household> households = householdDAO.index();
 		Date d = new Date();
+		int year = 2017 - 1900;
+		int month = 0;
 		for (Household h : households){
-			int nEvents = 5 + random.nextInt(3);
-			for (int i = 0; i < nEvents; i++){
-				Event newEvent = new Event();
-				newEvent.setHousehold(h);
-				newEvent.setStartsAt(new Date(d.getYear(), d.getMonth(), d.getDate(), d.getHours() + i, d.getMinutes()));
-				newEvent.setEndsAt(new Date(d.getYear(), d.getMonth(), d.getDate(), d.getHours() + i + 1, d.getMinutes()));
-				newEvent.setTitle(randomEventTitle());
-				eventDAO.create(newEvent);
+			for (int date = 17; date < 32; date++){
+				int nEvents = 5 + random.nextInt(3);
+				for (int i = 0; i < nEvents; i++){
+					Event newEvent = new Event();
+					newEvent.setHousehold(h);
+					newEvent.setStartsAt(new Date(year, month, date, 12 + i, 0));
+					newEvent.setEndsAt(new Date(year, month, date, 13 + i, 0));
+					newEvent.setTitle(randomEventTitle());
+					eventDAO.create(newEvent);
+				}
 			}
 		}
 	}
